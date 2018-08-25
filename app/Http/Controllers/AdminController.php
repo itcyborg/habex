@@ -26,7 +26,10 @@ class AdminController extends Controller
 
     public function agronomistForm()
     {
-        return view('admin.addAgronomist');
+        $counties=DB::table('counties')
+            ->join('subcounties','subcounties.county_id','counties.id')
+            ->get();
+        return view('admin.addAgronomist',['counties'=>$counties]);
     }
 
     public function viewAgronomists()
@@ -36,7 +39,9 @@ class AdminController extends Controller
 
     public function farmerForm()
     {
-        return view('admin.addFarmer');
+        $counties=DB::table('counties')
+            ->get();
+        return view('admin.addFarmer',['counties'=>$counties]);
     }
 
     public function viewFarmers()

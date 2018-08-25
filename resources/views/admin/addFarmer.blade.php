@@ -251,19 +251,15 @@
                                                                                 <label>County</label>
                                                                                 <select class="form-control" id="county" name="county">
                                                                                     <option>--Select your County--</option>
-                                                                                    <option>Uasin Gishu</option>
+                                                                                    @foreach($counties as $county)
+                                                                                        <option value="{{$county->county_name}}">{{$county->county_name}}</option>
+                                                                                    @endforeach
                                                                                 </select>
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label>Constituency</label>
                                                                                 <select class="form-control" id="constituency" name="constituency">
                                                                                     <option>--Select your Constituency--</option>
-                                                                                    <option>Ainabkoi Constituency</option>
-                                                                                    <option>Kapseret Constituency</option>
-                                                                                    <option>Kesses Constituency</option>
-                                                                                    <option>Moiben Constituency</option>
-                                                                                    <option>Soy Constituency</option>
-                                                                                    <option>Turbo Constituency</option>
                                                                                 </select>
                                                                             </div>
                                                                             <div class="form-group">
