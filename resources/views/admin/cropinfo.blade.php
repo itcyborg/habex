@@ -44,9 +44,9 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="{{url('/admin/cropinfo')}}" class="waves-effect">
+                        <a href="{{url('/admin/farminfo')}}" class="waves-effect">
                             <i data-icon="" class="mdi mdi-pine-tree"></i>
-                            <span class="hide-menu"> Crop Info </span>
+                            <span class="hide-menu"> Farm Info </span>
                         </a>
                     </li>
                     <li> <a href="javascript:void(0)" class="waves-effect"><i data-icon="" class="mdi mdi-wallet"></i><span class="hide-menu"> Financials<span class="fa arrow"></span></span></a>

@@ -187,7 +187,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="white-box">
-                            <h3 class="box-title">Fuerte Avocado</h3> </div>
+                            <h3 class="box-title"></h3> </div>
                     </div>
                 </div>
                 <!-- .row -->
@@ -197,7 +197,7 @@
                 <!-- .right-sidebar -->
                 <div class="right-sidebar">
                     <div class="slimscrollright">
-                        <div class="rpanel-title"> Service Panel <span><i class="ti-close right-side-toggle"></i></span> </div>
+                        <div class="rpanel-title"> Service  <span><i class="ti-close right-side-toggle"></i></span> </div>
                         <div class="r-panel-body">
                             <ul class="m-t-20 chatonline">
                                 <li><b>Chat option</b></li>
@@ -293,5 +293,5 @@
 
 
 @endsection
-//////
+
 
