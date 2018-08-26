@@ -3,50 +3,86 @@
     Morris.Donut({
         element: 'cropinfo-donut-chart',
         data: [{
-            label: "Hass Avocado",
-            value: 1237620,
+            label: "Seedlings Issued",
+            value: 1200000,
 
         }, {
-            label: "Fuerte Avocado",
-            value: 346780
+            label: "Surviving Seedlings",
+            value: 1100000
         }, {
-            label: "Macadamia",
-            value: 856030
+            label: "Dried Seedlings",
+            value: 100000
+        },
+            {
+            label: "Replaced Seedlings",
+            value: 80000
         }],
+
         resize: true,
-        colors:['#99d683', '#13dafe', '#6164c1']
+        colors:['#99d683', '#13dafe', '#ff6644', '#6164c1']
     });
 
     Morris.Donut({
         element: 'farmerinfo-donut-chart',
         data: [{
-            label: "Hass Avocado",
-            value: 812000,
+            label: "Uasin Gishu",
+            value: 81000,
 
         }, {
-            label: "Fuerte Avocado",
-            value: 103000
+            label: "Trans-Nzoia",
+            value: 10000
+
         }, {
-            label: "Macadamia",
-            value: 342000
+            label: "Baringo",
+            value: 3000
+
+        },{
+            label: "Kericho",
+            value: 10300
+
+        },{
+            label: "Nandi",
+            value: 103000
+
+        }, {
+            label: "Elgeyo Marakwet",
+            value: 34000
+
         }],
         resize: true,
-        colors:['#99d683', '#13dafe', '#6164c1']
+        colors:['#ff0000', '#0000ff', '#3cb371', '#FF5733', '#ee82ee', '#ffa500']
     });
 
     Morris.Donut({
-        element: 'countyinfo-donut-chart',
+        element: 'acreageinfo-donut-chart',
         data: [{
-            label: "Download Sales",
-            value: 12,
+            label: "Uasin Gishu",
+            value: 28000,
 
         }, {
-            label: "In-Store Sales",
-            value: 30
+            label: "Trans-Nzoia",
+            value: 1000
+
         }, {
-            label: "Mail-Order Sales",
-            value: 20
+            label: "Baringo",
+            value: 300
+
+        },{
+            label: "Kericho",
+            value: 1300
+
+        },{
+            label: "Nandi",
+            value: 10300
+
+        }, {
+            label: "Elgeyo Marakwet",
+            value: 3400
+
         }],
         resize: true,
-        colors:['#99d683', '#13dafe', '#6164c1']
+        colors:['#ff0000', '#0000ff', '#3cb371', '#FF5733', '#ee82ee', '#ffa500']
     });
+
+
+

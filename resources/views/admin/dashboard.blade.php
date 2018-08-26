@@ -99,7 +99,7 @@
                 <div class="row">
                     <div class="col-md-4 col-lg-4 col-xs-12">
                         <div class="white-box">
-                            <h3 class="box-title text-center">CROP VARIETY INFORMATION</h3>
+                            <h3 class="box-title text-center">CROP INFO SUMMARY</h3>
                             <div id="cropinfo-donut-chart"></div>
                         </div>
                     </div>
@@ -108,81 +108,115 @@
                         <div class="white-box">
                             <h3 class="box-title text-center">REGISTERED FARMERS PER COUNTY</h3>
                             <div id="farmerinfo-donut-chart"></div>
-
-
-
-
-
                         </div>
                     </div>
 
 
                     <div class="col-md-4 col-lg-4 col-xs-12">
                         <div class="white-box">
-                            <h3 class="box-title text-center">SUMMARY INFO</h3>
-
+                            <h3 class="box-title text-center">CULTIVATED ACREAGE PER COUNTY</h3>
+                            <div id="acreageinfo-donut-chart"></div>
                         </div>
                     </div>
-
 
                 </div>
                 <!-- .row -->
 
-                <!-- .row -->
-                <div class="row">
-                    <div class="col-lg-3 col-sm-6 col-xs-12">
-                        <div class="white-box analytics-info">
-                            <h3 class="box-title">Total Hass Avocado Issued</h3>
-                            <ul class="list-inline two-part">
-                                <li>
-                                    <div id="sparklinedash"></div>
-                                </li>
-                                <li class="text-right"><i class="ti-arrow-up text-success"></i> <span class="counter text-success">659</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-xs-12">
-                        <div class="white-box analytics-info">
-                            <h3 class="box-title">Total Macadamia Issued</h3>
-                            <ul class="list-inline two-part">
-                                <li>
-                                    <div id="sparklinedash2"></div>
-                                </li>
-                                <li class="text-right"><i class="ti-arrow-up text-purple"></i> <span class="counter text-purple">869</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-xs-12">
-                        <div class="white-box analytics-info">
-                            <h3 class="box-title">Total Registered Farmers</h3>
-                            <ul class="list-inline two-part">
-                                <li>
-                                    <div id="sparklinedash3"></div>
-                                </li>
-                                <li class="text-right"><i class="ti-arrow-up text-info"></i> <span class="counter text-info">911</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-xs-12">
-                        <div class="white-box analytics-info">
-                            <h3 class="box-title">Total Land Acreage</h3>
-                            <ul class="list-inline two-part">
-                                <li>
-                                    <div id="sparklinedash4"></div>
-                                </li>
-                                <li class="text-right"><i class="ti-arrow-down text-danger"></i> <span class="text-danger">18%</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!--/.row -->
 
                 <!-- .row -->
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-sm-12">
                         <div class="white-box">
-                            <h3 class="box-title"></h3> </div>
+                            <h3 class="box-title m-b-0">Crop Statistics</h3>
+                            <p class="text-muted m-b-30">Export data to Copy, CSV, Excel, PDF & Print</p>
+                            <div class="table-responsive">
+                                <table id="example23" class="display nowrap" cellspacing="0" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th>County</th>
+                                        <th>Registered Farmers</th>
+                                        <th>Seedlings Issued</th>
+                                        <th>Surviving Seedlings</th>
+                                        <th>Dried Seedlings</th>
+                                        <th>Replaced Seedlings</th>
+                                        <th>% Suceess</th>
+                                    </tr>
+                                    </thead>
+                                    <tfoot>
+                                    <tr>
+                                        <th>County</th>
+                                        <th>Registered Farmers</th>
+                                        <th>Seedlings Issued</th>
+                                        <th>Surviving Seedlings</th>
+                                        <th>Dried Seedlings</th>
+                                        <th>Replaced Seedlings</th>
+                                        <th>% Suceess</th>
+                                    </tr>
+                                    </tfoot>
+                                    <tbody>
+                                    <tr>
+                                        <td>Uasin Gishu</td>
+                                        <td>12000</td>
+                                        <td>1200000</td>
+                                        <td>1100000</td>
+                                        <td>100000</td>
+                                        <td>80000</td>
+                                        <td>80%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Elgeyo Marakwet</td>
+                                        <td>12000</td>
+                                        <td>1200000</td>
+                                        <td>1100000</td>
+                                        <td>100000</td>
+                                        <td>80000</td>
+                                        <td>80%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Trans Nzoia</td>
+                                        <td>12000</td>
+                                        <td>1200000</td>
+                                        <td>1100000</td>
+                                        <td>100000</td>
+                                        <td>80000</td>
+                                        <td>80%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nandi</td>
+                                        <td>12000</td>
+                                        <td>1200000</td>
+                                        <td>1100000</td>
+                                        <td>100000</td>
+                                        <td>80000</td>
+                                        <td>80%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kericho</td>
+                                        <td>12000</td>
+                                        <td>1200000</td>
+                                        <td>1100000</td>
+                                        <td>100000</td>
+                                        <td>80000</td>
+                                        <td>80%</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Baringo</td>
+                                        <td>12000</td>
+                                        <td>1200000</td>
+                                        <td>1100000</td>
+                                        <td>100000</td>
+                                        <td>80000</td>
+                                        <td>80%</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
+                </div>
+                <!-- /.row -->
+                <!-- ============================================================== -->
                 </div>
                 <!-- .row -->
 
