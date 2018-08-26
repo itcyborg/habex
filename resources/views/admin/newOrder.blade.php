@@ -87,11 +87,10 @@
                         <h4 class="page-title">New Order</h4> </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <button class="right-side-toggle waves-effect waves-light btn-info btn-circle pull-right m-l-20"><i class="ti-settings text-white"></i></button>
-                        <a href="javascript: void(0);" target="_blank" class="btn btn-danger pull-right m-l-20 hidden-xs hidden-sm waves-effect waves-light">Buy Admin Now</a>
                         <ol class="breadcrumb">
                             <li><a href="#">Dashboard</a></li>
-                            <li><a href="#">Financial</a></li>
-                            <li class="active">New</li>
+                            <li><a href="#">Financials</a></li>
+                            <li class="active">New Order</li>
                         </ol>
                     </div>
                     <!-- /.col-lg-12 -->
@@ -234,7 +233,7 @@
                 <!-- ============================================================== -->
             </div>
             <!-- /.container-fluid -->
-            <footer class="footer text-center"> 2017 &copy; Ample Admin brought to you by themedesigner.in </footer>
+            <footer class="footer text-center"> 2018 &copy; Habex Agro designed by GTLabs</footer>
         </div>
     <!-- /#page-wrapper -->
 </div>

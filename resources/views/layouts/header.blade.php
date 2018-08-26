@@ -37,11 +37,15 @@
                 </ul>
                 <!-- /.dropdown-messages -->
             </li>
+
+
             <!-- .Task dropdown -->
+            <!--
             <li class="dropdown">
                 <a class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#"> <i class="mdi mdi-check-circle"></i>
                     <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
                 </a>
+
                 <ul class="dropdown-menu dropdown-tasks animated slideInUp">
                     <li>
                         <a href="#">
@@ -93,6 +97,7 @@
                         <a class="text-center" href="#"> <strong>See All Tasks</strong> <i class="fa fa-angle-right"></i> </a>
                     </li>
                 </ul>
+                -->
             </li>
 
         </ul>

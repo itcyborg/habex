@@ -118,11 +118,9 @@
                     <div class="col-lg-12">
                         <div class="white-box">
                             <h3 class="box-title">ALL FARMERS</h3>
-                            <p class="text-muted">Just click on word which you want to change and enter</p>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="panel">
-                                        <div class="panel-heading">MANAGE FARMERS</div>
                                         <div class="table-responsive">
                                             <table class="table table-hover manage-u-table">
                                                 <thead>
