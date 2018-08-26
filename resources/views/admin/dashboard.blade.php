@@ -94,39 +94,39 @@
                     </div>
                     <!-- /.breadcrumb -->
                 </div>
+                <!--Charts -->
                 <!-- .row -->
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-lg-4 col-xs-12">
                         <div class="white-box">
-                            <h3 class="box-title text-center">Crop Variety Information</h3>
-                            <div id="donutchart1" style="width: 100%; height:400px;"></div>
+                            <h3 class="box-title text-center">CROP VARIETY INFORMATION</h3>
+                            <div id="cropinfo-donut-chart"></div>
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-lg-4 col-xs-12">
                         <div class="white-box">
-                            <h3 class="box-title text-center">Crop Information Per County </h3>
-                            <div id="donutchart2" style="width: 100%; height:400px;"></div>
+                            <h3 class="box-title text-center">REGISTERED FARMERS PER COUNTY</h3>
+                            <div id="farmerinfo-donut-chart"></div>
+
+
+
+
+
                         </div>
                     </div>
 
-                    <div class="col-md-4">
-                        <div class="white-box text-center">
-                            <h3 class="box-title">Registered farmers per County</h3>    
-                            <div id="donutchart3" style="width: 100%; height:400px;"></div>
+
+                    <div class="col-md-4 col-lg-4 col-xs-12">
+                        <div class="white-box">
+                            <h3 class="box-title text-center">SUMMARY INFO</h3>
+
                         </div>
                     </div>
 
 
-
-
-
-
-                   
                 </div>
                 <!-- .row -->
-
-
 
                 <!-- .row -->
                 <div class="row">
@@ -177,12 +177,6 @@
                 </div>
                 <!--/.row -->
 
-
-
-
-
-
-
                 <!-- .row -->
                 <div class="row">
                     <div class="col-md-12">
@@ -191,7 +185,6 @@
                     </div>
                 </div>
                 <!-- .row -->
-                
 
                 <!-- .row -->
                 <!-- .right-sidebar -->
@@ -204,7 +197,6 @@
                                 <li>
                                     <a href="javascript:void(0)"><img src="../plugins/images/users/varun.jpg" alt="user-img" class="img-circle"> <span>Varun Dhavan <small class="text-success">online</small></span></a>
                                 </li>
-                                
                             </ul>
                         </div>
                     </div>
@@ -219,77 +211,11 @@
 @endsection
 
 @section('scripts')
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-                        <script type="text/javascript">
-                          google.charts.load("current", {packages:["corechart"]});
-                          google.charts.setOnLoadCallback(drawChart);
-                          function drawChart() {
-                            var data = google.visualization.arrayToDataTable([
-                              ['Task', 'Hours per Day'],
-                              ['Hass',     11],
-                              ['Fuerte',  2],
-                              ['Mango', 2],
-                              ['Macadamia',    7]
-                            ]);
+    <!--Morris JavaScript -->
+    <script src="{{asset('sys/plugins/bower_components/raphael/raphael-min.js')}}"></script>
+    <script src="{{asset('sys/plugins/bower_components/morrisjs/morris.js')}}"></script>
+    <script src="{{asset('sys/js/morris-data.js')}}"></script>
 
-                            var options = {
-                              title: 'Seedlings per county',
-                              pieHole: 0.4,
-                            };
-
-                            var chart = new google.visualization.PieChart(document.getElementById('donutchart1'));
-                            chart.draw(data, options);
-                          }
-                        </script>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-                        <script type="text/javascript">
-                          google.charts.load("current", {packages:["corechart"]});
-                          google.charts.setOnLoadCallback(drawChart);
-                          function drawChart() {
-                            var data = google.visualization.arrayToDataTable([
-                              ['Task', 'Hours per Day'],
-                              ['Uasin Gishu',     11],
-                              ['Nandi',  2],
-                              ['Mango', 2],
-                              ['Macadamia',    7]
-                            ]);
-
-                            var options = {
-                              title: 'Seedlings Planted',
-                              pieHole: 0.4,
-                            };
-
-                            var chart = new google.visualization.PieChart(document.getElementById('donutchart2'));
-                            chart.draw(data, options);
-                          }
-                        </script>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-                        <script type="text/javascript">
-                          google.charts.load("current", {packages:["corechart"]});
-                          google.charts.setOnLoadCallback(drawChart);
-                          function drawChart() {
-                            var data = google.visualization.arrayToDataTable([
-                              ['Task', 'Hours per Day'],
-                              ['Uasin Gishu',     11],
-                              ['E-Marakwet',  2],
-                              ['Nandi ', 2],
-                              ['Hass',     11],
-                              ['Fuerte',  2],
-                              ['Mango', 2],
-                              ['Macadamia',    7]
-
-                            ]);
-
-                            var options = {
-                              title: 'Seedlings Planted',
-                              pieHole: 0.4,
-                            };
-
-                            var chart = new google.visualization.PieChart(document.getElementById('donutchart3'));
-                            chart.draw(data, options);
-
-                          }
-                        </script>
 
 
 @endsection
