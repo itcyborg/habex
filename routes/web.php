@@ -56,6 +56,18 @@ Route::get('/agronomist/farmers','AgronomistController@viewFarmers');
 Route::get('/agronomist/order/add','AgronomistController@orderForm');
 Route::get('/agronomist/orders','AgronomistController@viewOrders');
 
+Route::get('/admin/payroll/add',function(){
+    return view('admin.addPayroll');
+});
+
+Route::get('/admin/payroll/all',function(){
+    return view('admin.viewPayroll');
+});
+
+Route::get('/admin/leave/all',function(){
+    return view('admin.leave');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
