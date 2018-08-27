@@ -11,14 +11,16 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
-Route::group(
-    ['middleware'=>'auth'],
-    function(){
-        Route::get('/','HomeController@index');
+Route::get('/',function(){
+    if(!Auth::check()){
+        return redirect('login');
+    }else{
+        return redirect('home');
     }
-);
+});
 
 Route::get('/home', 'HomeController@index')->name('home');
 

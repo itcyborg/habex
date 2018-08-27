@@ -1,5 +1,8 @@
 @extends('layouts.sys')
-
+@section('styles')
+    <link href="{{asset('sys/plugins/bower_components/datatables/jquery.dataTables.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+@endsection
 @section('content')
     <div id="wrapper">
         <!-- Top Navigation -->
@@ -130,7 +133,7 @@
                             <h3 class="box-title m-b-0">Crop Statistics</h3>
                             <p class="text-muted m-b-30">Export data to Copy, CSV, Excel, PDF & Print</p>
                             <div class="table-responsive">
-                                <table id="example23" class="display nowrap" cellspacing="0" width="100%">
+                                <table id="dashtable" class="display nowrap" cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
                                         <th>County</th>
@@ -250,6 +253,25 @@
     <script src="{{asset('sys/plugins/bower_components/morrisjs/morris.js')}}"></script>
     <script src="{{asset('sys/js/morris-data.js')}}"></script>
 
+    <script src="{{asset('sys/plugins/bower_components/datatables/jquery.dataTables.min.js')}}"></script>
+    <!-- start - This is for export functionality only -->
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#dashtable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            });
+        });
+    </script>
 
 
 @endsection
