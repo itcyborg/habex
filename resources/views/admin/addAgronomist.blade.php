@@ -222,21 +222,16 @@
                                             <div class="row">
                                                 <div class="col-md-3">
                                                     <div class="form-group">
-                                                        <label>Payment Option</label>
-                                                        <select class="form-control" id="paymentoption" name="paymentoption">
-                                                            <option value="">--select preffered payment Option--</option>
-                                                            <option value="mpesa">Mpesa</option>
-                                                            <option value="bank">Bank Account</option>
-                                                            <option value="cheque">Cheque</option>
-                                                        </select>
+                                                        <label for="bankName">Bank Name</label>
+                                                        <input type="text" id="#" class="form-control" placeholder="Bank Name" name="bankname">
+                                                        <span class="help-block"> please fill in correct info. </span>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-3" id="bankdetails">
+                                                <div class="col-md-3" id="#">
                                                     <div class="form-group">
-                                                        <label for="bankName">Bank Name</label>
-                                                        <select name="bankName" id="bankName" class="form-control">
-                                                            <option value="">Bank Name</option>
-                                                        </select>
+                                                        <label for="#">Branch Name</label>
+                                                        <input type="text" id="#" class="form-control" placeholder="Branch Name" name="branchname">
+                                                        <span class="help-block"> please fill in correct info. </span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">

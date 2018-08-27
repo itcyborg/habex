@@ -87,7 +87,6 @@
                         <h4 class="page-title">Profile page</h4> </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <button class="right-side-toggle waves-effect waves-light btn-info btn-circle pull-right m-l-20"><i class="ti-settings text-white"></i></button>
-                        <a href="javascript: void(0);" target="_blank" class="btn btn-danger pull-right m-l-20 hidden-xs hidden-sm waves-effect waves-light">Buy Admin Now</a>
                         <ol class="breadcrumb">
                             <li><a href="#">Dashboard</a></li>
                             <li><a href="#">Financial</a></li>
@@ -135,31 +134,61 @@
                                     <i class="fa fa-close"></i>
                                 </button>
                             </div>
-                            <h3><b>INVOICE</b> <span class="pull-right" id="orderNo"></span></h3>
+                            <!--<h3><b>INVOICE</b> <span class="pull-right" id="orderNo"></span></h3>-->
                             <hr>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="pull-left">
                                         <address>
-                                            <h3> &nbsp;<b class="text-danger">HabexAgro</b></h3>
-                                            <p class="text-muted m-l-5">E 104, Dharti-2,
-                                                <br/> Nr' Viswakarma Temple,
-                                                <br/> Talaja Road,
-                                                <br/> Bhavnagar - 364002</p>
+                                            <h3> &nbsp;<b class="text-danger">HABEX AGRO LIMITED</b></h3>
+                                            <p class="text-muted m-l-5">Annex Stabex Station,Nairobi Rd,
+                                                <br/> P.O.BOX 4689-30100, Eldoret, Kenya.
+                                                <br/> Office:0748236616 | Sales:0704614261,</p>
                                         </address>
                                     </div>
                                     <div class="pull-right text-right">
                                         <address>
-                                            <h3>To,</h3>
-                                            <h4 class="font-bold"><span id="name"></span></h4>
+                                            <h3><b>INVOICE</b> <span class="pull-right" id="orderNo"></span></h3>
+                                            <!--<h3>To,</h3>
+                                            <h4 class="font-bold"><span id="name"></span></h4>-->
                                             <p class="m-t-30">
                                                 <b>Invoice Date :</b>
                                                 <i class="fa fa-calendar"></i> <span id="date"></span>
                                             </p>
                                             <p><b>Due Date :</b> <i class="fa fa-calendar"></i> <span id="duedate"></span></p>
+
                                         </address>
                                     </div>
+
                                 </div>
+                                <div class="col-md-12">
+                                    <div class="pull-left text-left">
+                                        <h3>To:</h3>
+                                        <h4 class="font-bold"><span id="name"></span></h4>
+                                        <h5 class="font-bold"><span id="name"></span>Chepkorio, Uasin Gishu</h5>
+                                        <h5 class="font-bold"><span id="name">0734568790</span></h5>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="table-responsive m-t-40" style="clear: both;">
+                                        <table class="table table-hover table-striped table-bordered" id="#">
+                                            <thead>
+                                            <tr>
+                                                <th class="text-center">SALES PERSON</th>
+                                                <th class="text-center">MOBILE NUMBER</th>
+                                                <th class="text-center">REQUISITIONER</th>
+                                                <th class="text-center">MOBILE NUMBER</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+
                                 <div class="col-md-12">
                                     <div class="table-responsive m-t-40" style="clear: both;">
                                         <table class="table table-hover table-striped table-bordered" id="invoiceTable">
@@ -226,27 +255,6 @@
                                 <li>
                                     <a href="javascript:void(0)"><img src="../plugins/images/users/varun.jpg" alt="user-img" class="img-circle"> <span>Varun Dhavan <small class="text-success">online</small></span></a>
                                 </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="../plugins/images/users/genu.jpg" alt="user-img" class="img-circle"> <span>Genelia Deshmukh <small class="text-warning">Away</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="../plugins/images/users/ritesh.jpg" alt="user-img" class="img-circle"> <span>Ritesh Deshmukh <small class="text-danger">Busy</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="../plugins/images/users/arijit.jpg" alt="user-img" class="img-circle"> <span>Arijit Sinh <small class="text-muted">Offline</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="../plugins/images/users/govinda.jpg" alt="user-img" class="img-circle"> <span>Govinda Star <small class="text-success">online</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="../plugins/images/users/hritik.jpg" alt="user-img" class="img-circle"> <span>John Abraham<small class="text-success">online</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="../plugins/images/users/john.jpg" alt="user-img" class="img-circle"> <span>Hritik Roshan<small class="text-success">online</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="../plugins/images/users/pawandeep.jpg" alt="user-img" class="img-circle"> <span>Pwandeep rajan <small class="text-success">online</small></span></a>
-                                </li>
                             </ul>
                         </div>
                     </div>
@@ -256,7 +264,7 @@
                 <!-- ============================================================== -->
             </div>
             <!-- /.container-fluid -->
-            <footer class="footer text-center"> 2018 &copy; Ample Admin brought to you by themedesigner.in </footer>
+            <footer class="footer text-center"> 2018 &copy; Habex Agro designed by GTLabs</footer>
         </div>
     <!-- /#page-wrapper -->
 </div>

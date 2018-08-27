@@ -84,13 +84,13 @@
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Agronomist</h4> </div>
+                        <h4 class="page-title">Employee's Leave Status</h4> </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <button class="right-side-toggle waves-effect waves-light btn-info btn-circle pull-right m-l-20"><i class="ti-settings text-white"></i></button>
                         <ol class="breadcrumb">
                             <li><a href="#">Dashboard</a></li>
-                            <li><a href="#">Agronomist</a></li>
-                            <li class="active">Agronomist Accounts</li>
+                            <li><a href="#">Employees</a></li>
+                            <li class="active">Leave Status</li>
                         </ol>
                     </div>
                     <!-- /.col-lg-12 -->
@@ -99,9 +99,139 @@
                 <!-- .row -->
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="white-box"></div>
+                        <div class="white-box">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="white-box">
+                                        <div class="row">
+                                            <div class="col-md-6">
+
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <select name="" id="" class="form-control">
+                                                    <option value="">Find Employee</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                            <div class="row white-box" id="farmersInfo">
+                                <div class="bg-title">
+                                    <div>Employee's  Information</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="control-label"> Name</label>
+                                            <input type="text" id="farmerName" class="form-control" placeholder=""
+                                            ></div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="control-label">ID Number</label>
+                                            <input type="text" id="idnumber" class="form-control" placeholder="">
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label">Mobile Number</label>
+                                            <input type="text" id="mobilenumber" class="form-control" placeholder="">
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label">Days Taken</label>
+                                            <input type="text" id="farmerCode" class="form-control" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label">Days Remaining</label>
+                                            <input type="text" id="farmerCode" class="form-control" placeholder="">
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                </div>
+                                <!--/row-->
+
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-3"></div>
+                                <div class="col-md-3"></div>
+                                <div class="col-md-3"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="white-box">
+                            <h3 class="box-title">ALL EMPLOYEES LEAVE STATUS</h3>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover manage-u-table">
+                                                <thead>
+                                                <tr>
+                                                    <th width="70" class="text-center">#</th>
+                                                    <th>NAME</th>
+                                                    <th>EMAIL</th>
+                                                    <th>ID NUMBER</th>
+                                                    <th>MOBILE NUMBER</th>
+                                                    <th width="300">ACTIONS</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td class="text-center">1</td>
+                                                    <td>sadasda
+                                                        asdasd
+                                                        tunduny
+                                                    </td>
+                                                    <td>isopat.pat@gmail.com</td>
+                                                    <td>2342432</td>
+                                                    <td>706928631</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-info btn-outline btn-circle btn-sm m-r-5">
+                                                            <i class="ti-key"></i>
+                                                        </button>
+                                                        <button type="button" class="btn btn-info btn-outline btn-circle btn-sm m-r-5">
+                                                            <i class="ti-trash"></i>
+                                                        </button>
+                                                        <button type="button" class="btn btn-info btn-outline btn-circle btn-sm m-r-5">
+                                                            <i class="ti-pencil-alt"></i>
+                                                        </button>
+                                                        <button type="button" class="btn btn-info btn-outline btn-circle btn-sm m-r-20">
+                                                            <i class="ti-upload"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+                <!-- ============================================================== -->
+
                 <!-- /.row -->
 
                 <!-- /.row -->

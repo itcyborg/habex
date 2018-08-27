@@ -257,15 +257,15 @@
                                                                                 </select>
                                                                             </div>
                                                                             <div class="form-group">
-                                                                                <label>Constituency</label>
+                                                                                <label>Sub-County</label>
                                                                                 <select class="form-control" id="constituency" name="constituency">
-                                                                                    <option>--Select your Constituency--</option>
+                                                                                    <option>--Select your Sub-County--</option>
                                                                                 </select>
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label>Ward</label>
                                                                                 <select class="form-control" id="ward" name="ward">
-                                                                                    <option>--Select your location--</option>
+                                                                                    <option>--Select your Ward--</option>
                                                                                     <option>Kapngetuny</option>
                                                                                 </select>
                                                                             </div>
@@ -345,11 +345,11 @@
                                                                 <h3 class="box-title">Payment Information</h3>
                                                                 <hr>
                                                                 <div class="row">
-                                                                    <div class="col-md-3">
+                                                                    <div class="col-md-2">
                                                                         <div class="form-group">
                                                                             <label>Payment Option</label>
                                                                             <select class="form-control" name="paymentoption" id="paymentoption">
-                                                                                <option value="">--select preffered payment Option--</option>
+                                                                                <option value="">--payment Option--</option>
                                                                                 <option value="mpesa">Mpesa</option>
                                                                                 <option value="bank">Bank Account</option>
                                                                                 <option value="cheque">Cheque</option>
@@ -358,19 +358,25 @@
                                                                     </div>
                                                                     <div class="col-md-3">
                                                                         <div class="form-group">
-                                                                            <label class="control-label">Account Name</label>
-                                                                            <input type="text" id="accountName" name="accountName" class="form-control" placeholder="TANUI KIPTOO ALEX">
+                                                                            <label class="control-label">Bank Name</label>
+                                                                            <input type="text" id="accountName" name="accountName" class="form-control" placeholder="KENYA COMMERCIAL BANK">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Branch Name</label>
+                                                                            <input type="text" id="accountName" name="accountName" class="form-control" placeholder="ELDORET BRANCH">
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-3">
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Account Name</label>
+                                                                            <input type="text" id="accountNumber" name="accountNumber" class="form-control" placeholder="ALEX KIBET MUGOYA">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2">
                                                                         <div class="form-group">
                                                                             <label class="control-label">Account Number</label>
-                                                                            <input type="text" id="accountNumber" name="accountNumber" class="form-control" placeholder="1110700889955">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-3">
-                                                                        <div class="form-group">
-                                                                            <label class="control-label">ID Number</label>
                                                                             <input type="text" id="confirmID" name="confirmID" class="form-control" placeholder="1110700889955">
                                                                         </div>
                                                                     </div>
