@@ -71,3 +71,8 @@ Route::get('/admin/leave/all',function(){
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//Ajax Calls
+
+Route::get('/counties','HomeController@counties');
+Route::post('/counties/ward','HomeController@wards');

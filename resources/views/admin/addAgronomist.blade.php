@@ -130,7 +130,6 @@
                                                 <div class="form-group">
                                                     <label class="control-label">Sir Name</label>
                                                     <input type="text" id="firstName" class="form-control" name="sirname" placeholder="Sir Name">
-                                                    <span class="help-block">please fill in correct info. </span>
                                                 </div>
                                             </div>
                                             <!--/span-->
@@ -138,7 +137,7 @@
                                                 <div class="form-group">
                                                     <label class="control-label">First Name</label>
                                                     <input type="text" id="lastName" class="form-control" name="firstname" placeholder="First Name">
-                                                    <span class="help-block"> please fill in correct info. </span>
+
                                                 </div>
                                             </div>
                                             <!--/span-->
@@ -146,7 +145,7 @@
                                                 <div class="form-group">
                                                     <label class="control-label">Last Name</label>
                                                     <input type="text" id="lastName" class="form-control" placeholder="Last Name" name="lastname">
-                                                    <span class="help-block"> please fill in correct info. </span>
+
                                                 </div>
                                             </div>
                                 
@@ -169,7 +168,7 @@
                                                 <div class="form-group">
                                                     <label class="control-label">ID Number</label>
                                                     <input type="text" id="lastName" class="form-control" name="idnumber" placeholder="ID Number">
-                                                    <span class="help-block"> please fill in correct info. </span>
+
                                                 </div>
                                             </div>
                                             <!--/span-->
@@ -177,39 +176,37 @@
                                                 <div class="form-group">
                                                     <label class="control-label">Mobile Number</label>
                                                     <input type="text" id="lastName" class="form-control" placeholder="0700889955" name="mobilenumber">
-                                                    <span class="help-block"> please fill in correct info. </span>
+
                                                 </div>
                                             </div>
+                                        </div>
                                             <!--/span-->
                                         <hr>
-                                        <div class="row">
+                                        <div class="row-fluid">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                <label class="col-sm-12">Agronomists Position</label>
-                                                <div class="col-sm-12">
-                                                    <select class="form-control">
-                                                        <option>Project Lead Agronomist</option>
-                                                        <option>County Head Agronomist </option>
-                                                        <option>Agronomist</option>
-                                                     
+                                                    <label>Agronomists Position</label>
+                                                    <div>
+                                                        <select class="form-control" name="position">
+                                                        <option value="Project Lead Agronomist">Project Lead Agronomist</option>
+                                                        <option value="County Head Agronomist">County Head Agronomist </option>
+                                                        <option value="Agrinimist">Agronomist</option>
                                                     </select>
+                                                    </div>
                                                 </div>
-                                            </div>
                                             </div>
                                             <div class="col-md-6">
-
                                                 <div class="form-group">
-                                                <label class="col-sm-12">Assign Zone</label>
-                                                <div class="col-sm-12">
-                                                    <select class="form-control">
-                                                        <option>Uasin Gishu</option>
-                                                        <option>Trans Nzoia</option>
-                                                        <option>E-Marakwet</option>
-                                                    </select>
+                                                    <label>Assign Zone</label>
+                                                    <div>
+                                                        <select class="form-control" name="zone">
+                                                            @foreach($counties as $county)
+                                                                <option value="{{$county->county_name}}">{{$county->county_name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            </div>  
-                                        </div>
                                         </div>
                                     </div>
                                     <br>
@@ -224,28 +221,28 @@
                                                     <div class="form-group">
                                                         <label for="bankName">Bank Name</label>
                                                         <input type="text" id="#" class="form-control" placeholder="Bank Name" name="bankname">
-                                                        <span class="help-block"> please fill in correct info. </span>
+
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3" id="#">
                                                     <div class="form-group">
                                                         <label for="#">Branch Name</label>
                                                         <input type="text" id="#" class="form-control" placeholder="Branch Name" name="branchname">
-                                                        <span class="help-block"> please fill in correct info. </span>
+
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label class="control-label">Account Name</label>
                                                         <input type="text" id="lastName" class="form-control" placeholder="Account Name" name="accountname">
-                                                        <span class="help-block"> please fill in correct info. </span>
+
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label class="control-label">Account Number</label>
                                                         <input type="text" id="lastName" class="form-control" placeholder="Account Number" name="accountnumber">
-                                                        <span class="help-block"> please fill in correct info. </span>
+
                                                     </div>
                                                 </div>
                                                 <!--/span-->
@@ -317,7 +314,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 @endsection
 @section('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="{{asset('sys/plugins/bower_components/select2/dist/js/select2.full.js')}}"></script>
     <script>
         $(document).ready(function(){
             $('#paymentoption').select2();

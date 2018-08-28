@@ -266,7 +266,6 @@
                                                                                 <label>Ward</label>
                                                                                 <select class="form-control" id="ward" name="ward">
                                                                                     <option>--Select your Ward--</option>
-                                                                                    <option>Kapngetuny</option>
                                                                                 </select>
                                                                             </div>
                                                                             <div class="form-group">
@@ -461,14 +460,8 @@
     <script src="https://maps.googleapis.com/maps/api/js"></script>
     <script type="text/javascript">
 
-        if(google) {
-            var directionsDisplay;
-            var elevator = new google.maps.ElevationService;
-            var map;
-            var endMarker;
-            var latd, longt;
-            var infowindow = new google.maps.InfoWindow({map: map});
-        }
+        let counties=null;
+
         function initialize() {
             directionsDisplay = new google.maps.DirectionsRenderer();
             var paris = new google.maps.LatLng(-0.46706492082756573,36.5363312959671);
@@ -477,21 +470,6 @@
                 center: paris
             };
             map = new google.maps.Map(document.getElementById("map"), mapOptions);
-        }
-
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                var pos = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                };
-                dropPin(pos);
-            }, function() {
-                handleLocationError(true, infoWindow, map.getCenter());
-            });
-        } else {
-            // Browser doesn't support Geolocation
-            handleLocationError(false, infoWindow, map.getCenter());
         }
 
         function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -560,6 +538,48 @@
             });
         }
         $(document).ready(function() {
+            $.ajax({
+                url:'{{url('/counties')}}',
+                type:'get',
+                dataType:'json',
+                success:function(data){
+                    counties=data;
+                }
+            });
+            $('#county').on('change',function(){
+                let county=$(this).val();
+                $.each(counties.counties,function(i,j){
+                    if(i===county){
+                        let options='<option value="">Select Sub-county</option>';
+                        $.each(j,function(k,v){
+                            if(options.indexOf('<option value="'+v.name+'">'+v.name+'</option>')===-1){
+                                options+='<option value="'+v.name+'">'+v.name+'</option>';
+                            }
+                        });
+                        $('#constituency').html(options);
+                    }
+                });
+            });
+            $('#constituency').on('change',function(){
+                $.ajax({
+                    url:'{{url("/counties/ward/")}}',
+                    data:{
+                        '_token':'{{csrf_token()}}',
+                        'county':$('#county').val(),
+                        'subcounty':$(this).val()
+                    },
+                    type:'post',
+                    success:function(data){
+                        if(data){
+                            let rows='<option value="">Select Ward</option>';
+                            $.each(data,function(i,j){
+                                rows+='<option value="'+j.ward+'">'+j.ward+'</option>';
+                            });
+                            $('#ward').html(rows);
+                        }
+                    }
+                });
+            });
             $('#addFarmer').wizard({
                 onInit: function() {
                     // $('#addFarmer').formValidation({
@@ -693,7 +713,11 @@
             // Basic
             $('.dropify').dropify();
 
-            google.maps.event.addDomListener(window, 'load', initialize);
+            try{
+                google.maps.event.addDomListener(window, 'load', initialize);
+            }catch (e) {
+                alert('Failed to initialize maps');
+            }
         });
     </script>
 @endsection

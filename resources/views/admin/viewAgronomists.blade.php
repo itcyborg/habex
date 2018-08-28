@@ -117,6 +117,8 @@
                                                     <th>EMAIL</th>
                                                     <th>ID NUMBER</th>
                                                     <th>MOBILE NUMBER</th>
+                                                    <th>POSITION</th>
+                                                    <th>ZONE</th>
                                                     <th width="300">ACTIONS</th>
                                                 </tr>
                                                 </thead>
@@ -131,6 +133,8 @@
                                                         <td>{{$agronomist->email}}</td>
                                                         <td>{{$agronomist->idnumber}}</td>
                                                         <td>{{$agronomist->mobilenumber}}</td>
+                                                        <td>{{$agronomist->position}}</td>
+                                                        <td>{{$agronomist->zone}}</td>
                                                         <td>
                                                             <button type="button" class="btn btn-info btn-outline btn-circle btn-lg m-r-5"><i class="ti-key"></i></button>
                                                             <button type="button" class="btn btn-info btn-outline btn-circle btn-lg m-r-5"><i class="ti-trash"></i></button>

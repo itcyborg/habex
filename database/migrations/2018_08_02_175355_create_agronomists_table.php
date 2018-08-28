@@ -18,6 +18,8 @@ class CreateAgronomistsTable extends Migration
             $table->string('sirname');
             $table->string('firstname');
             $table->string('lastname');
+            $table->string('position');
+            $table->string('zone');
             $table->string('email')->unique();
             $table->string('idnumber');
             $table->string('mobilenumber');

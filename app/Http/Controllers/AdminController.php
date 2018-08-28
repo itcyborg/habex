@@ -27,7 +27,6 @@ class AdminController extends Controller
     public function agronomistForm()
     {
         $counties=DB::table('counties')
-            ->join('subcounties','subcounties.county_id','counties.id')
             ->get();
         return view('admin.addAgronomist',['counties'=>$counties]);
     }
@@ -69,14 +68,19 @@ class AdminController extends Controller
             'email'=>'required|unique:agronomists',
             'idnumber'=>'required|unique:agronomists',
             'mobilenumber'=>'required|unique:agronomists',
-            'paymentoption'=>'required',
+            'position'=>'required',
+            'zone'=>'required',
             'accountname'=>'required',
-            'accountnumber'=>'required'
+            'accountnumber'=>'required',
+            'branchname'=>'required',
+            'bankname'=>'required'
         ]);
         $agronomist=new Agronomists();
         $agronomist->sirname=$request->sirname;
         $agronomist->firstname=$request->firstname;
         $agronomist->lastname=$request->lastname;
+        $agronomist->position=$request->position;
+        $agronomist->zone=$request->zone;
         $agronomist->email=$request->email;
         $agronomist->idnumber=$request->idnumber;
         $agronomist->mobilenumber=$request->mobilenumber;
