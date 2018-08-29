@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Account;
 use App\Agronomists;
 use App\Farmers;
 use App\Order;
@@ -45,7 +46,9 @@ class AdminController extends Controller
 
     public function viewFarmers()
     {
-        return view('admin.viewFarmers',['farmers'=>Farmers::all()]);
+        $counties=DB::table('counties')
+            ->get();
+        return view('admin.viewFarmers',['farmers'=>Farmers::all(),'counties'=>$counties]);
     }
 
     public function orderForm()
@@ -85,6 +88,15 @@ class AdminController extends Controller
         $agronomist->idnumber=$request->idnumber;
         $agronomist->mobilenumber=$request->mobilenumber;
         if($agronomist->save()){
+            $account=new Account;
+            $account->idnumber=$agronomist->idnumber;
+            $account->paymentoption='bank';
+            $account->accountname=$request->accountname;
+            $account->accountnumber=$request->accountnumber;
+            $account->bank=$request->bankname;
+            $account->branch=$request->branchname;
+            $account->userType='Agronomist';
+            $account->save();
             $password=str_random(8);
             $id=User::create([
                 'name'=>$request->sirname.rand(0,10),

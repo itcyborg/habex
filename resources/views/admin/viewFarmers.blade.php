@@ -145,17 +145,14 @@
                                                         <td>{{$farmer->idnumber}}</td>
                                                         <td>{{$farmer->mobilenumber}}</td>
                                                         <td>
-                                                            <button type="button" class="btn btn-info btn-outline btn-circle btn-sm m-r-5">
-                                                                <i class="ti-key"></i>
+                                                            <button type="button" class="btn btn-info btn-outline btn-sm m-r-5" onclick="addFarm({{$farmer->id}})">
+                                                                <i class="mdi mdi-pine-tree"></i>
                                                             </button>
-                                                            <button type="button" class="btn btn-info btn-outline btn-circle btn-sm m-r-5">
-                                                                <i class="ti-trash"></i>
-                                                            </button>
-                                                            <button type="button" class="btn btn-info btn-outline btn-circle btn-sm m-r-5">
-                                                                <i class="ti-pencil-alt"></i>
-                                                            </button>
-                                                            <button type="button" class="btn btn-info btn-outline btn-circle btn-sm m-r-20">
+                                                            <button type="button" class="btn btn-info btn-outline btn-sm m-r-20">
                                                                 <i class="ti-upload"></i>
+                                                            </button>
+                                                            <button type="button" class="btn btn-danger btn-outline btn-sm m-r-5">
+                                                                <i class="ti-trash"></i>
                                                             </button>
                                                         </td>
                                                     </tr>
@@ -220,7 +217,128 @@
         </div>
     <!-- /#page-wrapper -->
 </div>
+    <div id="addFarms">
+        <div class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="myLargeModalLabel">Add Farm</h4> </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel panel-info">
+                                    <div class="panel-wrapper collapse in" aria-expanded="true">
+                                        <div class="panel-body">
+                                            <div class="form-body">
+                                                <h3 class="box-title">Farm Info</h3>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>County</label>
+                                                            <select class="form-control" id="county" name="county">
+                                                                <option>--Select your County--</option>
+                                                                @foreach($counties as $county)
+                                                                    <option value="{{$county->county_name}}">{{$county->county_name}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Sub-County</label>
+                                                            <select class="form-control" id="constituency" name="constituency">
+                                                                <option>--Select your Sub-County--</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Ward</label>
+                                                            <select class="form-control" id="ward" name="ward">
+                                                                <option>--Select your Ward--</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Location</label>
+                                                            <input type="text" class="form-control" name="location" id="location">
+                                                        </div>
+                                                        <hr>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label>Latitude</label>
+                                                                    <input type="text" class="form-control" id="latitude" name="latitude" placeholder="Farm's Latitude">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label>Longitude</label>
+                                                                    <input type="text" class="form-control" id="longitude" name="longitude" placeholder="Farm's Longitude">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label>Elevation</label>
+                                                                    <input type="text" class="form-control" name="elevation" id="elevation" placeholder="Elevation">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Seedlings Planted</label>
+                                                                    <input type="number" class="form-control" placeholder="Number of trees" id="numberplanted" name="numberplanted">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Farm Size</label>
+                                                                    <input type="text" id="farmsize" name="farmsize" class="form-control" placeholder="Farm Size">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--/span-->
+                                                    <div class="col-md-6">
+                                                        <div class="row">
+                                                            <div class="white-box">
+                                                                <h3 class="box-title">Map of the Farm</h3>
+                                                                <!--<div id="markermap" class="gmaps"></div>-->
+                                                                <div>
+                                                                    <hr>
+                                                                    <div id="map" style="height: 400px;"></div>
+                                                                    <br>
+                                                                    <input class="btn btn-outline-primary" type="button" value="Drop Pin" onclick="dropPin()"> Drop a marker on the center of your map<br>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--/span-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
 @endsection
 @section('scripts')
+<script>
+    $(document).ready(function(){
 
+    });
+    let currentid=null;
+    function addFarm(id) {
+        currentid=id;
+        $('#addFarms .modal').modal();
+    }
+</script>
 @endsection

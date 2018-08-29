@@ -20,6 +20,8 @@ class CreateAccountsTable extends Migration
             $table->string('accountname');
             $table->string('accountnumber');
             $table->string('bank')->nullable();
+            $table->string('bankbranch')->nullable();
+            $table->string('userType')->default('farmer');
             $table->timestamps();
         });
     }
