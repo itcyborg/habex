@@ -69,7 +69,6 @@
                         <span class="hide-menu"> Leave Requests</span>
                     </a>
                 </li>
-
                 <li>
                     <a  href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="waves-effect"><i class="mdi mdi-logout fa-fw"></i> <span class="hide-menu">Log out</span></a>
 
@@ -99,14 +98,12 @@
                         <li class="active">New Agronomist</li>
                     </ol>
                 </div>
-                <!-- /.col-lg-12 -->
             </div>
 
             <!-- .row -->
             <div class="row">
                 <div class="col-sm-12">
                     <div class="white-box">
-                        <!--.row-->
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="row">
@@ -137,7 +134,6 @@
                                                 <div class="form-group">
                                                     <label class="control-label">First Name</label>
                                                     <input type="text" id="lastName" class="form-control" name="firstname" placeholder="First Name">
-
                                                 </div>
                                             </div>
                                             <!--/span-->
@@ -145,11 +141,9 @@
                                                 <div class="form-group">
                                                     <label class="control-label">Last Name</label>
                                                     <input type="text" id="lastName" class="form-control" placeholder="Last Name" name="lastname">
-
                                                 </div>
                                             </div>
-                                
-                                            
+
                                             <!--/span-->
                                         </div>
                                         <!--/row-->
