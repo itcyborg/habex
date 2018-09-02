@@ -18,52 +18,24 @@
                 </div>
                 <ul class="nav" id="side-menu">
                     <li>
-                        <a href="{{url('/admin')}}" class="waves-effect">
+                        <a href="{{url('/agronomist')}}" class="waves-effect">
                             <i data-icon="7" class="mdi mdi-av-timer fa-fw"></i>
                             <span class="hide-menu">Dashboard </span>
                         </a>
                     </li>
                     <li> <a href="javascript:void(0)" class="waves-effect"><i data-icon="/" class="mdi mdi-account-multiple"></i><span class="hide-menu"> Farmers<span class="fa arrow"></span><span class="label label-rouded label-purple pull-right"></span></span></a>
                         <ul class="nav nav-second-level">
-                            <li><a href="{{url('/admin/farmer/add')}}"><i data-icon=")" class="mdi mdi-account-plus"></i><span class="hide-menu"> New Farmer </span></a></li>
-                            <li><a href="{{url('/admin/farmers')}}"><i class="mdi mdi-account-multiple"></i><span class="hide-menu"> Farmers Accounts </span></a></li>
-                        </ul>
-                    </li>
-                    <li> <a href="javascript:void(0)" class="waves-effect"><i data-icon="" class="mdi mdi-account-multiple"></i><span class="hide-menu"> Agronomists<span class="fa arrow"></span></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="{{url('/admin/agronomist/add')}}">
-                                    <i data-icon="/" class="mdi mdi-account-plus"></i>
-                                    <span class="hide-menu"> New Agronomist </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{url('/admin/agronomists')}}">
-                                    <i data-icon="7" class="mdi mdi-account-multiple"></i>
-                                    <span class="hide-menu"> Agronomists Accounts </span>
-                                </a>
-                            </li>
+                            <li><a href="{{url('/agronomist/farmer/add')}}"><i data-icon=")" class="mdi mdi-account-plus"></i><span class="hide-menu"> New Farmer </span></a></li>
+                            <li><a href="{{url('/agronomist/farmers')}}"><i class="mdi mdi-account-multiple"></i><span class="hide-menu"> Farmers Accounts </span></a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="{{url('/admin/farminfo')}}" class="waves-effect">
+                        <a href="{{url('/agronomist/farminfo')}}" class="waves-effect">
                             <i data-icon="" class="mdi mdi-pine-tree"></i>
                             <span class="hide-menu"> Farm Info </span>
                         </a>
                     </li>
-                    <li> <a href="javascript:void(0)" class="waves-effect"><i data-icon="" class="mdi mdi-wallet"></i><span class="hide-menu"> Financials<span class="fa arrow"></span></span></a>
-                        <ul class="nav nav-second-level">
-                            <li> <a href="{{url('/admin/order/add')}}"><i data-icon="/" class="fa fa-edit"></i><span class="hide-menu"> New Order</span></a> </li>
-                            <li> <a href="{{url('/admin/orders')}}"><i data-icon="7" class="fa  fa-list"></i><span class="hide-menu"> Orders</span></a> </li>
-                        </ul>
-                    </li>
-                    <li> <a href="javascript:void(0)" class="waves-effect"><i data-icon="" class="mdi mdi-wallet"></i><span class="hide-menu"> Payroll<span class="fa arrow"></span></span></a>
-                        <ul class="nav nav-second-level">
-                            <li> <a href="{{url('/admin/payroll/add')}}"><i data-icon="/" class="fa fa-edit"></i><span class="hide-menu"> New Payment</span></a> </li>
-                            <li> <a href="{{url('/admin/payroll/all')}}"><i data-icon="7" class="fa  fa-list"></i><span class="hide-menu"> Payments</span></a> </li>
-                        </ul>
-                    </li>
-                    <li> <a href="{{url('/admin/leave/all')}}" class="waves-effect">
+                    <li> <a href="{{url('/agronomist/leave/all')}}" class="waves-effect">
                             <i data-icon="" class="mdi mdi-airplane-takeoff"></i>
                             <span class="hide-menu"> Leave Requests</span>
                         </a>
@@ -238,7 +210,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                         <h4 class="modal-title" id="myLargeModalLabel">Add Farm</h4> </div>
                     <div class="modal-body">
-                        <form action="{{url('/admin/farm/add')}}" method="post">
+                        <form action="{{url('/agronomist/farm/add')}}" method="post">
                             {{csrf_field()}}
                             <div class="row">
                                 <input type="text" name="farmerid" id="farmerid" hidden>
@@ -355,7 +327,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     <h4 class="modal-title" id="myLargeModalLabel">Uploads</h4> </div>
                 <div class="modal-body">
-                    <form action="{{url('/admin/farmer/upload')}}" method="post" enctype="multipart/form-data">
+                    <form action="{{url('/agronomist/farmer/upload')}}" method="post" enctype="multipart/form-data">
                         {{csrf_field()}}
                         <input type="text" name="farmerid" id="farmerid1" hidden>
                         <div class="row">
@@ -492,7 +464,7 @@
         }).then((result)=>{
             if(result.value){
                 $.ajax({
-                    url:'{{url("/admin/farmer/delete")}}/'+id,
+                    url:'{{url("/agronomist/farmer/delete")}}/'+id,
                     type:'get',
                     dataType:'json',
                     success:function(data){

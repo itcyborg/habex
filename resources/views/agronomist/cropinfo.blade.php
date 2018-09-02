@@ -16,52 +16,24 @@
                 </div>
                 <ul class="nav" id="side-menu">
                     <li>
-                        <a href="{{url('/admin')}}" class="waves-effect">
+                        <a href="{{url('/agronomist')}}" class="waves-effect">
                             <i data-icon="7" class="mdi mdi-av-timer fa-fw"></i>
                             <span class="hide-menu">Dashboard </span>
                         </a>
                     </li>
                     <li> <a href="javascript:void(0)" class="waves-effect"><i data-icon="/" class="mdi mdi-account-multiple"></i><span class="hide-menu"> Farmers<span class="fa arrow"></span><span class="label label-rouded label-purple pull-right"></span></span></a>
                         <ul class="nav nav-second-level">
-                            <li><a href="{{url('/admin/farmer/add')}}"><i data-icon=")" class="mdi mdi-account-plus"></i><span class="hide-menu"> New Farmer </span></a></li>
-                            <li><a href="{{url('/admin/farmers')}}"><i class="mdi mdi-account-multiple"></i><span class="hide-menu"> Farmers Accounts </span></a></li>
-                        </ul>
-                    </li>
-                    <li> <a href="javascript:void(0)" class="waves-effect"><i data-icon="" class="mdi mdi-account-multiple"></i><span class="hide-menu"> Agronomists<span class="fa arrow"></span></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="{{url('/admin/agronomist/add')}}">
-                                    <i data-icon="/" class="mdi mdi-account-plus"></i>
-                                    <span class="hide-menu"> New Agronomist </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{url('/admin/agronomists')}}">
-                                    <i data-icon="7" class="mdi mdi-account-multiple"></i>
-                                    <span class="hide-menu"> Agronomists Accounts </span>
-                                </a>
-                            </li>
+                            <li><a href="{{url('/agronomist/farmer/add')}}"><i data-icon=")" class="mdi mdi-account-plus"></i><span class="hide-menu"> New Farmer </span></a></li>
+                            <li><a href="{{url('/agronomist/farmers')}}"><i class="mdi mdi-account-multiple"></i><span class="hide-menu"> Farmers Accounts </span></a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="{{url('/admin/farminfo')}}" class="waves-effect">
+                        <a href="{{url('/agronomist/farminfo')}}" class="waves-effect">
                             <i data-icon="" class="mdi mdi-pine-tree"></i>
                             <span class="hide-menu"> Farm Info </span>
                         </a>
                     </li>
-                    <li> <a href="javascript:void(0)" class="waves-effect"><i data-icon="" class="mdi mdi-wallet"></i><span class="hide-menu"> Financials<span class="fa arrow"></span></span></a>
-                        <ul class="nav nav-second-level">
-                            <li> <a href="{{url('/admin/order/add')}}"><i data-icon="/" class="fa fa-edit"></i><span class="hide-menu"> New Order</span></a> </li>
-                            <li> <a href="{{url('/admin/orders')}}"><i data-icon="7" class="fa  fa-list"></i><span class="hide-menu"> Orders</span></a> </li>
-                        </ul>
-                    </li>
-                    <li> <a href="javascript:void(0)" class="waves-effect"><i data-icon="" class="mdi mdi-wallet"></i><span class="hide-menu"> Payroll<span class="fa arrow"></span></span></a>
-                        <ul class="nav nav-second-level">
-                            <li> <a href="{{url('/admin/payroll/add')}}"><i data-icon="/" class="fa fa-edit"></i><span class="hide-menu"> New Payment</span></a> </li>
-                            <li> <a href="{{url('/admin/payroll/all')}}"><i data-icon="7" class="fa  fa-list"></i><span class="hide-menu"> Payments</span></a> </li>
-                        </ul>
-                    </li>
-                    <li> <a href="{{url('/admin/leave/all')}}" class="waves-effect">
+                    <li> <a href="{{url('/agronomist/leave/all')}}" class="waves-effect">
                             <i data-icon="" class="mdi mdi-airplane-takeoff"></i>
                             <span class="hide-menu"> Leave Requests</span>
                         </a>
@@ -167,7 +139,6 @@
                             <th>Farm Location</th>
                             <th>Farm Size</th>
                             <th>Seedlings Planted</th>
-                            <th>Actions</th>
                             </thead>
                             <tbody>
                             </tbody>
@@ -222,69 +193,6 @@
         </div>
     <!-- /#page-wrapper -->
 </div>
-<!--MODAL-->
-<div id="addUploads">
-    <div class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title" id="myLargeModalLabel">Uploads</h4> </div>
-                <div class="modal-body">
-                    <form action="{{url('/admin/farmer/upload')}}" method="post" enctype="multipart/form-data">
-                        {{csrf_field()}}
-                        <input type="text" name="farmerid" id="farmerid1" hidden>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="panel panel-info">
-                                    <div class="panel-wrapper collapse in" aria-expanded="true">
-                                        <div class="panel-body">
-                                            <div class="form-body">
-                                                <!--/row-->
-                                                <div class="row">
-                                                    <div class="col-sm-6 col-md-6 col-xs-12">
-                                                        <div class="white-box">
-                                                            <h3 class="box-title">Passport Photo</h3>
-                                                            <input type="file" id="passport" name="passport" class="dropify" /> </div>
-                                                    </div>
-                                                    <div class="col-sm-6 col-md-6 col-xs-12">
-                                                        <div class="white-box">
-                                                            <h3 class="box-title">Contract Form</h3>
-                                                            <input type="file" id="contractform" name="contractform" class="dropify" /> </div>
-                                                    </div>
-                                                </div>
-                                                <!-- /.row -->
-                                                <div class="row">
-                                                    <div class="col-sm-6 col-md-6 col-xs-12">
-                                                        <div class="white-box">
-                                                            <h3 class="box-title">ID Scan-Front</h3>
-                                                            <input type="file" id="idfront" name="idfront" class="dropify" /> </div>
-                                                    </div>
-                                                    <div class="col-sm-6 col-md-6 col-xs-12">
-                                                        <div class="white-box">
-                                                            <h3 class="box-title">ID Scan-Back</h3>
-                                                            <input type="file" id="idback" name="idback" class="dropify" /> </div>
-                                                    </div>
-                                                </div>
-                                                <!-- /.row -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="btn btn-primary"><i class="fa fa-save"></i> Upload Documents</button>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-</div>
 @endsection
 
 @section('scripts')
@@ -307,7 +215,7 @@
                 if($(this).val()!==""){
                     //ajax to get the rest of the data
                     $.ajax({
-                        url: '{{url("/admin/farmer/search")}}',
+                        url: '{{url("/agronomist/farmer/search")}}',
                         type:'get',
                         data:{
                             'farmer':$(this).val(),
@@ -339,11 +247,6 @@
                                             '<td>'+farm.constituency+'</td>' +
                                             '<td>'+farm.farmSize+'</td>' +
                                             '<td>'+farm.seedlingsPlanted+'</td>' +
-                                            '<td>' +
-                                                '<button class="btn btn-outline btn-circle" onclick="showmodal()">' +
-                                                    '<i class="fa fa-edit"></i>' +
-                                                '</button>' +
-                                            '</td>' +
                                         '</tr>';
                                 });
                                 $('#farmsTable').find('tbody').html(rows);
@@ -378,9 +281,5 @@
                 }
             });
         });
-
-        function showmodal(){
-            $('#addUploads .modal').modal();
-        }
     </script>
 @endsection
