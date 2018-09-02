@@ -82,10 +82,38 @@ class FarmersController extends Controller
                 $error=true;
             };
             if(!$error){
-                echo "Successfully added farmer";
+                return back()->with('status','Farmer added successfully');
             }else{
-                echo "An Error occurred adding farmer";
+                return back()->with('status','An Error Occurred');
             }
+        }
+    }
+
+    public function upload(Request $request)
+    {
+        $farmer=$request->farmerid;
+        $record=Farmers::find($farmer);
+        if($request->hasFile('idfront')){
+            $idfront=$request->file('idfront')->store('uploads');
+            $record->idfront=$idfront;
+        }
+        if($request->hasFile('idback')){
+            $idback=$request->file('idback')->store('uploads');
+            $record->idback=$idback;
+        }
+
+        if($request->hasFile('passport')){
+            $passport=$request->file('passport')->store('uploads');
+            $record->passport=$passport;
+        }
+        if($request->hasFile('contractform')){
+            $contractform=$request->file('contractform')->store('uploads');
+            $record->contractform=$contractform;
+        }
+        if($record->save()){
+            return back()->with('status','Updated Successfully');
+        }else{
+            return back()->with('status','An error occurred');
         }
     }
 }

@@ -190,7 +190,7 @@
                                                         <select class="form-control" name="position">
                                                         <option value="Project Lead Agronomist">Project Lead Agronomist</option>
                                                         <option value="County Head Agronomist">County Head Agronomist </option>
-                                                        <option value="Agrinimist">Agronomist</option>
+                                                        <option value="Agronimist">Agronomist</option>
                                                     </select>
                                                     </div>
                                                 </div>
