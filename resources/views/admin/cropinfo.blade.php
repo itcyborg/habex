@@ -229,11 +229,41 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title" id="myLargeModalLabel">Uploads</h4> </div>
+                    <h4 class="modal-title" id="myLargeModalLabel">Scouting Form</h4> </div>
                 <div class="modal-body">
                     <form action="{{url('/admin/farmer/upload')}}" method="post" enctype="multipart/form-data">
                         {{csrf_field()}}
                         <input type="text" name="farmerid" id="farmerid1" hidden>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="panel panel-info">
@@ -244,12 +274,12 @@
                                                 <div class="row">
                                                     <div class="col-sm-6 col-md-6 col-xs-12">
                                                         <div class="white-box">
-                                                            <h3 class="box-title">Passport Photo</h3>
+                                                            <h3 class="box-title">Soil pH</h3>
                                                             <input type="file" id="passport" name="passport" class="dropify" /> </div>
                                                     </div>
                                                     <div class="col-sm-6 col-md-6 col-xs-12">
                                                         <div class="white-box">
-                                                            <h3 class="box-title">Contract Form</h3>
+                                                            <h3 class="box-title">Soil Test Result Form Upload</h3>
                                                             <input type="file" id="contractform" name="contractform" class="dropify" /> </div>
                                                     </div>
                                                 </div>
