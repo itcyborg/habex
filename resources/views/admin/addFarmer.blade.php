@@ -294,13 +294,19 @@
                                                                                 </div>
                                                                             </div>
                                                                             <div class="row">
-                                                                                <div class="col-md-6">
+                                                                                <div class="col-md-4">
+                                                                                    <div class="form-group">
+                                                                                        <label>Farmer's Code</label>
+                                                                                        <input type="#" class="form-control" placeholder="Farmer's Code" id="#" name="#">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-4">
                                                                                     <div class="form-group">
                                                                                         <label>Seedlings Planted</label>
                                                                                         <input type="number" class="form-control" placeholder="Number of trees" id="numberplanted" name="numberplanted">
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class="col-md-6">
+                                                                                <div class="col-md-4">
                                                                                     <div class="form-group">
                                                                                         <label>Farm Size</label>
                                                                                         <input type="text" id="farmsize" name="farmsize" class="form-control" placeholder="Farm Size">
