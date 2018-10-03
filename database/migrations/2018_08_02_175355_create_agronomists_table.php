@@ -23,9 +23,6 @@ class CreateAgronomistsTable extends Migration
             $table->string('email')->unique();
             $table->string('idnumber');
             $table->string('mobilenumber');
-//            $table->string('paymentoption');
-//            $table->text('accountname');
-//            $table->integer('accountnumber');
             $table->timestamps();
         });
     }

@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use function MongoDB\BSON\toJSON;
 
 class AdminController extends Controller
 {
@@ -22,7 +23,7 @@ class AdminController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('role:ROLE_ADMIN');
+//        $this->middleware('role:ROLE_ADMIN');
     }
 
     public function index()
@@ -218,5 +219,21 @@ class AdminController extends Controller
         $employee=Agronomists::find($id);
         $leaves=['all'=>21,'used'=>$leave,'remaining'=>21-$leave,'employee'=>$employee];
         return $leaves;
+    }
+
+    public function employees()
+    {
+        return json_encode(Agronomists::all());
+    }
+
+    public function employeesSalaries(Request $request)
+    {
+        $id=$request->id;
+        $employees=DB::table('agronomists')
+            ->where('agronomists.id','=',$id)
+            ->leftJoin('salaries','agronomists.id','salaries.employeeid')
+            ->select('agronomists.idnumber','agronomists.position','agronomists.zone','salaries.jobGroup','salaries.basicSalary','updatedby','agronomists.id')
+            ->get();
+        return json_encode($employees);
     }
 }

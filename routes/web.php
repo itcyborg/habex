@@ -76,6 +76,7 @@ Route::get('/admin/payroll/all',function(){
     return view('admin.viewPayroll');
 });
 
+
 Route::get('/admin/leave/all','AdminController@leave');
 Route::get('/agronomist/leave/all','AgronomistController@leave');
 
@@ -84,9 +85,13 @@ Route::post('/leave/request','LeaveController@request');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/settings','SettingsController@index');
 
 //Ajax Calls
 
 Route::get('/counties','HomeController@counties');
 Route::post('/counties/ward','HomeController@wards');
 Route::get('/admin/leave/{id}','AdminController@leaveSearch');
+Route::post('admin/payroll/add','PayrollController@add')->middleware('role:ROLE_ADMIN');;
+Route::get('admin/employees','AdminController@employees')->middleware('role:ROLE_ADMIN');
+Route::get('admin/employee/salary','AdminController@employeesSalaries')->middleware('role:ROLE_ADMIN');;

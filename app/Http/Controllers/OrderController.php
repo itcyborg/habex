@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -33,8 +34,8 @@ class OrderController extends Controller
 
     public function view($id)
     {
-        $orders = Order::where('orderNo', $id)
-            ->join('farmers', 'farmers.id','orders.farmerId')
+        $orders = DB::table('orders')->where('orderNo', $id)
+            ->join('farmers','orders.farmerId','farmers.id')
             ->get();
         return $orders;
     }

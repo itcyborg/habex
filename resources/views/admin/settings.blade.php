@@ -90,13 +90,12 @@
         <div class="container-fluid">
             <div class="row bg-title">
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="page-title">Agronomist</h4> </div>
+                    <h4 class="page-title">Settings</h4> </div>
                 <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                     <button class="right-side-toggle waves-effect waves-light btn-info btn-circle pull-right m-l-20"><i class="ti-settings text-white"></i></button>
                     <ol class="breadcrumb">
                         <li><a href="#">Dashboard</a></li>
-                        <li><a href="#">Agronomist</a></li>
-                        <li class="active">New Agronomist</li>
+                        <li class="active">Settings</li>
                     </ol>
                 </div>
                 <!-- /.col-lg-12 -->
@@ -120,139 +119,6 @@
                                         </div>
                                     @endif
                                 </div>
-                                <form action="{{url('/admin/agronomist/add')}}" method="post">
-                                    {{ csrf_field() }}
-                                    <div class="form-body">
-                                        <h3 class="box-title">Person Information</h3>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="control-label">Sir Name</label>
-                                                    <input type="text" id="firstName" class="form-control" name="sirname" placeholder="Sir Name">
-                                                </div>
-                                            </div>
-                                            <!--/span-->
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="control-label">First Name</label>
-                                                    <input type="text" id="lastName" class="form-control" name="firstname" placeholder="First Name">
-
-                                                </div>
-                                            </div>
-                                            <!--/span-->
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="control-label">Last Name</label>
-                                                    <input type="text" id="lastName" class="form-control" placeholder="Last Name" name="lastname">
-
-                                                </div>
-                                            </div>
-                                
-                                            
-                                            <!--/span-->
-                                        </div>
-                                        <!--/row-->
-                                        <hr>
-                                        <!--/span-->
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="control-label">Email Address</label>
-                                                    <input type="text" id="firstName" class="form-control" placeholder="Email" name="email">
-                                                    <span class="help-block"> please fill in correct info.</span>
-                                                </div>
-                                            </div>
-                                            <!--/span-->
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="control-label">ID Number</label>
-                                                    <input type="text" id="lastName" class="form-control" name="idnumber" placeholder="ID Number">
-
-                                                </div>
-                                            </div>
-                                            <!--/span-->
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="control-label">Mobile Number</label>
-                                                    <input type="text" id="lastName" class="form-control" placeholder="0700889955" name="mobilenumber">
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                            <!--/span-->
-                                        <hr>
-                                        <div class="row-fluid">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Agronomists Position</label>
-                                                    <div>
-                                                        <select class="form-control" name="position">
-                                                        <option value="Project Lead Agronomist">Project Lead Agronomist</option>
-                                                        <option value="County Head Agronomist">County Head Agronomist </option>
-                                                        <option value="Agronimist">Agronomist</option>
-                                                    </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Assign Zone</label>
-                                                    <div>
-                                                        <select class="form-control" name="zone">
-                                                            @foreach($counties as $county)
-                                                                <option value="{{$county->county_name}}">{{$county->county_name}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <hr>
-
-                                    <div class="row">
-                                        <div class="container-fluid">
-                                            <h3 class="box-title">Payment Details</h3>
-                                            <hr>
-                                            <div class="row">
-                                                <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <label for="bankName">Bank Name</label>
-                                                        <input type="text" id="#bankName" class="form-control" placeholder="Bank Name" name="bankname">
-
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3" id="#">
-                                                    <div class="form-group">
-                                                        <label for="#">Branch Name</label>
-                                                        <input type="text" id="#" class="form-control" placeholder="Branch Name" name="branchname">
-
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <label class="control-label">Account Name</label>
-                                                        <input type="text" id="lastName" class="form-control" placeholder="Account Name" name="accountname">
-
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <label class="control-label">Account Number</label>
-                                                        <input type="text" id="lastName" class="form-control" placeholder="Account Number" name="accountnumber">
-
-                                                    </div>
-                                                </div>
-                                                <!--/span-->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <button class="btn btn-lg btn-primary pull-right"><i class="fa fa-save"></i> Submit</button>
-                                    </div>
-                                </form>
                             </div>
                         </div>
                         <!--./row-->
@@ -316,24 +182,5 @@
 @section('scripts')
     <script src="{{asset('sys/plugins/bower_components/select2/dist/js/select2.full.js')}}"></script>
     <script>
-        $(document).ready(function(){
-            $('#paymentoption').select2();
-            $('#bankName').select2(
-                {
-                    tags:true,
-                    placeholder :'Select Bank or enter new one'
-                }
-            );
-            if($('#paymentoption').val()!=='bank'){
-                $('#bankdetails').hide();
-            }
-            $('#paymentoption').on('change',function () {
-                if($('#paymentoption').val()!=='bank'){
-                    $('#bankdetails').hide();
-                }else{
-                    $('#bankdetails').show();
-                }
-            });
-        });
     </script>
 @endsection
