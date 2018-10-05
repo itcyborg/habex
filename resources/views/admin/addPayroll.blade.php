@@ -344,6 +344,9 @@
                         'year':$('#year').val(),
                         'allowances':allowances,
                         'deductions':deductions
+                    },
+                    success:function(data){
+                        alert(data);
                     }
                 });
             });

@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 Auth::routes();
+Route::get('/pay',function (){
+    dd(\App\Deduction::all());
+});
 Route::get('/',function(){
     if(!Auth::check()){
         return redirect('login');
