@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
 
 class Handler extends ExceptionHandler
 {
@@ -47,6 +48,13 @@ class Handler extends ExceptionHandler
 //        return parent::render($request, $exception);
 //    }
     public function render($request, Exception $e) {
+        if($e instanceof AuthenticationException){
+            return $this->unauthenticated($request,$e);
+        }
+
+        if($e instanceof ValidationException){
+            return parent::render($request,$e);
+        }
         if (config('app.debug') && ! $request->ajax()) {
             $whoops = new \Whoops\Run;
             $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);

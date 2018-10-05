@@ -45,8 +45,38 @@
                                         </div>
                                     @endif
                                 </div>
-                                <div class="row">
-                                    {{Auth::user()->hasRole(['ROLE_ADMIN'])}}
+                                <div class="row table-responsive">
+                                    <table class="table table-striped table-hover table-condensed">
+                                        <thead>
+                                            <th>#</th>
+                                            <th>Item</th>
+                                            <th>Description</th>
+                                            <th>Tax (%)</th>
+                                            <th>Created On</th>
+                                            <th>Updated On</th>
+                                            <th>Actions</th>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($items as $item)
+                                                <tr>
+                                                    <td>{{$item->id}}</td>
+                                                    <td>{{$item->item}}</td>
+                                                    <td>{{$item->description}}</td>
+                                                    <td>{{$item->tax}}</td>
+                                                    <td>{{$item->created_at}}</td>
+                                                    <td>{{$item->updated_at}}</td>
+                                                    <td>
+                                                        <button class="btn btn-info btn-circle btn-outline-inverse m-r-10">
+                                                            <i class="fa fa-edit"></i>
+                                                        </button>
+                                                        <button class="btn btn-danger btn-circle btn-outline-inverse m-r-10">
+                                                            <i class="fa fa-trash-o"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>

@@ -41,6 +41,7 @@ Route::get('/admin/order/add','AdminController@orderForm');
 Route::get('/admin/orders','AdminController@viewOrders');
 Route::post('/admin/order/add','OrderController@newOrder');
 Route::get('/admin/order/view/{id}','OrderController@view');
+Route::get('/admin/order/viewSales/{id}','OrderController@getSalesInfo');
 
 Route::get('/admin/farminfo','AdminController@cropInfo');
 Route::get('/admin/farmer/search','AdminController@search');
@@ -58,7 +59,6 @@ Route::get('/agronomist/agronomist/add','AgronomistController@agronomistForm');
 Route::post('/agronomist/agronomist/add','AgronomistController@agronomistForm');
 Route::get('/agronomist/agronomists','AgronomistController@viewAgronomists');
 Route::get('/agronomist/farminfo','AgronomistController@cropInfo');
-
 
 Route::get('/agronomist/farmer/add','AgronomistController@farmerForm');
 Route::get('/agronomist/farmers','AgronomistController@viewFarmers');
@@ -87,6 +87,11 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/settings','SettingsController@index');
 
+// items routes
+Route::get('/admin/order/addItem','ItemsController@addItem');
+Route::post('/admin/order/addItem','ItemsController@storeItem');
+Route::get('/admin/order/listItems','ItemsController@listItems');
+
 //Ajax Calls
 
 Route::get('/counties','HomeController@counties');
@@ -94,4 +99,9 @@ Route::post('/counties/ward','HomeController@wards');
 Route::get('/admin/leave/{id}','AdminController@leaveSearch');
 Route::post('admin/payroll/add','PayrollController@add')->middleware('role:ROLE_ADMIN');;
 Route::get('admin/employees','AdminController@employees')->middleware('role:ROLE_ADMIN');
-Route::get('admin/employee/salary','AdminController@employeesSalaries')->middleware('role:ROLE_ADMIN');;
+Route::get('admin/employee/salary','AdminController@employeesSalaries')->middleware('role:ROLE_ADMIN');
+Route::get('items/list','ItemsController@getItems');
+
+# statistics
+Route::get('/statistics/farmers','StatisticsController@farmersPerCounty');
+Route::get('/statistics/acreage','StatisticsController@acreageByCounty');

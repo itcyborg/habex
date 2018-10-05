@@ -73,7 +73,7 @@ class AgronomistController extends Controller
         $startdate=date_create(date('Y-m-d',time()));
         $existing=leave::where('employeeid',Auth::user()->id)
             ->where('year',(int) $startdate->format('Y'))
-            ->where('status'.'!=','Pending')
+            ->where('status','!=','Pending')
             ->get()
             ->sum('days');
         $leave=(object) ['all'=>21,'used'=>$existing,'remaining'=>21-$existing];

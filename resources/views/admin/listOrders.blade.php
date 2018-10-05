@@ -5,75 +5,7 @@
     <!-- ============================================================== -->
     <!-- Left Sidebar - style you can find in sidebar.scss  -->
     <!-- ============================================================== -->
-        <div class="navbar-default sidebar" role="navigation">
-            <div class="sidebar-nav slimscrollsidebar">
-                <div class="sidebar-head">
-                    <h3><span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span class="hide-menu">Navigation</span></h3> </div>
-                <div class="user-profile">
-                </div>
-                <ul class="nav" id="side-menu">
-                    <li>
-                        <a href="{{url('/admin')}}" class="waves-effect">
-                            <i data-icon="7" class="mdi mdi-av-timer fa-fw"></i>
-                            <span class="hide-menu">Dashboard </span>
-                        </a>
-                    </li>
-                    <li> <a href="javascript:void(0)" class="waves-effect"><i data-icon="/" class="mdi mdi-account-multiple"></i><span class="hide-menu"> Farmers<span class="fa arrow"></span><span class="label label-rouded label-purple pull-right"></span></span></a>
-                        <ul class="nav nav-second-level">
-                            <li><a href="{{url('/admin/farmer/add')}}"><i data-icon=")" class="mdi mdi-account-plus"></i><span class="hide-menu"> New Farmer </span></a></li>
-                            <li><a href="{{url('/admin/farmers')}}"><i class="mdi mdi-account-multiple"></i><span class="hide-menu"> Farmers Accounts </span></a></li>
-                        </ul>
-                    </li>
-                    <li> <a href="javascript:void(0)" class="waves-effect"><i data-icon="" class="mdi mdi-account-multiple"></i><span class="hide-menu"> Agronomists<span class="fa arrow"></span></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="{{url('/admin/agronomist/add')}}">
-                                    <i data-icon="/" class="mdi mdi-account-plus"></i>
-                                    <span class="hide-menu"> New Agronomist </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{url('/admin/agronomists')}}">
-                                    <i data-icon="7" class="mdi mdi-account-multiple"></i>
-                                    <span class="hide-menu"> Agronomists Accounts </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="{{url('/admin/farminfo')}}" class="waves-effect">
-                            <i data-icon="" class="mdi mdi-pine-tree"></i>
-                            <span class="hide-menu"> Farm Info </span>
-                        </a>
-                    </li>
-                    <li> <a href="javascript:void(0)" class="waves-effect"><i data-icon="" class="mdi mdi-wallet"></i><span class="hide-menu"> Financials<span class="fa arrow"></span></span></a>
-                        <ul class="nav nav-second-level">
-                            <li> <a href="{{url('/admin/order/add')}}"><i data-icon="/" class="fa fa-edit"></i><span class="hide-menu"> New Order</span></a> </li>
-                            <li> <a href="{{url('/admin/orders')}}"><i data-icon="7" class="fa  fa-list"></i><span class="hide-menu"> Orders</span></a> </li>
-                        </ul>
-                    </li>
-                    <li> <a href="javascript:void(0)" class="waves-effect"><i data-icon="" class="mdi mdi-wallet"></i><span class="hide-menu"> Payroll<span class="fa arrow"></span></span></a>
-                        <ul class="nav nav-second-level">
-                            <li> <a href="{{url('/admin/payroll/add')}}"><i data-icon="/" class="fa fa-edit"></i><span class="hide-menu"> New Payment</span></a> </li>
-                            <li> <a href="{{url('/admin/payroll/all')}}"><i data-icon="7" class="fa  fa-list"></i><span class="hide-menu"> Payments</span></a> </li>
-                        </ul>
-                    </li>
-                    <li> <a href="{{url('/admin/leave/all')}}" class="waves-effect">
-                            <i data-icon="" class="mdi mdi-airplane-takeoff"></i>
-                            <span class="hide-menu"> Leave Requests</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a  href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="waves-effect"><i class="mdi mdi-logout fa-fw"></i> <span class="hide-menu">Log out</span></a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            {{ csrf_field() }}
-                        </form>
-                    </li>
-                </ul>
-            </div>
-        </div>
+    @include('layouts.sidebar')
     <!-- ============================================================== -->
     <!-- End Left Sidebar -->
     <!-- ============================================================== -->
@@ -183,6 +115,12 @@
                                             </tr>
                                             </thead>
                                             <tbody>
+                                                <tr>
+                                                    <td><span id="salesperson"></span></td>
+                                                    <td><span id="salescontact"></span></td>
+                                                    <td><span id="farmer"></span></td>
+                                                    <td><span id="farmercontact"></span></td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -198,6 +136,8 @@
                                                 <th>Description</th>
                                                 <th class="text-right">Quantity</th>
                                                 <th class="text-right">Unit Cost</th>
+                                                <th class="text-right">Tax (%)</th>
+                                                <th class="text-right">Discount (%)</th>
                                                 <th class="text-right">Total</th>
                                             </tr>
                                             </thead>
@@ -208,7 +148,24 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="pull-right m-t-30 text-right">
-                                        <h3><b>Total :</b> <span id="total"></span></h3> </div>
+                                        <h3>
+                                            <b>Total :</b>
+                                            <span id="total"></span>
+                                        </h3><br>
+                                        <h4>
+                                            <b>Tax :</b>
+                                            <span id="tax"></span>
+                                        </h4><br>
+                                        <h4>
+                                            <b>Discount :</b>
+                                            <span id="discount"></span>
+                                        </h4>
+                                        <hr>
+                                        <h2>
+                                            <b>Total (Net) :</b>
+                                            <span id="net"></span>
+                                        </h2>
+                                    </div>
                                     <div class="clearfix"></div>
                                     <hr>
                                     <div class="text-right hidden-print">
@@ -284,7 +241,25 @@
             window.print();
         }
 
+        function calcTotal(total,tax,discount){
+            var tax=total*tax/100;
+            var taxed=total+tax;
+            var disc=taxed*discount/100;
+            var tt=taxed-disc;
+            return {
+                'tax':tax,
+                'taxed':taxed,
+                'discount':disc,
+                'total':tt
+            };
+        }
+
+        function numb(data){
+            return (data).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')+'/=';
+        }
+
         function getInvoice(invoiceno){
+            getSalesDetails(invoiceno);
             $.ajax({
                 url:"{{url('/admin/order/view/')}}/"+invoiceno,
                 type:'get',
@@ -295,25 +270,54 @@
                         $('#orderNo').text('#'+invoiceno);
                         let rows='';
                         let total=0;
+                        let discount=0;
+                        let tt=0;
+                        let tax=0;
                         let duedate='',
                             orderDate='',
                             name='';
+                        let contact='';
                         $.each(data,function(i,k){
-                            rows+='<tr><td>'+(++k.itemNo)+'</td><td>'+k.description+'</td><td>'+k.quantity+'</td><td>'+k.unitCost+'</td><td>'+k.total+'</td></tr>';
+                            rows+='<tr><td>'+(++k.itemNo)+'</td><td>'+k.description+'</td><td>'+k.quantity+'</td><td>'+k.unitCost+'</td><td>'+k.tax+'</td><td>'+k.discount+'</td><td>'+k.total+' (+ VAT: '+calcTotal(k.total,k.tax,k.discount).tax+')</td></tr>';
                             total+=k.total;
+                            discount+=calcTotal(k.total,k.tax,k.discount).discount;
+                            tt+=calcTotal(k.total,k.tax,k.discount).total;
+                            tax+=calcTotal(k.total,k.tax,k.discount).tax;
                             duedate=k.dueDate;
                             orderDate=k.created_at;
-                            name=k.sirname+','+ k.firstname+' '+k.lastname
+                            name=k.sirname+','+ k.firstname+' '+k.lastname;
+                            contact=k.mobilenumber;
                         });
                         $('#invoiceTable tbody').html(rows);
-                        $('#total').text(total);
+                        $('#total').text(numb(total));
+                        $('#discount').text(numb(discount));
+                        $('#net').text(numb(tt));
+                        $('#tax').text(numb(tax));
                         $('#duedate').text(duedate);
                         $('#date').text(orderDate);
-                        $('#name').text(name);
+                        $('#name,#farmer').text(name);
+                        $('#farmercontact').text('0'+contact);
                     }
                 },
                 error:function(data){
                     console.log(data);
+                }
+            });
+        }
+
+        function getSalesDetails(invoiceno) {
+            $.ajax({
+                url: "{{url('/admin/order/viewSales/')}}/" + invoiceno,
+                type: 'get',
+                success: function (data) {
+                    if (data.length > 0) {
+                        $.each(data,function(i,j){
+                            if(j.firstname!==null) {
+                                $('#salescontact').text(j.mobilenumber);
+                                $('#salesperson').text(j.sirname + ', ' + j.firstname + ' ' + j.lastname);
+                            }
+                        });
+                    }
                 }
             });
         }

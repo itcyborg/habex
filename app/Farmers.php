@@ -16,7 +16,8 @@ class Farmers extends Model
             'passport',
             'idfront',
             'idback',
-            'email'
+            'email',
+            'farmerscode'
     ];
     //
 }

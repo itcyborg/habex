@@ -36,6 +36,7 @@ class FarmersController extends Controller
 //            'accountnumber'=>'required'
 //        ]);
 
+//        dd($request->all());
         /**
          * file uploads
          * TODO handle file uploads and return their paths
@@ -54,7 +55,8 @@ class FarmersController extends Controller
             'passport'=>$passport,
             'idfront'=>$idfront,
             'idback'=>$idback,
-            'email'=>$request->email
+            'email'=>$request->email,
+            'farmerscode'=>$request->farmerscode
         ])->id;
         if($farmer){
             $error=false;

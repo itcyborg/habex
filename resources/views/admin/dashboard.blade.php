@@ -12,7 +12,13 @@
         <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav slimscrollsidebar">
                 <div class="sidebar-head">
-                    <h3><span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span class="hide-menu">Navigation</span></h3> </div>
+                    <h3>
+                        <span class="fa-fw open-close">
+                            <i class="ti-close ti-menu"></i>
+                        </span>
+                        <span class="hide-menu">Navigation</span>
+                    </h3>
+                </div>
                 <div class="user-profile">
                 </div>
                 <ul class="nav" id="side-menu">
@@ -52,7 +58,9 @@
                     </li>
                     <li> <a href="javascript:void(0)" class="waves-effect"><i data-icon="" class="mdi mdi-wallet"></i><span class="hide-menu"> Financials<span class="fa arrow"></span></span></a>
                         <ul class="nav nav-second-level">
+                            <li> <a href="{{url('/admin/order/addItem')}}"><i data-icon="/" class="fa fa-file-o"></i><span class="hide-menu"> New Item</span></a> </li>
                             <li> <a href="{{url('/admin/order/add')}}"><i data-icon="/" class="fa fa-edit"></i><span class="hide-menu"> New Order</span></a> </li>
+                            <li> <a href="{{url('/admin/order/listItems')}}"><i data-icon="/" class="fa fa-list-alt"></i><span class="hide-menu"> List Items</span></a> </li>
                             <li> <a href="{{url('/admin/orders')}}"><i data-icon="7" class="fa  fa-list"></i><span class="hide-menu"> Orders</span></a> </li>
                         </ul>
                     </li>

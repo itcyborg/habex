@@ -25,6 +25,7 @@ class CreateFarmersTable extends Migration
             $table->text('contractform');
             $table->text('idfront');
             $table->text('idback');
+            $table->string('farmerscode')->unique();
             $table->timestamps();
         });
     }

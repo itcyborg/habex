@@ -12,75 +12,7 @@
     <!-- ============================================================== -->
     <!-- Left Sidebar - style you can find in sidebar.scss  -->
     <!-- ============================================================== -->
-        <div class="navbar-default sidebar" role="navigation">
-            <div class="sidebar-nav slimscrollsidebar">
-                <div class="sidebar-head">
-                    <h3><span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span class="hide-menu">Navigation</span></h3> </div>
-                <div class="user-profile">
-                </div>
-                <ul class="nav" id="side-menu">
-                    <li>
-                        <a href="{{url('/admin')}}" class="waves-effect">
-                            <i data-icon="7" class="mdi mdi-av-timer fa-fw"></i>
-                            <span class="hide-menu">Dashboard </span>
-                        </a>
-                    </li>
-                    <li> <a href="javascript:void(0)" class="waves-effect"><i data-icon="/" class="mdi mdi-account-multiple"></i><span class="hide-menu"> Farmers<span class="fa arrow"></span><span class="label label-rouded label-purple pull-right"></span></span></a>
-                        <ul class="nav nav-second-level">
-                            <li><a href="{{url('/admin/farmer/add')}}"><i data-icon=")" class="mdi mdi-account-plus"></i><span class="hide-menu"> New Farmer </span></a></li>
-                            <li><a href="{{url('/admin/farmers')}}"><i class="mdi mdi-account-multiple"></i><span class="hide-menu"> Farmers Accounts </span></a></li>
-                        </ul>
-                    </li>
-                    <li> <a href="javascript:void(0)" class="waves-effect"><i data-icon="" class="mdi mdi-account-multiple"></i><span class="hide-menu"> Agronomists<span class="fa arrow"></span></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="{{url('/admin/agronomist/add')}}">
-                                    <i data-icon="/" class="mdi mdi-account-plus"></i>
-                                    <span class="hide-menu"> New Agronomist </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{url('/admin/agronomists')}}">
-                                    <i data-icon="7" class="mdi mdi-account-multiple"></i>
-                                    <span class="hide-menu"> Agronomists Accounts </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="{{url('/admin/farminfo')}}" class="waves-effect">
-                            <i data-icon="" class="mdi mdi-pine-tree"></i>
-                            <span class="hide-menu"> Farm Info </span>
-                        </a>
-                    </li>
-                    <li> <a href="javascript:void(0)" class="waves-effect"><i data-icon="" class="mdi mdi-wallet"></i><span class="hide-menu"> Financials<span class="fa arrow"></span></span></a>
-                        <ul class="nav nav-second-level">
-                            <li> <a href="{{url('/admin/order/add')}}"><i data-icon="/" class="fa fa-edit"></i><span class="hide-menu"> New Order</span></a> </li>
-                            <li> <a href="{{url('/admin/orders')}}"><i data-icon="7" class="fa  fa-list"></i><span class="hide-menu"> Orders</span></a> </li>
-                        </ul>
-                    </li>
-                    <li> <a href="javascript:void(0)" class="waves-effect"><i data-icon="" class="mdi mdi-wallet"></i><span class="hide-menu"> Payroll<span class="fa arrow"></span></span></a>
-                        <ul class="nav nav-second-level">
-                            <li> <a href="{{url('/admin/payroll/add')}}"><i data-icon="/" class="fa fa-edit"></i><span class="hide-menu"> New Payment</span></a> </li>
-                            <li> <a href="{{url('/admin/payroll/all')}}"><i data-icon="7" class="fa  fa-list"></i><span class="hide-menu"> Payments</span></a> </li>
-                        </ul>
-                    </li>
-                    <li> <a href="{{url('/admin/leave/all')}}" class="waves-effect">
-                            <i data-icon="" class="mdi mdi-airplane-takeoff"></i>
-                            <span class="hide-menu"> Leave Requests</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a  href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="waves-effect"><i class="mdi mdi-logout fa-fw"></i> <span class="hide-menu">Log out</span></a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            {{ csrf_field() }}
-                        </form>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        @include('layouts.sidebar')
     <!-- ============================================================== -->
     <!-- End Left Sidebar -->
     <!-- ============================================================== -->
@@ -288,7 +220,7 @@
                                                                                 </div>
                                                                                 <div class="col-md-4">
                                                                                     <div class="form-group">
-                                                                                        <label>Elevation</label>
+                                                                                        <label>Elevation (metres)</label>
                                                                                         <input type="text" class="form-control" name="elevation" id="elevation" placeholder="Elevation">
                                                                                     </div>
                                                                                 </div>
@@ -297,7 +229,7 @@
                                                                                 <div class="col-md-4">
                                                                                     <div class="form-group">
                                                                                         <label>Farmer's Code</label>
-                                                                                        <input type="#" class="form-control" placeholder="Farmer's Code" id="#" name="#">
+                                                                                        <input type="text" class="form-control" placeholder="Farmer's Code" id="farmerscode" name="farmerscode">
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="col-md-4">
@@ -308,7 +240,7 @@
                                                                                 </div>
                                                                                 <div class="col-md-4">
                                                                                     <div class="form-group">
-                                                                                        <label>Farm Size</label>
+                                                                                        <label>Farm Size (acres)</label>
                                                                                         <input type="text" id="farmsize" name="farmsize" class="form-control" placeholder="Farm Size">
                                                                                     </div>
                                                                                 </div>
@@ -463,19 +395,54 @@
     <script src="{{asset('sys/plugins/bower_components/dropify/dist/js/dropify.min.js')}}"></script>
     <!-- Sweet-Alert  -->
     <script src="{{asset('sys/plugins/bower_components/sweetalert/sweetalert.min.js')}}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuogBspOfHKhSzSldN3vYhcCcsHSoShRA&libraries=places"></script>
     <script type="text/javascript">
 
-        let counties=null;
 
-        function initialize() {
-            directionsDisplay = new google.maps.DirectionsRenderer();
-            var paris = new google.maps.LatLng(-0.46706492082756573,36.5363312959671);
-            var mapOptions = {
-                zoom: 13,
-                center: paris
-            };
-            map = new google.maps.Map(document.getElementById("map"), mapOptions);
+        let counties=null;
+        var marker=false;
+
+        var map, infoWindow;
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: -34.397, lng: 150.644},
+                zoom: 14
+            });
+            var elevator = new google.maps.ElevationService;
+            infoWindow = new google.maps.InfoWindow;
+
+            // Try HTML5 geolocation.
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+
+                    infoWindow.setPosition(pos);
+                    infoWindow.setContent('Location found.');
+                    infoWindow.open(map);
+                    map.setCenter(pos);
+                    if(marker===false){
+                        marker=new google.maps.Marker({
+                            position:pos,
+                            map:map,
+                            draggable:true
+                        });
+                        google.maps.event.addListener(marker,'dragend',function(event){
+                            markerLocation();
+                            displayLocationElevation(event.latLng, elevator, infoWindow);
+                        });
+                    }else{
+                        marker.setPosition(pos);
+                    }
+                }, function() {
+                    handleLocationError(true, infoWindow, map.getCenter());
+                });
+            } else {
+                // Browser doesn't support Geolocation
+                handleLocationError(false, infoWindow, map.getCenter());
+            }
         }
 
         function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -486,46 +453,13 @@
             infoWindow.open(map);
         }
 
-        function dropPin(position) {
-            // if any previous marker exists, let's first remove it from the map
-            if (endMarker) {
-                endMarker.setMap(null);
-            }
-            if(position){
-                endMarker = new google.maps.Marker({
-                    position: position,
-                    map: map,
-                    draggable: true,
-                    zoom:13,
-                });
-            }else{
-                endMarker = new google.maps.Marker({
-                    position: map.getCenter(),
-                    map: map,
-                    draggable: true,
-                    zoom:13,
-                });
-            }
-            // create the marker
-
-            copyMarkerpositionToInput();
-            // add an event "onDrag"
-            google.maps.event.addListener(endMarker, 'dragend', function() {
-                copyMarkerpositionToInput();
-                displayLocationElevation(endMarker.position, elevator,infowindow);
-            });
+        function markerLocation(){
+            var currentLocation=marker.getPosition();
+            document.getElementById('latitude').value=currentLocation.lat();
+            document.getElementById('longitude').value=currentLocation.lng();
         }
 
-        function copyMarkerpositionToInput() {
-            // get the position of the marker, and set it as the value of input
-            latd= endMarker.getPosition().lat();
-            longt=endMarker.getPosition().lng();
-            $('#latitude').val(latd);
-            $('#longitude').val(longt);
-            displayLocationElevation(endMarker.position, elevator,infowindow);
-        }
-
-        function displayLocationElevation(location, elevator,infowindow) {
+        function displayLocationElevation(location, elevator, infowindow) {
             // Initiate the location request
             elevator.getElevationForLocations({
                 'locations': [location]
@@ -534,15 +468,17 @@
                 if (status === 'OK') {
                     // Retrieve the first result
                     if (results[0]) {
+                        // Open the infowindow indicating the elevation at the clicked position.
                         $('#elevation').val(results[0].elevation);
                     } else {
-                        swal('info','No Elevation found for this point');
+                          infowindow.setContent('No results found');
                     }
                 } else {
-                    swal('error','Elevation service failed due to: ' + status);
+                    infowindow.setContent('Elevation service failed due to: ' + status);
                 }
             });
         }
+
         $(document).ready(function() {
             $.ajax({
                 url:'{{url('/counties')}}',
@@ -718,12 +654,7 @@
             });
             // Basic
             $('.dropify').dropify();
-
-            try{
-                google.maps.event.addDomListener(window, 'load', initialize);
-            }catch (e) {
-                alert('Failed to initialize maps');
-            }
+            google.maps.event.addDomListener(window, 'load', initMap);
         });
     </script>
 @endsection

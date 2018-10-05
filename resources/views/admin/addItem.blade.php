@@ -5,7 +5,7 @@
     <!-- ============================================================== -->
     <!-- Left Sidebar - style you can find in sidebar.scss  -->
     <!-- ============================================================== -->
-    @include('layouts.sidebar')
+        @include('layouts.sidebar')
     <!-- ============================================================== -->
     <!-- End Left Sidebar -->
     <!-- ============================================================== -->
@@ -16,12 +16,13 @@
         <div class="container-fluid">
             <div class="row bg-title">
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="page-title">Settings</h4> </div>
+                    <h4 class="page-title">Add Item</h4> </div>
                 <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                     <button class="right-side-toggle waves-effect waves-light btn-info btn-circle pull-right m-l-20"><i class="ti-settings text-white"></i></button>
                     <ol class="breadcrumb">
                         <li><a href="#">Dashboard</a></li>
-                        <li class="active">Settings</li>
+                        <li><a href="#">Items</a></li>
+                        <li class="active">Add Items</li>
                     </ol>
                 </div>
                 <!-- /.col-lg-12 -->
@@ -45,8 +46,38 @@
                                         </div>
                                     @endif
                                 </div>
-                                <div class="row">
-                                    {{Auth::user()->hasRole(['ROLE_ADMIN'])}}
+                                <div class="row-fluid">
+                                    <h3 class="title">New Item</h3>
+                                    <form action="{{url('/admin/order/addItem')}}" method="post" class="form">
+                                        {{csrf_field()}}
+                                        <div class="row m-t-15 m-b-15">
+                                            <div class="form-group">
+                                                <div class="col-md-6">
+                                                    <label for="item">Item</label>
+                                                    <input type="text" class="form-control" name="item" id="item" placeholder="Item Name">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="unitcost">Unit Cost</label>
+                                                    <input type="number" name="unitcost" id="unitcost" class="form-control" placeholder="Unit Cost">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="unitcost">Tax (%)</label>
+                                                    <input type="number" name="tax" id="tax" class="form-control" placeholder="Tax (%)">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row m-t-15 m-b-15 m-r-10 m-l-10">
+                                            <div class="form-group">
+                                                <label for="description">Description <span class="text-info">(Required)</span></label>
+                                                <textarea name="description" id="description" cols="30" rows="10" class="form-control"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row-fluid m-t-30">
+                                            <button class="btn btn-primary pull-right" data-toggle="tooltip" title="Save New Item">
+                                                <i class="fa fa-check"> Save Item</i>
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

@@ -10,47 +10,7 @@
     <!-- ============================================================== -->
     <!-- Left Sidebar - style you can find in sidebar.scss  -->
     <!-- ============================================================== -->
-        <div class="navbar-default sidebar" role="navigation">
-            <div class="sidebar-nav slimscrollsidebar">
-                <div class="sidebar-head">
-                    <h3><span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span class="hide-menu">Navigation</span></h3> </div>
-                <div class="user-profile">
-                </div>
-                <ul class="nav" id="side-menu">
-                    <li>
-                        <a href="{{url('/agronomist')}}" class="waves-effect">
-                            <i data-icon="7" class="mdi mdi-av-timer fa-fw"></i>
-                            <span class="hide-menu">Dashboard </span>
-                        </a>
-                    </li>
-                    <li> <a href="javascript:void(0)" class="waves-effect"><i data-icon="/" class="mdi mdi-account-multiple"></i><span class="hide-menu"> Farmers<span class="fa arrow"></span><span class="label label-rouded label-purple pull-right"></span></span></a>
-                        <ul class="nav nav-second-level">
-                            <li><a href="{{url('/agronomist/farmer/add')}}"><i data-icon=")" class="mdi mdi-account-plus"></i><span class="hide-menu"> New Farmer </span></a></li>
-                            <li><a href="{{url('/agronomist/farmers')}}"><i class="mdi mdi-account-multiple"></i><span class="hide-menu"> Farmers Accounts </span></a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="{{url('/agronomist/farminfo')}}" class="waves-effect">
-                            <i data-icon="" class="mdi mdi-pine-tree"></i>
-                            <span class="hide-menu"> Farm Info </span>
-                        </a>
-                    </li>
-                    <li> <a href="{{url('/agronomist/leave/all')}}" class="waves-effect">
-                            <i data-icon="" class="mdi mdi-airplane-takeoff"></i>
-                            <span class="hide-menu"> Leave Requests</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a  href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="waves-effect"><i class="mdi mdi-logout fa-fw"></i> <span class="hide-menu">Log out</span></a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            {{ csrf_field() }}
-                        </form>
-                    </li>
-                </ul>
-            </div>
-        </div>
+    @include('layouts.sidebar')
     <!-- ============================================================== -->
     <!-- End Left Sidebar -->
     <!-- ============================================================== -->
