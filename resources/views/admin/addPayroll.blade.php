@@ -176,13 +176,13 @@
                                                             <input type="text" name="deductiontype" class="form-control input-sm" placeholder="Type of deduction">
                                                         </td>
                                                         <td>
-                                                            <input type="number" name="deductionpct[]" id="deductionpct" class="form-control input-sm">
+                                                            <input type="number" name="deductionpct[]" id="deductionpct" class="form-control input-sm" onchange="disableAmount(this)">
                                                         </td>
                                                         <td>
-                                                            <input type="number" class="form-control input-sm" name="deductionamount[]" id="deductionamount">
+                                                            <input type="number" class="form-control input-sm" name="deductionamount[]" id="deductionamount" onchange="disablePct(this)">
                                                         </td>
                                                         <td>
-                                                            <input type="checkbox" name="fixed" id="fixed">
+                                                            <input type="checkbox" name="fixed" id="fixed" onchange="disablePct(this)">
                                                             <label for="fixed">Fixed</label>
                                                         </td>
                                                         <td>
@@ -306,6 +306,10 @@
                 var year=$('#year').val();
                 var allowances=[];
                 var deductions=[];
+                if(employee===null || employee==='' || month===null || month==='' || year==='' || year===null){
+                    alert('Please ensure that all fields are correclty filled');
+                    return;
+                }
                 $('#tableAllowances tbody tr').each(function(i,j){
                     var cells = $(this).find('td');
                     var type=cells.eq(0).find('select').val();
@@ -380,11 +384,11 @@
                 '<td>' +
                     '<input type="text" name="deductiontype" class="form-control input-sm" placeholder="Type of deduction">'+
                 '</td>' +
-                '<td><input type="number" name="deductionpct[]" id="deductionpct" class="form-control input-sm"></td>' +
+                '<td><input type="number" name="deductionpct[]" id="deductionpct" class="form-control input-sm" onchange="disableAmount(this)"></td>' +
                 '<td>' +
-                '<input type="number" class="form-control input-sm" name="deductionamount[]" id="deductionamount">' +
+                '<input type="number" class="form-control input-sm" name="deductionamount[]" id="deductionamount" onchange="disablePct(this)">' +
                 '</td>' +
-                '<td><input type="checkbox" name="fixed" id="fixed">' +
+                '<td><input type="checkbox" name="fixed" id="fixed" onchange="disablePct(this)">' +
                 '<label for="fixed">Fixed</label></td>'+
                 '<td><button class="btn btn-sm btn-danger" type="button" data-toggle="tooltip" title="Remove this entry" onclick="rowdeletededuction(this)">' +
                 '<i class="fa fa-trash"></i>' +
@@ -431,6 +435,33 @@
                 }
             });
 
+        }
+
+        function disableAmount(el) {
+            var els=$(el).val();
+            var par=el.parentNode.parentNode;
+            var cells=$(par).find('td');
+            var amount=cells.eq(2).find('input');
+            var fixed=cells.eq(3).find('input');
+            if(els>0){
+                $(amount).prop('disabled',true);
+                $(fixed).prop('disabled',true);
+            }else{
+                $(amount).prop('disabled',false);
+                $(fixed).prop('disabled',false);
+            }
+        }
+
+        function disablePct(el){
+            var els=el.checked;
+            var par=el.parentNode.parentNode;
+            var cells=$(par).find('td');
+            var perc=cells.eq(1).find('input');
+            if(els){
+                $(perc).prop('disabled',true);
+            }else{
+                $(perc).prop('disabled',false);
+            }
         }
     </script>
 @endsection

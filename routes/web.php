@@ -75,10 +75,14 @@ Route::get('/admin/payroll/add',function(){
     return view('admin.addPayroll');
 });
 
+Route::middleware(['auth','role:ROLE_ADMIN'])->group(function(){
+    Route::get('/admin/salaries','SalaryController@index');
+    Route::post('/admin/salaries','SalaryController@save');
+});
+
 Route::get('/admin/payroll/all',function(){
     return view('admin.viewPayroll');
 });
-
 
 Route::get('/admin/leave/all','AdminController@leave');
 Route::get('/agronomist/leave/all','AgronomistController@leave');
@@ -104,6 +108,7 @@ Route::post('admin/payroll/add','PayrollController@add')->middleware('role:ROLE_
 Route::get('admin/employees','AdminController@employees')->middleware('role:ROLE_ADMIN');
 Route::get('admin/employee/salary','AdminController@employeesSalaries')->middleware('role:ROLE_ADMIN');
 Route::get('items/list','ItemsController@getItems');
+//Route::get('/admin/employees','SalaryController@employees')->middleware(['auth','role:ROLE_ADMIN']);
 
 # statistics
 Route::get('/statistics/farmers','StatisticsController@farmersPerCounty');

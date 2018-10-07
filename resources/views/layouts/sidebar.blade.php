@@ -41,8 +41,12 @@
                 </ul>
             </li>
             <li>
-                <a href="javascript:void(0)" class="waves-effect"><i data-icon="" class="mdi mdi-account-multiple"></i><span
-                            class="hide-menu"> Agronomists<span class="fa arrow"></span></span></a>
+                <a href="javascript:void(0)" class="waves-effect">
+                    <i data-icon="" class="mdi mdi-account-multiple"></i>
+                    <span class="hide-menu"> Agronomists
+                        <span class="fa arrow"></span>
+                    </span>
+                </a>
                 <ul class="nav nav-second-level">
                     <li>
                         <a href="{{url('/admin/agronomist/add')}}">
@@ -64,8 +68,13 @@
                     <span class="hide-menu"> Farm Info </span>
                 </a>
             </li>
-            <li><a href="javascript:void(0)" class="waves-effect"><i data-icon="" class="mdi mdi-wallet"></i><span
-                            class="hide-menu"> Financials<span class="fa arrow"></span></span></a>
+            <li>
+                <a href="javascript:void(0)" class="waves-effect">
+                    <i data-icon="" class="mdi mdi-wallet"></i>
+                    <span class="hide-menu"> Financials
+                        <span class="fa arrow"></span>
+                    </span>
+                </a>
                 <ul class="nav nav-second-level">
                     <li>
                         <a href="{{url('/admin/order/addItem')}}">
@@ -91,13 +100,32 @@
                     </li>
                 </ul>
             </li>
-            <li><a href="javascript:void(0)" class="waves-effect"><i data-icon="" class="mdi mdi-wallet"></i><span
-                            class="hide-menu"> Payroll<span class="fa arrow"></span></span></a>
+            <li>
+                <a href="javascript:void(0)" class="waves-effect">
+                    <i data-icon="" class="mdi mdi-wallet"></i>
+                    <span class="hide-menu"> Payroll
+                        <span class="fa arrow"></span>
+                    </span>
+                </a>
                 <ul class="nav nav-second-level">
-                    <li><a href="{{url('/admin/payroll/add')}}"><i data-icon="/" class="fa fa-edit"></i><span
-                                    class="hide-menu"> New Payment</span></a></li>
-                    <li><a href="{{url('/admin/payroll/all')}}"><i data-icon="7" class="fa  fa-list"></i><span
-                                    class="hide-menu"> Payments</span></a></li>
+                    <li>
+                        <a href="{{url('/admin/salaries')}}">
+                            <i class="fa fa-money"></i>
+                            <span class="hide-menu"> Salaries</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{url('/admin/payroll/add')}}">
+                            <i data-icon="/" class="fa fa-edit"></i>
+                            <span class="hide-menu"> New Payment</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{url('/admin/payroll/all')}}">
+                            <i data-icon="7" class="fa  fa-list"></i>
+                            <span class="hide-menu"> Payments</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li><a href="{{url('/admin/leave/all')}}" class="waves-effect">
