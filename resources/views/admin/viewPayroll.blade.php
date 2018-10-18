@@ -16,13 +16,13 @@
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Agronomist</h4> </div>
+                        <h4 class="page-title">Payroll</h4> </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <button class="right-side-toggle waves-effect waves-light btn-info btn-circle pull-right m-l-20"><i class="ti-settings text-white"></i></button>
                         <ol class="breadcrumb">
                             <li><a href="#">Dashboard</a></li>
-                            <li><a href="#">Agronomist</a></li>
-                            <li class="active">Agronomist Accounts</li>
+                            <li><a href="#">Payroll</a></li>
+                            <li class="active">View Payroll</li>
                         </ol>
                     </div>
                     <!-- /.col-lg-12 -->
@@ -32,7 +32,69 @@
                 <!-- .row -->
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="white-box"></div>
+                        <div class="white-box">
+                            <h3 class="box-title">View Payslips</h3>
+                            <div class="row m-t-30 p-20">
+                                <div class="table-responsive">
+                                    <table class="table table-condensed table-active table-hover">
+                                        <thead>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Basic Salary</th>
+                                            <th>Total Allowances</th>
+                                            <th>Total Deductions</th>
+                                            <th>Gross Salary</th>
+                                            <th>Net Salary</th>
+                                            <th>Month</th>
+                                            <th>Year</th>
+                                            <th>Status</th>
+                                            <th>Updated On</th>
+                                            <th>Actions</th>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($payslips as $payslip)
+                                                <tr>
+                                                    <td>{{$payslip->id}}</td>
+                                                    <td>
+                                                        {{$payslip->sirname}} {{$payslip->firstname}} {{$payslip->lastname}}
+                                                    </td>
+                                                    <td>{{$payslip->basicSalary}}</td>
+                                                    <td>{{($payslip->totalAllowances + $payslip->totalTaxableAllowances)}}</td>
+                                                    <td>{{$payslip->totalDeductions}}</td>
+                                                    <td>{{$payslip->grossSalary}}</td>
+                                                    <td>{{$payslip->netSalary}}</td>
+                                                    <td>{{$payslip->month}}</td>
+                                                    <td>{{$payslip->year}}</td>
+                                                    <td>
+                                                        @if($payslip->status == 0)
+                                                            Pending
+                                                            @elseif($payslip->status ==1)
+                                                            Processed
+                                                        @endif
+                                                    </td>
+                                                    <td>{{$payslip->updated_at}}</td>
+                                                    <td>
+                                                        <button class="btn btn-circle btn-small btn-info btn-outline m-r-10" data-toggle="tooltip" title="Details" onclick="viewDetails({{$payslip->id}})">
+                                                            <i class="fa fa-file"></i>
+                                                        </button>
+                                                        @if($payslip->status==0)
+                                                            <button class="btn btn-circle btn-small btn-danger btn-outline m-r-10" data-toggle="tooltip" title="Delete this record" onclick="deletePayslip({{$payslip->id}})">
+                                                                <i class="fa fa-trash"></i>
+                                                            </button>
+                                                        @endif
+                                                        @if($payslip->status==0)
+                                                            <button class="btn btn-circle btn-small btn-primary btn-outline m-r-10" data-toggle="tooltip" title="Process payslip" onclick="processPayslip({{$payslip->id}})">
+                                                                <i class="fa fa-check"></i>
+                                                            </button>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- /.row -->
@@ -87,5 +149,89 @@
 </div>
 @endsection
 @section('scripts')
+    <script>
+        function viewDetails(id){
 
+        }
+
+        function deletePayslip(id){
+            swal({
+                title: 'Delete this payslip?',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, Delete',
+                type:'warning',
+                showLoaderOnConfirm: true,
+                preConfirm: () => {
+                    return fetch(`/admin/payslip/delete/${id}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(response.statusText)
+                            }
+                            return response.json()
+                        })
+                        .catch(error => {
+                            swal.showValidationMessage(
+                                `Request failed: ${error}`
+                            )
+                        })
+                },
+                allowOutsideClick: () => !swal.isLoading()
+            }).then((result) => {
+                if (result.value) {
+                    var type='info';
+                    if(result.value.status){
+                        type='success';
+                    }
+                    swal({
+                        title: result.value.msg,
+                        type:type
+                    })
+                }
+            })
+        }
+
+        function processPayslip(id) {
+            swal({
+                title: 'Process Payslip?',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, Process',
+                text:'You are about to process this payslip. This action is irreversible.',
+                type:'warning',
+                showLoaderOnConfirm: true,
+                preConfirm: () => {
+                    return fetch(`/admin/payslip/process/${id}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(response.statusText)
+                            }
+                            return response.json()
+                        })
+                        .catch(error => {
+                            swal.showValidationMessage(
+                                `Request failed: ${error}`
+                            )
+                        })
+                },
+                allowOutsideClick: () => !swal.isLoading()
+            }).then((result) => {
+                if (result.value) {
+                    var type='info';
+                    if(result.value.status){
+                        type='success';
+                    }
+                    var title='';
+                    if(result.value.code==1001 || result.value.code==1002){
+                        title='An Error Occurred';
+                    }else if(result.value.code==2000){
+                        title='Success';
+                    }
+                    swal({
+                        title: title,
+                        type:type,
+                        text:result.value.msg
+                    })
+                }
+            })
+        }
+    </script>
 @endsection

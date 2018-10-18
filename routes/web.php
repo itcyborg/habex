@@ -12,12 +12,14 @@
 */
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
 Auth::routes();
-Route::get('/pay',function (){
-    dd(\App\Deduction::all());
-});
+//Route::get('/pay',function (){
+//    $pass='habexagro2018';
+//    dd(Hash::make($pass));
+//});
 Route::get('/',function(){
     if(!Auth::check()){
         return redirect('login');
@@ -80,9 +82,7 @@ Route::middleware(['auth','role:ROLE_ADMIN'])->group(function(){
     Route::post('/admin/salaries','SalaryController@save');
 });
 
-Route::get('/admin/payroll/all',function(){
-    return view('admin.viewPayroll');
-});
+Route::get('/admin/payroll/all','PayrollController@all');
 
 Route::get('/admin/leave/all','AdminController@leave');
 Route::get('/agronomist/leave/all','AgronomistController@leave');
@@ -108,7 +108,9 @@ Route::post('admin/payroll/add','PayrollController@add')->middleware('role:ROLE_
 Route::get('admin/employees','AdminController@employees')->middleware('role:ROLE_ADMIN');
 Route::get('admin/employee/salary','AdminController@employeesSalaries')->middleware('role:ROLE_ADMIN');
 Route::get('items/list','ItemsController@getItems');
-//Route::get('/admin/employees','SalaryController@employees')->middleware(['auth','role:ROLE_ADMIN']);
+Route::get('/admin/payslip/delete/{id}','PayrollController@delete')->middleware(['auth','role:ROLE_ADMIN']);
+Route::get('/admin/payslip/process/{id}','PayrollController@process')->middleware(['auth','role:ROLE_ADMIN']);
+Route::post('/cropinfo/scout','ScoutingController@add');
 
 # statistics
 Route::get('/statistics/farmers','StatisticsController@farmersPerCounty');

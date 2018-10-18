@@ -6,9 +6,11 @@ use App\Allowance;
 use App\Deduction;
 use App\Payslip;
 use App\salary;
+use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PayrollController extends Controller
 {
@@ -181,5 +183,71 @@ class PayrollController extends Controller
             // return error message
             return 'Failed and rolled back changes';
         }
+    }
+
+    public function all()
+    {
+        $payroll=DB::table('payslips')
+            ->join('agronomists','agronomists.id','payslips.employeeid')
+            ->select('payslips.*','agronomists.sirname','agronomists.firstname','agronomists.lastname')
+            ->get();
+        return view('admin.viewPayroll',['payslips'=>$payroll]);
+    }
+
+    public function delete($id)
+    {
+        $payslip=Payslip::findOrFail($id);
+        $status=['status'=>false,'msg'=>'An error occurred'];
+        if($payslip->status===1){
+            $status['msg']='You are not allowed to delete this record';
+            return json_encode($status);
+        }
+
+        if($payslip->delete()){
+            $status['status']=true;
+            $status['msg']='Payslip has been successfully deleted';
+        }
+        return json_encode($status);
+    }
+
+    public function process($id)
+    {
+        /**
+         * codes for response (non-standard)
+         * 1001: 25 days not elapsed
+         * 1002: An error occurred processing payslip
+         * 2000: no error
+         */
+        DB::enableQueryLog();
+        $payslip=Payslip::findOrFail($id);
+        $today=Carbon::now();
+        $start=$today->subDays(25);
+        $today=Carbon::now();
+        $msg='';
+        $code=null;
+        $status=false;
+        $previous=Payslip::whereBetween('updated_at',[$start->toDateString(),$today->toDateString()])->where('employeeid',$payslip->employeeid)->get();
+        if($previous->count()>0){
+            $msg='Payslip cannot be processed at this time. 25 days has to elapse since the last payroll for the specified employee was processed.';
+            $code=1001;
+            $status=false;
+            return json_encode(['status'=>$status,'msg'=>$msg,'code'=>$code]);
+        }
+        if($payslip->status==1){
+            $msg='Payslip has already been processed for the named employee';
+            $code=1002;
+            return json_encode(['status'=>$status,'msg'=>$msg,'code'=>$code]);
+        }
+        $payslip->status=1;
+        if($payslip->save()){
+            $msg='Payslip has been processed successfully';
+            $code=2000;
+            $status=true;
+        }else{
+            $msg='An error occurred. Please try again after sometime. If problem persists contact the Admin';
+            $code=1002;
+            $status=false;
+        }
+        return json_encode(['status'=>$status,'msg'=>$msg,'code'=>$code]);
     }
 }

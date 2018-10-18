@@ -39,6 +39,11 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="white-box">
+                            @if (session('status'))
+                                <div class="alert alert-success">
+                                    {{ session('status') }}
+                                </div>
+                            @endif
                             <h3 class="box-title m-b-0">Farmer's Details</h3>
                             <p class="text-muted m-b-30 font-13"> Please fill in accurately.</p>
                             <div id="addFarmer" class="wizard">

@@ -19,6 +19,13 @@
                 </a>
             </li>
             <li>
+                <a href="https://webmail.habexagro.com" target="_blank" class="waves-effect">
+                    <i class="mdi mdi-email"></i>
+                    <span class="hide-menu"> Mail</span>
+                    <i class="mdi mdi-open-in-new pull-right"></i>
+                </a>
+            </li>
+            <li>
                 <a href="javascript:void(0)" class="waves-effect">
                     <i data-icon="/" class="mdi mdi-account-multiple"></i>
                     <span class="hide-menu"> Farmers<span class="fa arrow"></span>
@@ -156,6 +163,13 @@
                     <a href="{{url('/agronomist')}}" class="waves-effect">
                         <i data-icon="7" class="mdi mdi-av-timer fa-fw"></i>
                         <span class="hide-menu">Dashboard </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://webmail.habexagro.com" target="_blank" class="waves-effect">
+                        <i class="mdi mdi-email"></i>
+                        <span class="hide-menu"> Mail</span>
+                        <i class="mdi mdi-open-in-new pull-right"></i>
                     </a>
                 </li>
                 <li> <a href="javascript:void(0)" class="waves-effect"><i data-icon="/" class="mdi mdi-account-multiple"></i><span class="hide-menu"> Farmers<span class="fa arrow"></span><span class="label label-rouded label-purple pull-right"></span></span></a>

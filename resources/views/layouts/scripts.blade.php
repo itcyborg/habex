@@ -13,3 +13,4 @@
 <script src="{{asset('sys/js/custom.min.js')}}"></script>
 <!--Style Switcher -->
 <script src="{{asset('sys/plugins/bower_components/styleswitcher/jQuery.style.switcher.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.4/sweetalert2.all.js"></script>
