@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateScoutingsTable extends Migration
 {
@@ -15,6 +15,7 @@ class CreateScoutingsTable extends Migration
     {
         Schema::create('scoutings', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('farmid');
             $table->integer('died');
             $table->integer('surviving');
             $table->enum('statusOfTrees',['Poor','Good','Excellent']);

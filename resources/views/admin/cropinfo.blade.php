@@ -436,6 +436,7 @@
                 dataType:'json',
                 data:{
                     '_token':"{{csrf_token()}}",
+                    'farmid': currentRecord,
                     'died':died,
                     'surviving':surviving,
                     'statusOfTrees':statusOfTrees,
@@ -452,7 +453,11 @@
                     'observation':observation
                 },
                 success:function(data){
-                    console.log(data);
+                    if (data.status) {
+                        alert(data.msg);
+                    } else {
+                        alert(data.msg);
+                    }
                 }
             });
         }

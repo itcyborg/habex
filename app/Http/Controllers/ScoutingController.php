@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Scouting;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ScoutingController extends Controller
@@ -17,6 +16,7 @@ class ScoutingController extends Controller
     public function add(Request $request)
     {
         $scout=new Scouting;
+        $scout->farmid = $request->farmid;
         $scout->died=$request->died;
         $scout->surviving=$request->surviving;
         $scout->statusOfTrees=$request->statusOfTrees;
@@ -31,6 +31,10 @@ class ScoutingController extends Controller
         $scout->observationsNotes=$request->observation;
         $scout->assessmentDate=$request->assessmentDate;
         $scout->authorisedBy=0;
-        dd($scout->save());
+        if ($scout->save()) {
+            return json_encode(['status' => true, 'msg' => 'Scouting information saved successfully']);
+        } else {
+            return json_encode(['status' => false, 'msg' => 'An error occurred saving the scouting information']);
+        }
     }
 }
