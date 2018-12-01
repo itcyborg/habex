@@ -50,7 +50,7 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
+            'root' => storage_path('app/uploads'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
@@ -63,6 +63,10 @@ return [
             'bucket' => env('AWS_BUCKET'),
         ],
 
+        'logs'=>[
+            'driver' => 'local',
+            'root'=>storage_path('logs')
+        ],
     ],
 
 ];

@@ -44,7 +44,7 @@
                                         </div>
                                     @endif
                                 </div>
-                                <form action="{{url('/admin/agronomist/add')}}" method="post">
+                                <form action="{{url('/admin/updateInfo')}}" method="post">
                                     {{ csrf_field() }}
                                     <div class="form-body">
                                         <h3 class="box-title">Person Information</h3>
@@ -77,19 +77,11 @@
                                         <hr>
                                         <!--/span-->
                                         <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="control-label">Email Address</label>
-                                                    <input type="text" id="firstName" class="form-control" placeholder="Email" name="email">
-                                                    <span class="help-block"> please fill in correct info.</span>
-                                                </div>
-                                            </div>
                                             <!--/span-->
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="control-label">ID Number</label>
                                                     <input type="text" id="lastName" class="form-control" name="idnumber" placeholder="ID Number">
-
                                                 </div>
                                             </div>
                                             <!--/span-->
@@ -109,6 +101,7 @@
                                                     <label>Agronomists Position</label>
                                                     <div>
                                                         <select class="form-control" name="position">
+                                                        <option value="Administrator">Administrator</option>
                                                         <option value="Project Lead Agronomist">Project Lead Agronomist</option>
                                                         <option value="County Head Agronomist">County Head Agronomist </option>
                                                         <option value="Agronomist">Agronomist</option>

@@ -6,6 +6,8 @@ use App\Account;
 use App\Farm;
 use App\Farmers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class FarmersController extends Controller
 {
@@ -41,10 +43,10 @@ class FarmersController extends Controller
          * file uploads
          * TODO handle file uploads and return their paths
          */
-        $idfront=$request->file('idfront')->store('uploads');
-        $idback=$request->file('idback')->store('uploads');
-        $passport=$request->file('passport')->store('uploads');
-        $contractform=$request->file('contractform')->store('uploads');
+        $idfront = ($request->hasFile('idfront'))? $request->file('idfront')->store('public/uploads'):'';
+        $idback = ($request->hasFile('idback'))? $request->file('idback')->store('public/uploads'):'';
+        $passport=($request->hasFile('passport'))? $request->file('passport')->store('public/uploads'):'';
+        $contractform=($request->hasFile('passport'))? $request->file('contractform')->store('public/uploads'):'';
         $farmer=Farmers::create([
             'sirname'=>$request->sirName,
             'firstname'=>$request->firstName,
@@ -96,26 +98,43 @@ class FarmersController extends Controller
         $farmer=$request->farmerid;
         $record=Farmers::find($farmer);
         if($request->hasFile('idfront')){
-            $idfront=$request->file('idfront')->store('uploads');
+            $idfront=$request->file('idfront')->store('public/uploads');
             $record->idfront=$idfront;
         }
         if($request->hasFile('idback')){
-            $idback=$request->file('idback')->store('uploads');
+            $idback=$request->file('idback')->store('public/uploads');
             $record->idback=$idback;
         }
 
         if($request->hasFile('passport')){
-            $passport=$request->file('passport')->store('uploads');
+            $passport=$request->file('passport')->store('public/uploads');
             $record->passport=$passport;
         }
         if($request->hasFile('contractform')){
-            $contractform=$request->file('contractform')->store('uploads');
+            $contractform=$request->file('contractform')->store('public/uploads');
             $record->contractform=$contractform;
         }
         if($record->save()){
             return back()->with('status','Updated Successfully');
         }else{
             return back()->with('status','An error occurred');
+        }
+    }
+
+    public function view($id)
+    {
+        if(Auth::user()->hasAnyRole(['ROLE_AGRONOMIST','ROLE_ADMIN'])) {
+            $farmer=Farmers::findOrFail($id);
+            $passport=Storage::url($farmer->passport);
+            $idback=Storage::url($farmer->idback);
+            $idfront=Storage::url($farmer->idfront);
+            $contractform=Storage::url($farmer->contractform);
+            $imgs=['passport'=>$passport,'idback'=>$idback,'idfront'=>$idfront,'contract'=>$contractform];
+            $account=Account::where('idnumber',$farmer->idnumber)->get();
+            $farms=Farm::where('farmer_id',$farmer->id)->get();
+            echo json_encode(['farmer'=>$farmer,'imgs'=>$imgs,'account'=>$account,'farms'=>$farms]);
+        }else{
+            abort(403,'Unauthorised Action');
         }
     }
 }

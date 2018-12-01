@@ -434,6 +434,8 @@
                             map:map,
                             draggable:true
                         });
+                        markerLocation();
+                        displayLocationElevation(pos, elevator, infoWindow);
                         google.maps.event.addListener(marker,'dragend',function(event){
                             markerLocation();
                             displayLocationElevation(event.latLng, elevator, infoWindow);

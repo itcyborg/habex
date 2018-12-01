@@ -408,19 +408,19 @@
         let counties=null;
         var marker=false;
 
-        var map, infoWindow;
+        var map, infoWindow,pos=null;
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
                 center: {lat: -34.397, lng: 150.644},
                 zoom: 14
             });
-            var elevator = new google.maps.ElevationService;
+            elevator = new google.maps.ElevationService;
             infoWindow = new google.maps.InfoWindow;
 
             // Try HTML5 geolocation.
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
-                    var pos = {
+                    pos = {
                         lat: position.coords.latitude,
                         lng: position.coords.longitude
                     };
@@ -435,6 +435,8 @@
                             map:map,
                             draggable:true
                         });
+                        markerLocation();
+                        displayLocationElevation(pos, elevator, infoWindow);
                         google.maps.event.addListener(marker,'dragend',function(event){
                             markerLocation();
                             displayLocationElevation(event.latLng, elevator, infoWindow);
@@ -448,6 +450,27 @@
             } else {
                 // Browser doesn't support Geolocation
                 handleLocationError(false, infoWindow, map.getCenter());
+            }
+        }
+        function dropPin(){
+            var latitud= 0.514277,longit=35.269779;
+            if(pos==null) {
+                pos = {
+                    lat: latitud,
+                    lng: longit
+                };
+            }
+            map.setCenter(pos);
+            if(marker===false){
+                marker=new google.maps.Marker({
+                    position:pos,
+                    map:map,
+                    draggable:true
+                });
+                markerLocation();
+                displayLocationElevation(pos, elevator, infoWindow);
+            }else{
+                marker.setPosition(pos);
             }
         }
 

@@ -11,6 +11,15 @@ var farmers=[
         label:'farmers',
         value:0
     }];
+var cropInfo=[
+    {
+        label: 'Crop Information',
+        value: 0
+    }
+];
+var issued=0;
+var surviving=0;
+var dried=0;
 $.ajax({
     url:"/statistics/acreage",
     type:'get',
@@ -59,27 +68,30 @@ $.ajax({
         });
     }
 });
-Morris.Donut({
-        element: 'cropinfo-donut-chart',
-        data: [{
-            label: "Seedlings Issued",
-            value: 1200000,
-
-        }, {
-            label: "Surviving Seedlings",
-            value: 1100000
-        }, {
-            label: "Dried Seedlings",
-            value: 100000
-        },
-            {
-            label: "Replaced Seedlings",
-            value: 80000
-        }],
-
-        resize: true,
-        colors:['#99d683', '#13dafe', '#ff6644', '#6164c1']
-    });
+$.ajax({
+    url:"/statistics/cropInfo",
+    type:'get',
+    dataType:'json',
+    success:function(data){
+        if(Object.keys(data).length>0){
+            colors=[];
+            cropInfo=[];
+        }
+        $.each(data,function(i,j){
+            cropInfo.push({
+                label:i,
+                value:j
+            });
+            colors.push(getRandomColor());
+        });
+        Morris.Donut({
+            element: 'cropinfo-donut-chart',
+            data: cropInfo,
+            resize: true,
+            colors:colors
+        });
+    }
+});
 
 function getRandomColor() {
     var letters = '0123456789ABCDEF';
@@ -88,5 +100,34 @@ function getRandomColor() {
         color += letters[Math.floor(Math.random() * 16)];
     }
     return color;
+}
+
+function getCropStats(){
+    var rows='';
+    $.ajax({
+        url:"/statistics/cropStats",
+        type:'get',
+        dataType:'json',
+        success:function(data){
+            $.each(data,function(i,j){
+                rows+=
+                    '<tr>' +
+                    '    <td>'+i+'</td>' +
+                    '    <td>'+j.registeredFarmers+'</td>' +
+                    '    <td>'+j.SeedlingsIssued+'</td>' +
+                    '    <td>'+j.SurvivingSeedlings+'</td>' +
+                    '    <td>'+j.DiedSeedlings+'</td>' +
+                    '    <td>'+j.Success.toFixed(2)+'%</td>' +
+                    '</tr>';
+            });
+            $('#dashtable tbody').html(rows);
+            var dashtable=$('#dashtable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'excel', 'pdf', 'print'
+                ]
+            });
+        }
+    });
 }
 

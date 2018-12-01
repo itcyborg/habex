@@ -177,18 +177,18 @@
                                         <h3>Number of Trees</h3>
                                         <div class="col-md-6">
                                             <label for="died">Died</label>
-                                            <input type="number" class="form-control input-sm" id="died" name="died">
+                                            <input type="number" class="form-control input-sm" id="died" name="died" min="0">
                                         </div>
                                         <div class="col-md-6">
                                             <label for="surviving">Surviving</label>
-                                            <input type="number" name="surviving" id="surviving" class="form-control input-sm">
+                                            <input type="number" name="surviving" id="surviving" class="form-control input-sm" min="0">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="row m-l-20">
                                             <label for="statusoftrees">Status of Trees</label>
                                             <div class="radio radio-info">
-                                                <input type="radio" name="statusoftrees" id="statusoftrees" value="Poor">
+                                                <input type="radio" name="statusoftrees" id="statusoftrees" value="Poor" checked>
                                                 <label for="statusoftrees"> Poor </label>
                                             </div>
                                             <div class="radio radio-info">
@@ -205,7 +205,7 @@
                                         <label for="Watering">Watering</label>
                                         <div class="row m-t-10 m-l-20">
                                             <div class="radio radio-info">
-                                                <input type="radio" name="watering" id="watering" value="Sufficient">
+                                                <input type="radio" name="watering" id="watering" value="Sufficient" checked>
                                                 <label for="watering"> Sufficient</label>
                                             </div>
                                             <div class="radio radio-info">
@@ -223,7 +223,7 @@
                                         <h4 class="text-center">Fertilizer & Chem App</h4>
                                         <div class="col-md-6">
                                             <div class="checkbox checkbox-info checkbox-circle">
-                                                <input type="checkbox" name="fertilizer" id="fertilizer" value="Manure">
+                                                <input type="checkbox" name="fertilizer" id="fertilizer" value="Manure" checked>
                                                 <label for="fertilizer">Manure</label>
                                             </div>
                                             <div class="checkbox checkbox-info checkbox-circle">
@@ -246,7 +246,7 @@
                                             </div>
                                             <div class="row m-t-10 form-inline">
                                                 <div class="radio radio-info">
-                                                    <input type="radio" name="measurementtype" id="measurementtype" value="KGS">
+                                                    <input type="radio" name="measurementtype" id="measurementtype" value="KGS" checked>
                                                     <label for="measurementtype">KGS</label>
                                                 </div>
                                                 <div class="radio radio-info">
@@ -267,7 +267,7 @@
                                 <div class="col-md-6">
                                     <label for="weeding">Weeding</label>
                                     <div class="radio radio-info">
-                                        <input type="radio" name="weeding" id="weeding">
+                                        <input type="radio" name="weeding" id="weeding" checked>
                                         <label for="weeding"> Sufficient</label>
                                     </div>
                                     <div class="radio radio-info">
@@ -413,23 +413,23 @@
         }
 
         function processForm(){
-            var died=$('#died').val();
-            var surviving=$('#surviving').val();
-            var statusOfTrees=$('#statusoftrees:checked').val();
+            var died=($('#died').val() !== '')? $('#died').val():alertMsg('Please enter a value for the number of died trees');
+            var surviving=($('#surviving').val() !=='')? $('#surviving').val() :alertMsg('Please enter a value for the number of surviving trees');
+            var statusOfTrees=$('#statusoftrees').val();
             var watering=$('#watering:checked').val();
             var fertilizer=[];
             $('#fertilizer:checked').each(function(i,j){
                 fertilizer.push($(j).val());
             });
             var pestDiseases=$('#pestsDisease').val();
-            var fertilizerAmount=$('#amountapplied').val();
+            var fertilizerAmount=isDouble($('#amountapplied').val(),'Fertilizer Amount Applied');
             var fertilizerMeasure=$('#measurementtype:checked').val();
             var weeding=$('#weeding:checked').val();
-            var intercropping=$('#intercropping').val();
+            var intercropping=isDouble($('#intercropping').val(),'Intercropping');
             var observation=$('#observation').val();
-            var assessmentDate=$('#date').val();
-            var ph=$('#ph').val();
-            var ec=$('#ec').val();
+            var assessmentDate=($('#date').val()!==null && $('#date').val().trim()!=='')?$('#date').val():alertMsg('Please enter the assessment date');
+            var ph=isDouble($('#ph').val(),'PH field');
+            var ec=isDouble($('#ec').val(),'EC field');
             $.ajax({
                 url:"{{url('/cropinfo/scout')}}",
                 type:'post',
@@ -460,6 +460,22 @@
                     }
                 }
             });
+        }
+
+        function alertMsg(msg){
+            alert(msg);
+            throw new Error('Something went wrong');
+        }
+
+        function isDouble(val, name){
+            if(val==='' || val==null){
+                alertMsg('Please fill '+name);
+            }
+            var num=parseFloat(val);
+            if(isNaN(num)){
+                alertMsg('Wrong format for '+name+'.Enter a number');
+            }
+            return num;
         }
     </script>
 @endsection

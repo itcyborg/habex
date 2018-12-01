@@ -12,6 +12,7 @@ use App\Order;
 use App\User;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -23,7 +24,7 @@ class AdminController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-//        $this->middleware('role:ROLE_ADMIN');
+        $this->middleware('role:ROLE_ADMIN');
     }
 
     public function index()
@@ -235,5 +236,50 @@ class AdminController extends Controller
             ->select('agronomists.idnumber','agronomists.position','agronomists.zone','salaries.jobGroup','salaries.basicSalary','updatedby','agronomists.id')
             ->get();
         return json_encode($employees);
+    }
+
+    public function updateInfo()
+    {
+        $counties=DB::table('counties')
+            ->get();
+        return view('admin.updateInfo',['counties'=>$counties]);
+    }
+
+    public function updateDetails(Request $request)
+    {
+        $this->validate($request,[
+            'sirname'=>'required',
+            'firstname'=>'required',
+            'lastname'=>'required',
+            'idnumber'=>'required|unique:agronomists',
+            'mobilenumber'=>'required|unique:agronomists',
+            'position'=>'required',
+            'zone'=>'required',
+            'accountname'=>'required',
+            'accountnumber'=>'required',
+            'branchname'=>'required',
+            'bankname'=>'required'
+        ]);
+        $agronomist=new Agronomists();
+        $agronomist->sirname=$request->sirname;
+        $agronomist->firstname=$request->firstname;
+        $agronomist->lastname=$request->lastname;
+        $agronomist->position=$request->position;
+        $agronomist->zone=$request->zone;
+        $agronomist->email=Auth::user()->email;
+        $agronomist->idnumber=$request->idnumber;
+        $agronomist->mobilenumber=$request->mobilenumber;
+        if($agronomist->save()){
+            $account=new Account;
+            $account->idnumber=$agronomist->idnumber;
+            $account->paymentoption='bank';
+            $account->accountname=$request->accountname;
+            $account->accountnumber=$request->accountnumber;
+            $account->bank=$request->bankname;
+            $account->branch=$request->branchname;
+            $account->userType='Admin';
+            $account->save();
+            return back()->with('Success');
+        }
     }
 }

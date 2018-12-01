@@ -64,50 +64,55 @@
                             @endif
                             <h3 class="box-title">ALL FARMERS</h3>
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="panel">
-                                        <div class="table-responsive">
-                                            <table class="table table-hover manage-u-table" id="farmersTable">
-                                                <thead>
-                                                <tr>
-                                                    <th width="70" class="text-center">#</th>
-                                                    <th>NAME</th>
-                                                    <th>EMAIL</th>
-                                                    <th>ID NUMBER</th>
-                                                    <th>MOBILE NUMBER</th>
-                                                    <th width="300">ACTIONS</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                @foreach($farmers as $farmer)
+                                    <div class="col-md-12">
+                                        <div class="panel">
+                                            <div class="table-responsive">
+                                                <table class="table table-hover manage-u-table" id="farmersTable">
+                                                    <thead>
                                                     <tr>
-                                                        <td class="text-center">{{$farmer->id}}</td>
-                                                        <td>{{$farmer->sirname}}
-                                                            {{$farmer->firstname}}
-                                                            {{$farmer->lastname}}
-                                                        </td>
-                                                        <td>{{$farmer->email}}</td>
-                                                        <td>{{$farmer->idnumber}}</td>
-                                                        <td>{{$farmer->mobilenumber}}</td>
-                                                        <td>
-                                                            <button type="button" class="btn btn-info btn-outline btn-sm m-r-5" onclick="addFarm({{$farmer->id}})" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add Farm">
-                                                                <i class="mdi mdi-pine-tree"></i>
-                                                            </button>
-                                                            <button type="button" class="btn btn-info btn-outline btn-sm m-r-20" data-toggle="tooltip" data-placement="top" title="" data-original-title="Upload Documents" onclick="upload({{$farmer->id}})">
-                                                                <i class="ti-upload"></i>
-                                                            </button>
-                                                            <button type="button" class="btn btn-danger btn-outline btn-sm m-r-5"  data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Farmer" onclick="deleteFarmer({{$farmer->id}})">
-                                                                <i class="ti-trash"></i>
-                                                            </button>
-                                                        </td>
+                                                        <th width="70" class="text-center">#</th>
+                                                        <th>NAME</th>
+                                                        <th>EMAIL</th>
+                                                        <th>FARMER'S CODE</th>
+                                                        <th>ID NUMBER</th>
+                                                        <th>MOBILE NUMBER</th>
+                                                        <th width="300">ACTIONS</th>
                                                     </tr>
-                                                @endforeach
-                                                </tbody>
-                                            </table>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($farmers as $farmer)
+                                                        <tr>
+                                                            <td class="text-center">{{$farmer->id}}</td>
+                                                            <td>{{$farmer->sirname}}
+                                                                {{$farmer->firstname}}
+                                                                {{$farmer->lastname}}
+                                                            </td>
+                                                            <td>{{$farmer->email}}</td>
+                                                            <td>{{$farmer->farmerscode}}</td>
+                                                            <td>{{$farmer->idnumber}}</td>
+                                                            <td>{{$farmer->mobilenumber}}</td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-info btn-outline btn-sm m-r-5" onclick="addFarm({{$farmer->id}})" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add Farm">
+                                                                    <i class="mdi mdi-pine-tree"></i>
+                                                                </button>
+                                                                <button type="button" class="btn btn-info btn-outline btn-sm m-r-10" data-toggle="tooltip" data-placement="top" title="" data-original-title="Upload Documents" onclick="upload({{$farmer->id}})">
+                                                                    <i class="ti-upload"></i>
+                                                                </button>
+                                                                <button type="button" class="btn btn-info btn-outline btn-sm m-r-10" onclick="Farmer.view({{$farmer->id}})" data-toggle="tooltip" data-placement="top" title="View Details">
+                                                                    <i class="ti ti-file"></i>
+                                                                </button>
+                                                                <button type="button" class="btn btn-danger btn-outline btn-sm m-r-5"  data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Farmer" onclick="deleteFarmer({{$farmer->id}})">
+                                                                    <i class="ti-trash"></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -341,6 +346,141 @@
         <!-- /.modal-dialog -->
     </div>
 </div>
+<div id="viewFarmer">
+    <div class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" aria-labelledby="viewFarmer" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="viewFarmer">Farmer Information</h4> </div>
+                <div class="modal-body">
+                    <div class="sttabs tabs-style-iconbox">
+                        <nav>
+                            <ul>
+                                <li>
+                                    <a href="#section-iconbox-1" class="sticon ti-clipboard">Personal Information</a>
+                                </li>
+                                <li>
+                                    <a href="#section-iconbox-2" class="sticon fa fa-tree">Farm Information</a>
+                                </li>
+                                <li>
+                                    <a href="#section-iconbox-3" class="sticon ti-money">Account Information</a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <div class="content-wrap">
+                            <section id="section-iconbox-1" class="content-current">
+                                <div class="row p-10">
+                                    <div class="user-bg">
+                                        <img width="100%" alt="user" src="" class="passportpic">
+                                        <div class="overlay-box">
+                                            <div class="user-content">
+                                                <a href="javascript:void(0)">
+                                                    <img src="" class="thumb-lg img-rounded passportpic" alt="img">
+                                                </a>
+                                                <h4 class="text-white" id="name"></h4>
+                                                <h5 class="text-white" id="email"></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="user-btm-box">
+                                        <div class="col-md-4 col-sm-4 text-center">
+                                            <p class="text-purple"><i class="fa fa-phone"></i></p>
+                                            <h2 id="contact"></h2>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4 text-center">
+                                            <p class="text-blue"><i class="mdi mdi-account-card-details"></i></p>
+                                            <h2 id="idnumber"></h2>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4 text-center">
+                                            <p class="text-danger"><i class="mdi mdi-barcode"></i></p>
+                                            <h2 id="farmercode"></h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row p-10">
+                                    <div class="col-md-4">
+                                        <img src="idfront" id="vidfront" class="img img-responsive img-rounded">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <img src="idback" id="vidback" class="img img-responsive img-rounded">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p class="p-20">
+                                            <a href="" class="btn btn-primary btn-lg" id="vcontract" target="_blank">
+                                                <i class="fa fa-cloud-download"></i>
+                                                Download Contract Form
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </section>
+                            <section id="section-iconbox-2">
+                                <div class="row p-10">
+                                    <table class="table table-striped table-sm table-condensed table-box" id="vfarmTable">
+                                        <thead>
+                                        <th>#ID</th>
+                                        <th>County</th>
+                                        <th>Constituency</th>
+                                        <th>Ward</th>
+                                        <th>Location</th>
+                                        <th>Latitude</th>
+                                        <th>Longitude</th>
+                                        <th>Elevation</th>
+                                        <th>Seedlings Planted</th>
+                                        <th>Farm Size</th>
+                                        <th>Updated On</th>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </section>
+                            <section id="section-iconbox-3">
+                                <div class="row p-10">
+                                    <div class="row text-right">Updated on :<span id="bupdate"></span></div>
+                                    <div class="row"><h2>Account Information</h2></div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label>Selected Payment Mode</label>
+                                            <h3 id="vpaymentmode"></h3>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Account Name</label>
+                                            <h3 id="vaccountname"></h3>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Account Number</label>
+                                            <h3 id="vaccountnumber"></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row p-10">
+                                    <div class="row"><h2>Bank Details</h2></div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label>Bank Name</label>
+                                            <h3 id="vbankname"></h3>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Branch</label>
+                                            <h3 id="vbranch"></h3>
+                                        </div>
+                                        <div class="col-md-4"></div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</div>
 @endsection
 @section('scripts')
 <script src="{{asset('sys/plugins/bower_components/datatables/jquery.dataTables.min.js')}}"></script>
@@ -348,9 +488,17 @@
 <script src="{{asset('sys/plugins/bower_components/dropify/dist/js/dropify.min.js')}}"></script>
 <!-- Sweet-Alert  -->
 <script src="{{asset('sys/plugins/bower_components/sweetalert2/sweetalert.js')}}"></script>
+<script src="{{asset('sys/js/cbpFWTabs.js')}}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuogBspOfHKhSzSldN3vYhcCcsHSoShRA&libraries=places"></script>
 <script>
     let farmerTable=null;
+    var marker=false;
     $(document).ready(function(){
+        (function() {
+            [].slice.call(document.querySelectorAll('.sttabs')).forEach(function(el) {
+                new CBPFWTabs(el);
+            });
+        })();
         $('.dropify').dropify();
         farmerTable=$('#farmersTable').dataTable();
         $.ajax({
@@ -361,6 +509,7 @@
                 counties=data;
             }
         });
+
         $('#county').on('change',function(){
             let county=$(this).val();
             $.each(counties.counties,function(i,j){
@@ -398,6 +547,8 @@
         $('#searchFarmer').on('change',function(){
             farmerTable._fnReDraw();
         });
+
+        google.maps.event.addDomListener(window, 'load', initMap);
     });
     let currentid=null;
     function addFarm(id) {
@@ -457,5 +608,151 @@
             return false;
         }
     );
+    Farmer={
+        view    :   function(id){
+            $.ajax({
+                url     :   '{{url("/farmer/view/")}}/'+id,
+                type    :   'get',
+                dataType:   'json',
+                success :   function(data){
+                    // console.log(data.imgs.idback);
+                    var rows='';
+                    $.each(data.farms,function(k,v){
+                        rows+='<tr>' +
+                            '<td>'+v.id+'</td>' +
+                            '<td>'+v.county+'</td>' +
+                            '<td>'+v.constituency+'</td>' +
+                            '<td>'+v.ward+'</td>' +
+                            '<td>'+v.location+'</td>' +
+                            '<td>'+v.latitude+'</td>' +
+                            '<td>'+v.longitude+'</td>' +
+                            '<td>'+v.elevation+'</td>' +
+                            '<td>'+v.seedlingsPlanted+'</td>' +
+                            '<td>'+v.farmSize+'</td>' +
+                            '<td>'+v.updated_at+'</td>' +
+                            '</tr>';
+                    });
+                    $('#vfarmTable tbody').html(rows);
+                    $.each($('.passportpic'),function(k,v){
+                        $(v).prop('src',data.imgs.passport);
+                    });
+                    $('#email').html(data.farmer.email);
+                    $('#idnumber').html(data.farmer.idnumber);
+                    $('#contact').html(data.farmer.mobilenumber);
+                    $('#farmercode').html(data.farmer.farmerscode);
+                    $('#vidfront').prop('src',data.imgs.idfront);
+                    $('#vidback').prop('src',data.imgs.idback);
+                    $('#vcontract').prop('href',data.imgs.contract);
+                    $('#bupdate').html(data.account.updated_at);
+                    $('#vaccountname').html(data.account.accountname);
+                    $('#vaccountnumber').html(data.account.accountnumber);
+                    $('#vbankname').html(data.account.bank);
+                    $('#vpaymentmode').html(data.account.paymentoption);
+                    $('#name').html(data.farmer.sirname+', '+data.farmer.firstname+' '+data.farmer.lastname);
+                    $('#viewFarmer .modal').modal();
+                }
+            });
+        },
+    }
+    var map, infoWindow,pos=null,elevator;
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: -34.397, lng: 150.644},
+            zoom: 14
+        });
+        elevator = new google.maps.ElevationService;
+        infoWindow = new google.maps.InfoWindow;
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+
+                infoWindow.setPosition(pos);
+                infoWindow.setContent('Location found.');
+                infoWindow.open(map);
+                map.setCenter(pos);
+                if(marker===false){
+                    marker=new google.maps.Marker({
+                        position:pos,
+                        map:map,
+                        draggable:true
+                    });
+                    markerLocation();
+                    displayLocationElevation(pos, elevator, infoWindow);
+                    google.maps.event.addListener(marker,'dragend',function(event){
+                        markerLocation();
+                        displayLocationElevation(event.latLng, elevator, infoWindow);
+                    });
+                }else{
+                    marker.setPosition(pos);
+                }
+            }, function() {
+                handleLocationError(true, infoWindow, map.getCenter());
+            });
+        } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+        }
+    }
+
+    function dropPin(){
+        var latitud= 0.514277,longit=35.269779;
+        if(pos==null) {
+            pos = {
+                lat: latitud,
+                lng: longit
+            };
+        }
+        map.setCenter(pos);
+        if(marker===false){
+            marker=new google.maps.Marker({
+                position:pos,
+                map:map,
+                draggable:true
+            });
+            markerLocation();
+            displayLocationElevation(pos, elevator, infoWindow);
+        }else{
+            marker.setPosition(pos);
+        }
+    }
+
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+            'Error: The Geolocation service failed.' :
+            'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+    }
+
+    function markerLocation(){
+        var currentLocation=marker.getPosition();
+        document.getElementById('latitude').value=currentLocation.lat();
+        document.getElementById('longitude').value=currentLocation.lng();
+    }
+
+    function displayLocationElevation(location, elevator, infowindow) {
+        // Initiate the location request
+        elevator.getElevationForLocations({
+            'locations': [location]
+        }, function (results, status) {
+            infowindow.setPosition(location);
+            if (status === 'OK') {
+                // Retrieve the first result
+                if (results[0]) {
+                    // Open the infowindow indicating the elevation at the clicked position.
+                    $('#elevation').val(results[0].elevation);
+                } else {
+                    infowindow.setContent('No results found');
+                }
+            } else {
+                infowindow.setContent('Elevation service failed due to: ' + status);
+            }
+        });
+    }
 </script>
 @endsection

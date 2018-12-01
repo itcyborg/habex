@@ -19,12 +19,12 @@ class CreateFarmersTable extends Migration
             $table->string('lastname');
             $table->string('sirname');
             $table->string('email')->nullable();
-            $table->integer('idnumber');
-            $table->integer('mobilenumber');
-            $table->text('passport');
-            $table->text('contractform');
-            $table->text('idfront');
-            $table->text('idback');
+            $table->string('idnumber');
+            $table->string('mobilenumber');
+            $table->text('passport')->nullable();
+            $table->text('contractform')->nullable();
+            $table->text('idfront')->nullable();
+            $table->text('idback')->nullable();
             $table->string('farmerscode')->unique();
             $table->timestamps();
         });

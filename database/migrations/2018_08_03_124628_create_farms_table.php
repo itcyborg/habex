@@ -15,14 +15,14 @@ class CreateFarmsTable extends Migration
     {
         Schema::create('farms', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('county');
-            $table->string('constituency');
+            $table->string('county')->nullable();
+            $table->string('constituency')->nullable();
             $table->integer('farmer_id');
             $table->string('ward');
             $table->string('location');
-            $table->string('latitude');
-            $table->string('longitude');
-            $table->string('elevation');
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
+            $table->string('elevation')->nullable();
             $table->string('seedlingsPlanted');
             $table->double('farmSize');
             $table->integer('agronomistID')->nullable();// assign an agronomist

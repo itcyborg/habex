@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Console\Commands\AdminToAgronomist;
+use App\Console\Commands\ErrorLogs;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -14,6 +16,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         //
+        ErrorLogs::class,
+        AdminToAgronomist::class
     ];
 
     /**
@@ -26,6 +30,10 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $schedule->command('logs:email')
+            ->daily();
+        $schedule->command('admin:verify')
+            ->daily();
     }
 
     /**

@@ -11,7 +11,10 @@
 |
 */
 
-use Illuminate\Support\Facades\Auth;
+    use App\Farm;
+    use App\Farmers;
+    use Illuminate\Support\Facades\Artisan;
+    use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
@@ -33,6 +36,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin','AdminController@index');
 Route::post('/admin/farm/add','AdminController@addFarm');
 Route::post('/agronomist/farm/add','AgronomistController@addFarm');
+
+Route::get("/admin/updateinfo",'AdminController@updateInfo');
+Route::post("/admin/updateInfo",'AdminController@updateDetails');
 
 Route::get('/admin/agronomist/add','AdminController@agronomistForm');
 Route::post('/admin/agronomist/add','AdminController@add');
@@ -112,6 +118,64 @@ Route::get('/admin/payslip/delete/{id}','PayrollController@delete')->middleware(
 Route::get('/admin/payslip/process/{id}','PayrollController@process')->middleware(['auth','role:ROLE_ADMIN']);
 Route::post('/cropinfo/scout','ScoutingController@add');
 
+Route::post('/password/change','SettingsController@changePass');
+
+Route::middleware(['auth'])->group(function(){
+    Route::get('/farmer/view/{id}', 'FarmersController@view');
+});
+
 # statistics
 Route::get('/statistics/farmers','StatisticsController@farmersPerCounty');
 Route::get('/statistics/acreage','StatisticsController@acreageByCounty');
+Route::get("/statistics/cropInfo",'StatisticsController@cropInfoChart');
+Route::get("/statistics/cropStats",'StatisticsController@cropInfoStats');
+
+
+//Route::get('/import',function(){
+//    $handle=fopen($_SERVER['DOCUMENT_ROOT'].'/new habex 26th.csv','r');
+//    ini_set('max_execution_time', 300);
+//    for($i=0;$i<706;$i++)
+//    {
+//        $line=fgetcsv($handle);
+//        if($i>0) {
+//            $farmercode = $line[1];
+//            $farmername = explode(' ', $line[2]);
+//            $id = $line[3];
+//            $contact = $line[4];
+//            $seedlings = $line[5];
+//            $acres = (isset($line[6])) ?
+//                (($line[6]) !== '')
+//                    ? $line[6] : 0 : 0;
+//            $ward = $line[7];
+//            $location = $line[8];
+//            $county=strtoupper($line[9]);
+//            $farmer = new Farmers;
+//            $farmer->firstname = $farmername[0];
+//            $farmer->lastname = $farmername[1];
+//            $farmer->sirname = (isset($farmername[2])) ? $farmername[2] : ' ';
+//            $farmer->idnumber = $id;
+//            $farmer->mobilenumber = $contact;
+//            $farmer->farmerscode = $farmercode;
+//            if ($farmer->save()) {
+//                $farm = new Farm;
+//                $farm->county = $county;
+//                $farm->farmer_id = $farmer->id;
+//                $farm->ward = $ward;
+//                $farm->location = $location;
+//                $farm->farmSize = $acres;
+//                $farm->seedlingsPlanted = $seedlings;
+//                if ($farm->save()) {
+//                    echo "Record $i saved <br>";
+//                }
+//            }
+////            echo $i.'.'.$county.'<br>';
+//        }
+//    }
+//});
+//Route::get('/fiximport',function(){
+//    $farmers=Farm::all();
+//    foreach ($farmers as $farmer){
+//        $farmer->county=strtoupper($farmer->county);
+//        $farmer->save();
+//    }
+//});

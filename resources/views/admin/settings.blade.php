@@ -27,34 +27,7 @@
                 <!-- /.col-lg-12 -->
             </div>
 
-            <!-- .row -->
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="white-box">
-                        <!--.row-->
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            <ul>
-                                                @foreach ($errors->all() as $error)
-                                                    <li>{{ $error }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    @endif
-                                </div>
-                                <div class="row">
-                                    {{Auth::user()->hasRole(['ROLE_ADMIN'])}}
-                                </div>
-                            </div>
-                        </div>
-                        <!--./row-->
-                    </div>
-                </div>
-            </div>
-            <!-- /.row -->
+            @include('layouts.settings')
 
             <!-- /.row -->
 

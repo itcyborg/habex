@@ -58,99 +58,7 @@
                 <!-- .row -->
 
 
-                <!-- .row -->
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="white-box">
-                            <h3 class="box-title m-b-0">Crop Statistics</h3>
-                            <p class="text-muted m-b-30">Export data to Copy, CSV, Excel, PDF & Print</p>
-                            <div class="table-responsive">
-                                <table id="dashtable" class="display nowrap" cellspacing="0" width="100%">
-                                    <thead>
-                                    <tr>
-                                        <th>County</th>
-                                        <th>Registered Farmers</th>
-                                        <th>Seedlings Issued</th>
-                                        <th>Surviving Seedlings</th>
-                                        <th>Dried Seedlings</th>
-                                        <th>Replaced Seedlings</th>
-                                        <th>% Suceess</th>
-                                    </tr>
-                                    </thead>
-                                    <tfoot>
-                                    <tr>
-                                        <th>County</th>
-                                        <th>Registered Farmers</th>
-                                        <th>Seedlings Issued</th>
-                                        <th>Surviving Seedlings</th>
-                                        <th>Dried Seedlings</th>
-                                        <th>Replaced Seedlings</th>
-                                        <th>% Suceess</th>
-                                    </tr>
-                                    </tfoot>
-                                    <tbody>
-                                    <tr>
-                                        <td>Uasin Gishu</td>
-                                        <td>12000</td>
-                                        <td>1200000</td>
-                                        <td>1100000</td>
-                                        <td>100000</td>
-                                        <td>80000</td>
-                                        <td>80%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Elgeyo Marakwet</td>
-                                        <td>12000</td>
-                                        <td>1200000</td>
-                                        <td>1100000</td>
-                                        <td>100000</td>
-                                        <td>80000</td>
-                                        <td>80%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Trans Nzoia</td>
-                                        <td>12000</td>
-                                        <td>1200000</td>
-                                        <td>1100000</td>
-                                        <td>100000</td>
-                                        <td>80000</td>
-                                        <td>80%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Nandi</td>
-                                        <td>12000</td>
-                                        <td>1200000</td>
-                                        <td>1100000</td>
-                                        <td>100000</td>
-                                        <td>80000</td>
-                                        <td>80%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Kericho</td>
-                                        <td>12000</td>
-                                        <td>1200000</td>
-                                        <td>1100000</td>
-                                        <td>100000</td>
-                                        <td>80000</td>
-                                        <td>80%</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Baringo</td>
-                                        <td>12000</td>
-                                        <td>1200000</td>
-                                        <td>1100000</td>
-                                        <td>100000</td>
-                                        <td>80000</td>
-                                        <td>80%</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.row -->
+                @include('layouts.dashcropinfo')
                 <!-- ============================================================== -->
                 </div>
                 <!-- .row -->
@@ -196,12 +104,7 @@
     <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
     <script>
         $(document).ready(function(){
-            $('#dashtable').DataTable({
-                dom: 'Bfrtip',
-                buttons: [
-                    'copy', 'csv', 'excel', 'pdf', 'print'
-                ]
-            });
+            getCropStats();
         });
     </script>
 

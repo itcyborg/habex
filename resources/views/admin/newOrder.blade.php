@@ -76,11 +76,11 @@
                                                 </td>
                                                 <td><span></span></td>
                                                 <td>
-                                                    <input type="number" name="quantity[]" id="quantity" class="form-control input-sm" onchange="calcTotal(this)">
+                                                    <input type="number" name="quantity[]" id="quantity" class="form-control input-sm" onchange="calcTotal(this)" min="1">
                                                 </td>
                                                 <td><span></span></td>
                                                 <td>
-                                                    <input type="number" name="discount[]" id="discount" class="form-control input-sm" onchange="calcTotal(this)">
+                                                    <input type="number" name="discount[]" id="discount" class="form-control input-sm" onchange="calcTotal(this)" min="1">
                                                 </td>
                                                 <td>
                                                     <span id="total"></span>
@@ -237,11 +237,11 @@
                 '</td>' +
                 '<td><span></span></td>' +
                 '<td>' +
-                '<input type="number" name="quantity[]" id="quantity" class="form-control input-sm" onchange="calcTotal(this)">' +
+                '<input type="number" name="quantity[]" id="quantity" class="form-control input-sm" min="1" onchange="calcTotal(this)">' +
                 '</td>' +
                 '<td><span></span></td>' +
                 '<td>' +
-                '<input type="number" name="discount[]" id="discount" class="form-control input-sm" onchange="calcTotal(this)">' +
+                '<input type="number" name="discount[]" id="discount" class="form-control input-sm" onchange="calcTotal(this)" min="1">' +
                 '</td>' +
                 '<td>' +
                 '<span id="total">0</span>' +
@@ -288,7 +288,7 @@
         function populateItems() {
             var options='<option value="">Select Item</option>';
             $.each(items,function(i,j){
-                options+='<option value="'+j.item+'" data-toggle="tooltip" title="'+j.description+'">'+j.item+'</option>';
+                options+='<option value="'+j.item+'" data-toggle="tooltip" title="'+j.description+'">'+j.item+' ('+j.description+')</option>';
             });
             $('.description').html(options);
         }
