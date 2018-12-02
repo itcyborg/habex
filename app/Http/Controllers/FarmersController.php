@@ -130,11 +130,37 @@ class FarmersController extends Controller
             $idfront=Storage::url($farmer->idfront);
             $contractform=Storage::url($farmer->contractform);
             $imgs=['passport'=>$passport,'idback'=>$idback,'idfront'=>$idfront,'contract'=>$contractform];
-            $account=Account::where('idnumber',$farmer->idnumber)->get();
+            $account=Account::where('idnumber',$farmer->idnumber)->first();
             $farms=Farm::where('farmer_id',$farmer->id)->get();
             echo json_encode(['farmer'=>$farmer,'imgs'=>$imgs,'account'=>$account,'farms'=>$farms]);
         }else{
             abort(403,'Unauthorised Action');
+        }
+    }
+
+    public function updateAccount(Request $request)
+    {
+        $account=null;
+        if(Account::where('idnumber',$request->id)->exists()){
+            $account=Account::where('idnumber')->get();
+            $account->accountname=$request->accountname;
+            $account->accountnumber=$request->accountnumber;
+            $account->paymentoption=$request->paymentmode;
+            $account->branch=$request->branchname;
+            $account->bank=$request->bankname;
+        }else{
+            $account=new Account;
+            $account->accountname=$request->accountname;
+            $account->accountnumber=$request->accountnumber;
+            $account->paymentoption=$request->paymentmode;
+            $account->branch=$request->branchname;
+            $account->bank=$request->bankname;
+            $account->idnumber=$request->id;
+        }
+        if($account->save()){
+            return json_encode(['status'=>200,'msg'=>'Details Updated Successfully']);
+        }else{
+            return json_encode(['status'=>400,'msg'=>'Details Failed to Update']);
         }
     }
 }

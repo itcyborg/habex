@@ -23,8 +23,6 @@ class PayrollController extends Controller
     public function add(Request $request)
     {
         // TODO:verify the data
-
-
         $employeeid=$request->employeeid;
         $month=$request->month;
         $year=$request->year;
@@ -240,6 +238,7 @@ class PayrollController extends Controller
         }
         $payslip->status=1;
         if($payslip->save()){
+            NotificationController::payrollProcessed($payslip->id);
             $msg='Payslip has been processed successfully';
             $code=2000;
             $status=true;

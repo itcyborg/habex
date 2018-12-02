@@ -32,6 +32,7 @@ class LeaveController extends Controller
                 $leave->start = $request->start;
                 $leave->description = $request->description;
                 if($leave->save()){
+                    NotificationController::leaveRequest($leave->id);
                     return back()->with('status',true)->with('msg','Request made successfully and is waiting for approval');
                 }
             }else{

@@ -36,6 +36,7 @@ class OrderController extends Controller
             }
         }
         if(!$errors) {
+            NotificationController::newOrder($orderno);
             return json_encode(['status'=>200]);
         }else{
             return json_encode(['status'=>500,'msg'=>'An error occurred']);

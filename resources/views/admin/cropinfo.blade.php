@@ -1,6 +1,7 @@
 @extends('layouts.sys')
 @section('styles')
     <link rel="stylesheet" href="{{asset('sys/plugins/bower_components/select2/dist/css/select2.css')}}">
+    <link href="{{asset('sys/plugins/bower_components/datatables/jquery.dataTables.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
     <div id="wrapper">
@@ -308,13 +309,61 @@
             <!-- /.modal-dialog -->
         </div>
     </div>
+    <div id="viewscoutings">
+        <div class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="myLargeModalLabel">Scouting</h4> </div>
+                    <div class="modal-body">
+                        <div class="table table-responsive table-condensed">
+                            <table class="table-striped table-bordered table-hover" id="scoutingsdone">
+                                <thead>
+                                    <th>#</th>
+                                    <th>Surviving</th>
+                                    <th>Died</th>
+                                    <th>Status of Trees</th>
+                                    <th>Watering</th>
+                                    <th>Fertilizer/ Chem Appl</th>
+                                    <th>Fertilizer Amount Appl</th>
+                                    <th>KG/GMS</th>
+                                    <th>Pest/Disease</th>
+                                    <th>Weeding</th>
+                                    <th>Intercroping(metres)</th>
+                                    <th>PH</th>
+                                    <th>EC</th>
+                                    <th>Observation/Notes</th>
+                                    <th>Assessment Date</th>
+                                    <th>Authorised By</th>
+                                    <th>Updated On</th>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
 @endsection
 
 @section('scripts')
+    <script src="{{asset('sys/plugins/bower_components/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset("sys/plugins/bower_components/select2/dist/js/select2.full.js")}}"></script>
+    <!-- Sweet-Alert  -->
+    <script src="{{asset('sys/plugins/bower_components/sweetalert2/sweetalert.js')}}"></script>
     <script src="{{asset("sys/plugins/bower_components/blockUI/jquery.blockUI.js")}}"></script>
     <script>
         var currentRecord=null;
+        var stable=null;
         $(document).ready(function(){
             $('#scoutingForm').on('submit',function(e){
                 e.preventDefault();
@@ -368,8 +417,11 @@
                                         '<td>'+farm.farmSize+'</td>' +
                                         '<td>'+farm.seedlingsPlanted+'</td>' +
                                         '<td>' +
-                                        '<button class="btn btn-outline btn-circle" onclick="showScoutModal('+farm.id+')">' +
-                                        '<i class="mdi mdi-clipboard-text"></i>' +
+                                        '<button class="btn btn-primary btn-circle" onclick="showScoutModal('+farm.id+')" data-placement="top" data-toggle="tooltip" title="Fill Scouting Form" data-original-title="Fill Scouting Form">' +
+                                        '<i class="fa fa-edit"></i>' +
+                                        '</button>' +
+                                        '<button class="btn btn-info btn-circle m-l-10" onclick="scoutings('+farm.id+')" data-placement="top" data-toggle="tooltip" title="View Scoutings" data-original-title="View Scoutings">' +
+                                        '<i class="fa fa-list"></i>' +
                                         '</button>' +
                                         '</td>' +
                                         '</tr>';
@@ -384,6 +436,8 @@
                                     },
                                 });
                             }
+
+                            $('[data-toggle="tooltip"]').tooltip();
                         },
                         error:function(data){
                             $('#farmersInfo,#farms').block({
@@ -393,7 +447,6 @@
                                     backgroundColor: 'rgb(251, 150, 120)'
                                 },
                             });
-                            console.log(data);
                         }
                     });
                 }else{
@@ -462,20 +515,65 @@
             });
         }
 
-        function alertMsg(msg){
-            alert(msg);
-            throw new Error('Something went wrong');
+        var srow='';
+        function scoutings(id) {
+            $.ajax({
+                url     :   '/scoutings/'+id,
+                type    :   'get',
+                dataType:   'json',
+                success :   function(data){
+                    if(data.scoutings.length>0) {
+                        $.each(data.scoutings, function (k, v) {
+                            srow+='<tr>' +
+                                '<td>'+v.id+'</td>' +
+                                '<td>'+v.surviving+'</td>' +
+                                '<td>'+v.died+'</td>' +
+                                '<td>'+v.statusOfTrees+'</td>' +
+                                '<td>'+v.watering+'</td>' +
+                                '<td>'+JSON.parse(v.fertilizerChemApp)+'</td>' +
+                                '<td>'+v.fertilizerAmountApp+'</td>' +
+                                '<td>'+v.fertilizerAppMeasurement+'</td>' +
+                                '<td>'+v.pestDisease+'</td>' +
+                                '<td>'+v.weeding+'</td>' +
+                                '<td>'+v.intercropping+'</td>' +
+                                '<td>'+v.PH+'</td>' +
+                                '<td>'+v.EC+'</td>' +
+                                '<td>'+v.observationsNotes+'</td>' +
+                                '<td>'+v.assessmentDate+'</td>' +
+                                '<td>'+getAuthorised(v.email)+'</td>' +
+                                '<td>'+v.updated_at+'</td>' +
+                                '</tr>';
+                        });
+                        $('#scoutingsdone tbody').html(srow);
+                        if(! $.fn.dataTable.isDataTable( '#scoutingsdone' )) {
+                            stable = $('#scoutingsdone').dataTable({
+                                responsive: true
+                            });
+                        }else{
+                            stable.destroy();
+                            stable=null;
+                            stable = $('#scoutingsdone').dataTable({
+                                responsive: true
+                            });
+                        }
+                        $('#viewscoutings .modal').modal();
+                    }else{
+                        swal({
+                            type:'warning',
+                            title:'Error',
+                            text:'Cannot find any scoutings done for the farm selected',
+                        });
+                    }
+                }
+            });
         }
 
-        function isDouble(val, name){
-            if(val==='' || val==null){
-                alertMsg('Please fill '+name);
+        function getAuthorised(id){
+            if(id===0 || id==null){
+                return 'Pending';
+            }else{
+                return id;
             }
-            var num=parseFloat(val);
-            if(isNaN(num)){
-                alertMsg('Wrong format for '+name+'.Enter a number');
-            }
-            return num;
         }
     </script>
 @endsection

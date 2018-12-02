@@ -63,7 +63,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
@@ -446,6 +445,48 @@
                             </section>
                             <section id="section-iconbox-3">
                                 <div class="row p-10">
+                                    <button class="btn btn-info btn-sm pull-right collapsed" type="button" data-toggle="collapse" data-target="#accountInfo" aria-expanded="false" aria-controls="accountInfo">
+                                        <i class="fa fa-edit"></i> Update Account Information
+                                    </button>
+                                </div>
+                                <div class="row collapse jumbotron" id="accountInfo" style="height:0px;">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label for="paymentmodeu">Payment Mode</label>
+                                                <select name="paymentmodeu" id="paymentmodeu" class="form-control">
+                                                    <option value="">Select Payment Mode</option>
+                                                    <option value="MPESA">M-PESA</option>
+                                                    <option value="BANK">BANK</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="accountnameu">Account Name</label>
+                                                <input type="text" class="form-control" id="accountnameu" name="accountnameu">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="accountnameu">Account Number</label>
+                                                <input type="text" class="form-control" id="accountnumberu" name="accountnumberu">
+                                            </div>
+                                        </div>
+                                        <div class="row m-t-20">
+                                            <div class="col-md-6">
+                                                <label for="banknameu">Bank Name</label>
+                                                <input type="text" class="form-control" id="banknameu" name="banknameu">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="branchnameu">Branch Name</label>
+                                                <input type="text" class="form-control" id="branchnameu" name="branchnameu">
+                                            </div>
+                                        </div>
+                                        <div class="row m-t-15">
+                                            <button type="button" class="btn btn-primary btn-outline pull-right m-r-10" onclick="Farmer.updateAccount()">
+                                                <i class="fa fa-save"></i> Save
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row p-10">
                                     <div class="row text-right">Updated on :<span id="bupdate"></span></div>
                                     <div class="row"><h2>Account Information</h2></div>
                                     <div class="row">
@@ -501,6 +542,7 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuogBspOfHKhSzSldN3vYhcCcsHSoShRA&libraries=places"></script>
 <script>
     let farmerTable=null;
+    let idno=null;
 
     var marker=false;
     $(document).ready(function(){
@@ -618,14 +660,15 @@
     );
 
     Farmer={
-        view    :   function(id){
+        view            :   function(id){
             $.ajax({
                 url     :   '{{url("/farmer/view/")}}/'+id,
                 type    :   'get',
                 dataType:   'json',
                 success :   function(data){
-                    // console.log(data.imgs.idback);
+                    idno=data.farmer.idnumber;
                     var rows='';
+                    console.log(data.account);
                     $.each(data.farms,function(k,v){
                         rows+='<tr>' +
                             '<td>'+v.id+'</td>' +
@@ -652,17 +695,50 @@
                     $('#vidfront').prop('src',data.imgs.idfront);
                     $('#vidback').prop('src',data.imgs.idback);
                     $('#vcontract').prop('href',data.imgs.contract);
-                    $('#bupdate').html(data.account.updated_at);
-                    $('#vaccountname').html(data.account.accountname);
-                    $('#vaccountnumber').html(data.account.accountnumber);
-                    $('#vbankname').html(data.account.bank);
-                    $('#vpaymentmode').html(data.account.paymentoption);
+                    if(data.account) {
+                        $('#bupdate').html(checkSilent(data.account.updated_at));
+                        $('#vaccountname').html(checkSilent(data.account.accountname));
+                        $('#vaccountnumber').html(checkSilent(data.account.accountnumber));
+                        $('#vbankname').html(checkSilent(data.account.bank));
+                        $('#vbranch').html(checkSilent(data.account.branch));
+                        $('#vpaymentmode').html(checkSilent(data.account.paymentoption));
+                    }
                     $('#name').html(data.farmer.sirname+', '+data.farmer.firstname+' '+data.farmer.lastname);
                     $('#viewFarmer .modal').modal();
                 }
             });
         },
-    }
+        updateAccount   :   function(){
+            var bankname=$('#banknameu').val(),
+                paymentmode=check($('#paymentmodeu').val(),'Payment Mode'),
+                accountname=check($('#accountnameu').val(),'Account Name'),
+                accountnumber=check($('#accountnumberu').val(), 'Account Number'),
+                branchname=$('#branchnameu').val();
+            $.ajax({
+                url         :   "{{url('/farmer/update/account')}}",
+                data        :   {
+                    '_token'        :   "{{csrf_token()}}",
+                    'accountname'   :   accountname,
+                    'accountnumber' :   accountnumber,
+                    'bankname'      :   bankname,
+                    'branchname'    :   branchname,
+                    'id'            :   idno,
+                    'paymentmode'   :   paymentmode
+                },
+                dataType    :   'json',
+                type        :   'post',
+                success     :   function(data){
+                    if(data.status==200){
+                        swal({
+                            type:'success',
+                            title:'Success',
+                            text:data.msg,
+                        })
+                    }
+                }
+            });
+        }
+    };
 
 
     var map, infoWindow,pos=null,elevator;

@@ -122,6 +122,9 @@ Route::post('/password/change','SettingsController@changePass');
 
 Route::middleware(['auth'])->group(function(){
     Route::get('/farmer/view/{id}', 'FarmersController@view');
+    Route::post('/farmer/update/account','FarmersController@updateAccount');
+    Route::get('/scoutings/{id}','ScoutingController@getScouting');
+//    Route::get('/scoutings/authorizers/{id}','ScoutingController@authorizers');
 });
 
 # statistics
