@@ -35,6 +35,15 @@
                             <div class="row p-t-30 m-t-30">
                                 <h3 class="box-title">Leave History</h3>
                             </div>
+                            @if(Auth::user()->hasRole(['ROLE_ADMIN']))
+                                <div class="row m-t-30 p-t-30">
+                                    <hr>
+                                    <span class="alert alert-warning col-md-12 col-lg-12 col-sm-12 col-xs-12">Send error logs to developers for better improvement of the system.</span>
+                                    <button class="btn btn-info" onclick="emailErrorLogs()"><i class="fa fa-email"></i>
+                                        Email Logs
+                                    </button>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>

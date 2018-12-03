@@ -83,6 +83,6 @@
 @endsection
 @section('scripts')
     <script src="{{asset('sys/plugins/bower_components/select2/dist/js/select2.full.js')}}"></script>
-    <script>
-    </script>
+    <!-- Sweet-Alert  -->
+    <script src="{{asset('sys/plugins/bower_components/sweetalert2/sweetalert.js')}}"></script>
 @endsection

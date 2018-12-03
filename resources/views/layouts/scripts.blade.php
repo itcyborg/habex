@@ -44,15 +44,33 @@
         return num;
     }
 
-    //
-    // function isDouble(val, name){
-    //     if(val==='' || val==null){
-    //         alertMsg('Please fill '+name);
-    //     }
-    //     var num=parseFloat(val);
-    //     if(isNaN(num)){
-    //         alertMsg('Wrong format for '+name+'.Enter a number');
-    //     }
-    //     return num;
-    // }
+    let urlto = "{{url('/email/logs')}}";
+
+    function emailErrorLogs() {
+        swal({
+            type: 'warning',
+            title: 'Send Logs',
+            text: 'You are about to send a copy of the error logs generated via email to the developers. Are you sure you wish to continue?',
+            showConfirmButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Continue',
+            confirmButtonColor: 'red'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: urlto,
+                    type: 'get',
+                    success: function (data) {
+                        if (data) {
+                            swal({
+                                type: 'success',
+                                title: 'Success',
+                                text: 'Request has been successfully received.'
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    }
 </script>
