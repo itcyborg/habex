@@ -43,4 +43,16 @@
         }
         return num;
     }
+
+    //
+    // function isDouble(val, name){
+    //     if(val==='' || val==null){
+    //         alertMsg('Please fill '+name);
+    //     }
+    //     var num=parseFloat(val);
+    //     if(isNaN(num)){
+    //         alertMsg('Wrong format for '+name+'.Enter a number');
+    //     }
+    //     return num;
+    // }
 </script>
