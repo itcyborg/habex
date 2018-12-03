@@ -11,14 +11,10 @@
 |
 */
 
-    use App\Farm;
-    use App\Farmers;
     use Illuminate\Support\Facades\Artisan;
     use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 
-Auth::routes();
+    Auth::routes();
 //Route::get('/pay',function (){
 //    $pass='habexagro2018';
 //    dd(Hash::make($pass));
@@ -126,6 +122,12 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/scoutings/{id}','ScoutingController@getScouting');
 //    Route::get('/scoutings/authorizers/{id}','ScoutingController@authorizers');
 });
+
+    Route::middleware(['auth', 'role:ROLE_ADMIN'])->group(function () {
+        Route::get('email/logs', function () {
+            return Artisan::call('logs:email');
+        });
+    });
 
 # statistics
 Route::get('/statistics/farmers','StatisticsController@farmersPerCounty');

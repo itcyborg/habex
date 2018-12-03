@@ -316,12 +316,14 @@
                                                     <div class="col-sm-6 col-md-6 col-xs-12">
                                                         <div class="white-box">
                                                             <h3 class="box-title">Passport Photo</h3>
-                                                            <input type="file" id="passport" name="passport" class="dropify" /> </div>
+                                                            <input type="file" id="passport" name="passport"
+                                                                   class="dropify" data-max-file-size="2M"/></div>
                                                     </div>
                                                     <div class="col-sm-6 col-md-6 col-xs-12">
                                                         <div class="white-box">
                                                             <h3 class="box-title">Contract Form</h3>
-                                                            <input type="file" id="contractform" name="contractform" class="dropify" /> </div>
+                                                            <input type="file" id="contractform" name="contractform"
+                                                                   class="dropify" data-max-file-size="2M"/></div>
                                                     </div>
                                                 </div>
                                                 <!-- /.row -->
@@ -329,12 +331,14 @@
                                                     <div class="col-sm-6 col-md-6 col-xs-12">
                                                         <div class="white-box">
                                                             <h3 class="box-title">ID Scan-Front</h3>
-                                                            <input type="file" id="idfront" name="idfront" class="dropify" /> </div>
+                                                            <input type="file" id="idfront" name="idfront"
+                                                                   class="dropify" data-max-file-size="2M"/></div>
                                                     </div>
                                                     <div class="col-sm-6 col-md-6 col-xs-12">
                                                         <div class="white-box">
                                                             <h3 class="box-title">ID Scan-Back</h3>
-                                                            <input type="file" id="idback" name="idback" class="dropify" /> </div>
+                                                            <input type="file" id="idback" name="idback" class="dropify"
+                                                                   data-max-file-size="2M"/></div>
                                                     </div>
                                                 </div>
                                                 <!-- /.row -->
