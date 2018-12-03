@@ -169,7 +169,9 @@
                                     <div class="clearfix"></div>
                                     <hr>
                                     <div class="text-right hidden-print">
+                                        @if(Auth::user()->hasRole(['ROLE_ADMIN']) && !Auth::user()->hasRole(['ROLE_VIEW']))
                                         <button class="btn btn-danger" type="submit"> Proceed to payment </button>
+                                        @endif
                                         <button id="print" class="btn btn-default btn-outline" type="button" onclick="printInvoice()"> <span><i class="fa fa-print"></i> Print</span> </button>
                                     </div>
                                 </div>

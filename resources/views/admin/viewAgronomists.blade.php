@@ -54,7 +54,9 @@
                                                     <th>MOBILE NUMBER</th>
                                                     <th>POSITION</th>
                                                     <th>ZONE</th>
+                                                    @if(Auth::user()->hasRole(['ROLE_ADMIN']) && !Auth::user()->hasRole(['ROLE_VIEW']))
                                                     <th width="300">ACTIONS</th>
+                                                    @endif
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -72,12 +74,14 @@
                                                         <td>{{$agronomist->position}}</td>
                                                         <td>{{$agronomist->zone}}</td>
                                                         <td>
+                                                            @if(Auth::user()->hasRole(['ROLE_ADMIN']) && !Auth::user()->hasRole(['ROLE_VIEW']))
                                                             <button type="button" class="btn btn-info btn-outline btn-circle m-r-5"  data-toggle="tooltip" data-placement="top" title="" data-original-title="Reset Password" onclick="resetPassword({{$agronomist->id}})">
                                                                 <i class="ti-key"></i>
                                                             </button>
                                                             <button type="button" class="btn btn-danger btn-outline btn-circle m-r-5" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Agronomist" onclick="deleteAgronomist({{$agronomist->id}})">
                                                                 <i class="ti-trash"></i>
                                                             </button>
+                                                            @endif
                                                         </td>
                                                     </tr>
                                                 @endforeach

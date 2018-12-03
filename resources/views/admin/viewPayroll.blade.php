@@ -49,7 +49,9 @@
                                             <th>Year</th>
                                             <th>Status</th>
                                             <th>Updated On</th>
+                                            @if(Auth::user()->hasRole(['ROLE_ADMIN']) && !Auth::user()->hasRole(['ROLE_VIEW']))
                                             <th>Actions</th>
+                                            @endif
                                         </thead>
                                         <tbody>
                                             @foreach($payslips as $payslip)
@@ -73,6 +75,7 @@
                                                         @endif
                                                     </td>
                                                     <td>{{$payslip->updated_at}}</td>
+                                                    @if(Auth::user()->hasRole(['ROLE_ADMIN']) && !Auth::user()->hasRole(['ROLE_VIEW']))
                                                     <td>
                                                         <button class="btn btn-circle btn-small btn-info btn-outline m-r-10" data-toggle="tooltip" title="Details" onclick="viewDetails({{$payslip->id}})">
                                                             <i class="fa fa-file"></i>
@@ -88,6 +91,7 @@
                                                             </button>
                                                         @endif
                                                     </td>
+                                                    @endif
                                                 </tr>
                                             @endforeach
                                         </tbody>

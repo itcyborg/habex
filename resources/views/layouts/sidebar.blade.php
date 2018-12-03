@@ -33,12 +33,14 @@
                 </span>
                 </a>
                 <ul class="nav nav-second-level">
+                    @if(Auth::user()->hasRole(['ROLE_ADMIN']) && !Auth::user()->hasRole(['ROLE_VIEW']))
                     <li>
                         <a href="{{url('/admin/farmer/add')}}">
                             <i data-icon=")" class="mdi mdi-account-plus"></i>
                             <span class="hide-menu"> New Farmer </span>
                         </a>
                     </li>
+                    @endif
                     <li>
                         <a href="{{url('/admin/farmers')}}">
                             <i class="mdi mdi-account-multiple"></i>
@@ -55,12 +57,14 @@
                     </span>
                 </a>
                 <ul class="nav nav-second-level">
+                    @if(Auth::user()->hasRole(['ROLE_ADMIN']) && !Auth::user()->hasRole(['ROLE_VIEW']))
                     <li>
                         <a href="{{url('/admin/agronomist/add')}}">
                             <i data-icon="/" class="mdi mdi-account-plus"></i>
                             <span class="hide-menu"> New Agronomist </span>
                         </a>
                     </li>
+                    @endif
                     <li>
                         <a href="{{url('/admin/agronomists')}}">
                             <i data-icon="7" class="mdi mdi-account-multiple"></i>
@@ -83,6 +87,7 @@
                     </span>
                 </a>
                 <ul class="nav nav-second-level">
+                    @if(Auth::user()->hasRole(['ROLE_ADMIN']) && !Auth::user()->hasRole(['ROLE_VIEW']))
                     <li>
                         <a href="{{url('/admin/order/addItem')}}">
                             <i data-icon="/" class="fa fa-file-o"></i>
@@ -94,6 +99,7 @@
                             <i data-icon="/" class="fa fa-edit"></i>
                             <span class="hide-menu"> New Order</span></a>
                     </li>
+                    @endif
                     <li>
                         <a href="{{url('/admin/order/listItems')}}">
                             <i data-icon="/" class="fa fa-list-alt"></i>
@@ -115,18 +121,20 @@
                     </span>
                 </a>
                 <ul class="nav nav-second-level">
-                    <li>
-                        <a href="{{url('/admin/salaries')}}">
-                            <i class="fa fa-money"></i>
-                            <span class="hide-menu"> Salaries</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{url('/admin/payroll/add')}}">
-                            <i data-icon="/" class="fa fa-edit"></i>
-                            <span class="hide-menu"> New Payment</span>
-                        </a>
-                    </li>
+                    @if(Auth::user()->hasRole(['ROLE_ADMIN']) && !Auth::user()->hasRole(['ROLE_VIEW']))
+                        <li>
+                            <a href="{{url('/admin/salaries')}}">
+                                <i class="fa fa-money"></i>
+                                <span class="hide-menu"> Salaries</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url('/admin/payroll/add')}}">
+                                <i data-icon="/" class="fa fa-edit"></i>
+                                <span class="hide-menu"> New Payment</span>
+                            </a>
+                        </li>
+                    @endif
                     <li>
                         <a href="{{url('/admin/payroll/all')}}">
                             <i data-icon="7" class="fa  fa-list"></i>

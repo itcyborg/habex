@@ -100,18 +100,22 @@
                                                             <td>{{$farmer->idnumber}}</td>
                                                             <td>{{$farmer->mobilenumber}}</td>
                                                             <td>
+                                                                @if(Auth::user()->hasRole(['ROLE_ADMIN']) && !Auth::user()->hasRole(['ROLE_VIEW']))
                                                                 <button type="button" class="btn btn-info btn-outline btn-sm m-r-5" onclick="addFarm({{$farmer->id}})" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add Farm">
                                                                     <i class="mdi mdi-pine-tree"></i>
                                                                 </button>
                                                                 <button type="button" class="btn btn-info btn-outline btn-sm m-r-10" data-toggle="tooltip" data-placement="top" title="" data-original-title="Upload Documents" onclick="upload({{$farmer->id}})">
                                                                     <i class="ti-upload"></i>
                                                                 </button>
+                                                                @endif
                                                                 <button type="button" class="btn btn-info btn-outline btn-sm m-r-10" onclick="Farmer.view({{$farmer->id}})" data-toggle="tooltip" data-placement="top" title="View Details">
                                                                     <i class="ti ti-file"></i>
                                                                 </button>
+                                                                @if(Auth::user()->hasRole(['ROLE_ADMIN']) && !Auth::user()->hasRole(['ROLE_VIEW']))
                                                                 <button type="button" class="btn btn-danger btn-outline btn-sm m-r-5"  data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Farmer" onclick="deleteFarmer({{$farmer->id}})">
                                                                     <i class="ti-trash"></i>
                                                                 </button>
+                                                                @endif
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -448,6 +452,7 @@
                                 </div>
                             </section>
                             <section id="section-iconbox-3">
+                                @if(Auth::user()->hasRole(['ROLE_ADMIN']) && !Auth::user()->hasRole(['ROLE_VIEW']))
                                 <div class="row p-10">
                                     <button class="btn btn-info btn-sm pull-right collapsed" type="button" data-toggle="collapse" data-target="#accountInfo" aria-expanded="false" aria-controls="accountInfo">
                                         <i class="fa fa-edit"></i> Update Account Information
@@ -490,6 +495,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                @endif
                                 <div class="row p-10">
                                     <div class="row text-right">Updated on :<span id="bupdate"></span></div>
                                     <div class="row"><h2>Account Information</h2></div>

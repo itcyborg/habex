@@ -54,7 +54,9 @@
                                             <th>Tax (%)</th>
                                             <th>Created On</th>
                                             <th>Updated On</th>
+                                            @if(Auth::user()->hasRole(['ROLE_ADMIN']) && !Auth::user()->hasRole(['ROLE_VIEW']))
                                             <th>Actions</th>
+                                            @endif
                                         </thead>
                                         <tbody>
                                             @foreach($items as $item)
@@ -66,12 +68,14 @@
                                                     <td>{{$item->created_at}}</td>
                                                     <td>{{$item->updated_at}}</td>
                                                     <td>
+                                                        @if(Auth::user()->hasRole(['ROLE_ADMIN']) && !Auth::user()->hasRole(['ROLE_VIEW']))
                                                         <button class="btn btn-info btn-circle btn-outline-inverse m-r-10">
                                                             <i class="fa fa-edit"></i>
                                                         </button>
                                                         <button class="btn btn-danger btn-circle btn-outline-inverse m-r-10">
                                                             <i class="fa fa-trash-o"></i>
                                                         </button>
+                                                        @endif
                                                     </td>
                                                 </tr>
                                             @endforeach

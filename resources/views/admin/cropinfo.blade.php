@@ -362,6 +362,8 @@
     <script src="{{asset('sys/plugins/bower_components/sweetalert2/sweetalert.js')}}"></script>
     <script src="{{asset("sys/plugins/bower_components/blockUI/jquery.blockUI.js")}}"></script>
     <script>
+        let view = false;
+        view = "{{Auth::user()->hasRole(['ROLE_VIEW'])}}";
         var currentRecord=null;
         var stable=null;
         $(document).ready(function(){
@@ -409,6 +411,12 @@
                             if(data.farms.length>0){
                                 var rows='';
                                 $.each(data.farms,function(index,farm){
+                                    var action = '';
+                                    if (view == false) {
+                                        action += '<button class="btn btn-primary btn-circle" onclick="showScoutModal(' + farm.id + ')" data-placement="top" data-toggle="tooltip" title="Fill Scouting Form" data-original-title="Fill Scouting Form">' +
+                                            '<i class="fa fa-edit"></i>' +
+                                            '</button>';
+                                    }
                                     rows+=
                                         '<tr>' +
                                         '<td>'+farm.id+'</td>' +
@@ -417,9 +425,7 @@
                                         '<td>'+farm.farmSize+'</td>' +
                                         '<td>'+farm.seedlingsPlanted+'</td>' +
                                         '<td>' +
-                                        '<button class="btn btn-primary btn-circle" onclick="showScoutModal('+farm.id+')" data-placement="top" data-toggle="tooltip" title="Fill Scouting Form" data-original-title="Fill Scouting Form">' +
-                                        '<i class="fa fa-edit"></i>' +
-                                        '</button>' +
+                                        action +
                                         '<button class="btn btn-info btn-circle m-l-10" onclick="scoutings('+farm.id+')" data-placement="top" data-toggle="tooltip" title="View Scoutings" data-original-title="View Scoutings">' +
                                         '<i class="fa fa-list"></i>' +
                                         '</button>' +

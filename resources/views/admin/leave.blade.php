@@ -126,7 +126,9 @@
                                                     <th>DAYS</th>
                                                     <th>REQUESTED ON</th>
                                                     <th>STATUS</th>
+                                                    @if(Auth::user()->hasRole(['ROLE_ADMIN']) && !Auth::user()->hasRole(['ROLE_VIEW']))
                                                     <th width="300">ACTIONS</th>
+                                                    @endif
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -144,6 +146,7 @@
                                                             <td>{{$leave->days}}</td>
                                                             <td>{{$leave->created_at}}</td>
                                                             <td>{{$leave->status}}</td>
+                                                            @if(Auth::user()->hasRole(['ROLE_ADMIN']) && !Auth::user()->hasRole(['ROLE_VIEW']))
                                                             <td>
                                                                 <button type="button" class="btn btn-info btn-outline btn-circle btn-sm m-r-5">
                                                                     <i class="ti-key"></i>
@@ -158,6 +161,7 @@
                                                                     <i class="ti-upload"></i>
                                                                 </button>
                                                             </td>
+                                                            @endif
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
