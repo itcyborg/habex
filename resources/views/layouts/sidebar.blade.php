@@ -159,11 +159,17 @@
         </ul>
     </div>
 </div>
-@elseif(Auth::user()->hasRole(['ROLE_AGRONOMIST']))
+@elseif(Auth::user()->hasRole(['ROLE_AGRONOMIST']) || Auth::user()->hasRole(['ROLE_NURSERY']))
     <div class="navbar-default sidebar" role="navigation">
         <div class="sidebar-nav slimscrollsidebar">
             <div class="sidebar-head">
-                <h3><span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span class="hide-menu">Navigation</span></h3> </div>
+                <h3>
+                    <span class="fa-fw open-close">
+                        <i class="ti-close ti-menu"></i>
+                    </span>
+                    <span class="hide-menu">Navigation</span>
+                </h3>
+            </div>
             <div class="user-profile">
             </div>
             <ul class="nav" id="side-menu">
@@ -180,10 +186,28 @@
                         <i class="mdi mdi-open-in-new pull-right"></i>
                     </a>
                 </li>
-                <li> <a href="javascript:void(0)" class="waves-effect"><i data-icon="/" class="mdi mdi-account-multiple"></i><span class="hide-menu"> Farmers<span class="fa arrow"></span><span class="label label-rouded label-purple pull-right"></span></span></a>
+                @if(Auth::user()->hasRole(['ROLE_AGRONOMIST']) && !Auth::user()->hasRole('ROLE_NURSERY'))
+                <li>
+                    <a href="javascript:void(0)" class="waves-effect">
+                        <i data-icon="/" class="mdi mdi-account-multiple"></i>
+                        <span class="hide-menu"> Farmers
+                            <span class="fa arrow"></span>
+                            <span class="label label-rouded label-purple pull-right"></span>
+                        </span>
+                    </a>
                     <ul class="nav nav-second-level">
-                        <li><a href="{{url('/agronomist/farmer/add')}}"><i data-icon=")" class="mdi mdi-account-plus"></i><span class="hide-menu"> New Farmer </span></a></li>
-                        <li><a href="{{url('/agronomist/farmers')}}"><i class="mdi mdi-account-multiple"></i><span class="hide-menu"> Farmers Accounts </span></a></li>
+                        <li>
+                            <a href="{{url('/agronomist/farmer/add')}}">
+                                <i data-icon=")" class="mdi mdi-account-plus"></i>
+                                <span class="hide-menu"> New Farmer </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url('/agronomist/farmers')}}">
+                                <i class="mdi mdi-account-multiple"></i>
+                                <span class="hide-menu"> Farmers Accounts </span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li>
@@ -192,15 +216,26 @@
                         <span class="hide-menu"> Farm Info </span>
                     </a>
                 </li>
-                <li> <a href="{{url('/agronomist/leave/all')}}" class="waves-effect">
+                @endif
+                @if(Auth::user()->hasRole(['ROLE_NURSERY']))
+                    <li>
+                        <a href="{{url('/agronomist/nursery')}}" class="waves-effect">
+                            <i data-icon="" class="mdi mdi-pine-tree"></i>
+                            <span class="hide-menu"> Nursery</span>
+                        </a>
+                    </li>
+                @endif
+                <li>
+                    <a href="{{url('/agronomist/leave/all')}}" class="waves-effect">
                         <i data-icon="" class="mdi mdi-airplane-takeoff"></i>
                         <span class="hide-menu"> Leave Requests</span>
                     </a>
                 </li>
-
                 <li>
-                    <a  href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="waves-effect"><i class="mdi mdi-logout fa-fw"></i> <span class="hide-menu">Log out</span></a>
-
+                    <a  href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="waves-effect">
+                        <i class="mdi mdi-logout fa-fw"></i>
+                        <span class="hide-menu">Log out</span>
+                    </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         {{ csrf_field() }}
                     </form>

@@ -27,7 +27,7 @@ class OrderController extends Controller
             $order->description=$item['item'];
             $order->quantity=$item['quantity'];
             $order->tax=$item['tax'];
-            $order->discount=$item['discount'];
+            $order->discount=($item['discount']!==null && $item['discount']>0)?$item['discount']:0;
             $order->itemNo=$key;
             $order->updatedBy=Auth::user()->id;
             $order->total=$order->quantity*$order->unitCost;

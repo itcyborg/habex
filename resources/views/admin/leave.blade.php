@@ -1,4 +1,7 @@
 @extends('layouts.sys')
+@section('styles')
+    <link href="{{asset('sys/plugins/bower_components/datatables/jquery.dataTables.min.css')}}" rel="stylesheet" type="text/css" />
+@endsection
 @section('content')
 <div id="wrapper">
     @include('layouts.header')
@@ -113,7 +116,7 @@
                                 <div class="col-md-12">
                                     <div class="panel">
                                         <div class="table-responsive">
-                                            <table class="table table-hover manage-u-table">
+                                            <table class="table table-hover manage-u-table" id="leaveTable">
                                                 <thead>
                                                 <tr>
                                                     <th width="70" class="text-center">#</th>
@@ -136,7 +139,9 @@
                                                         <tr>
                                                             <td class="text-center">{{$leave->id}}</td>
                                                             <td>
-                                                                {{$leave->employeeid}}
+                                                                {{$leave->sirname}}
+                                                                {{$leave->firstname}}
+                                                                {{$leave->lastname}}
                                                             </td>
                                                             <td>{{$leave->email}}</td>
                                                             <td>{{$leave->idnumber}}</td>
@@ -148,17 +153,11 @@
                                                             <td>{{$leave->status}}</td>
                                                             @if(Auth::user()->hasRole(['ROLE_ADMIN']) && !Auth::user()->hasRole(['ROLE_VIEW']))
                                                             <td>
-                                                                <button type="button" class="btn btn-info btn-outline btn-circle btn-sm m-r-5">
-                                                                    <i class="ti-key"></i>
+                                                                <button type="button" class="btn btn-info btn-outline btn-circle btn-sm m-r-5" onclick="Leave.approve({{$leave->id}})">
+                                                                    <i class="fa fa-check"></i>
                                                                 </button>
-                                                                <button type="button" class="btn btn-info btn-outline btn-circle btn-sm m-r-5">
-                                                                    <i class="ti-trash"></i>
-                                                                </button>
-                                                                <button type="button" class="btn btn-info btn-outline btn-circle btn-sm m-r-5">
-                                                                    <i class="ti-pencil-alt"></i>
-                                                                </button>
-                                                                <button type="button" class="btn btn-info btn-outline btn-circle btn-sm m-r-20">
-                                                                    <i class="ti-upload"></i>
+                                                                <button type="button" class="btn btn-danger btn-outline btn-circle btn-sm m-r-5" onclick="Leave.reject({{$leave->id}})">
+                                                                    <i class="fa fa-times"></i>
                                                                 </button>
                                                             </td>
                                                             @endif
@@ -228,8 +227,11 @@
 </div>
 @endsection
 @section('scripts')
+    <script src="{{asset('sys/plugins/bower_components/datatables/jquery.dataTables.min.js')}}"></script>
     <script>
+        let leaveTable=null;
         $(document).ready(function(){
+            leaveTable=$('#leaveTable').dataTable();
             $('#employee').on('change',function(){
                 if($(this).val()!=="" && $(this).val()!==null) {
                     $.ajax({
@@ -243,11 +245,111 @@
                             $('#idnumber').val(data.employee.idnumber).prop('disabled',true);
                             $('#daystaken').val(data.used).prop('disabled',true);
                             $('#daysremaining').val(data.remaining).prop('disabled',true);
+                            leaveTable._fnReDraw();
                         }
                     });
                 }
             });
         });
+
+        Leave={
+            approve:function(id){
+                Swal({
+                    title: 'Approve Leave Request',
+                    input: 'text',
+                    inputPlaceholder:'Comments',
+                    showCancelButton: true,
+                    confirmButtonText: 'Approve',
+                    confirmButtonColor:'green',
+                    showLoaderOnConfirm: true,
+                    preConfirm: (comment) => {
+                        $.ajax({
+                            url: '/admin/leave/approve/'+id,
+                            type:'post',
+                            dataType:'json',
+                            data:{
+                                'action':'approve',
+                                '_token':'{{csrf_token()}}',
+                                'comment':comment
+                            },
+                            success:function(data){
+                                console.log(data);
+                                if(data.status){
+                                    var txt='Leave request successfully approved.';
+                                    var typ='success';
+                                }else{
+                                    var txt='Request failed.';
+                                    var typ='error';
+                                }
+                                Swal({
+                                    title:'Approve Leave Request',
+                                    text:txt,
+                                    type:typ
+                                });
+                            }
+                        });
+                    },
+                    allowOutsideClick: () => !Swal.isLoading()
+                });
+            },
+            reject:function(id){
+                Swal({
+                    title: 'Reject Leave Request',
+                    input: 'text',
+                    inputPlaceholder:'Comments/ Reason',
+                    showCancelButton: true,
+                    confirmButtonText: 'Reject',
+                    confirmButtonColor:'red',
+                    showLoaderOnConfirm: true,
+                    preConfirm: (comment) => {
+                        $.ajax({
+                            url: '/admin/leave/approve/'+id,
+                            type:'post',
+                            dataType:'json',
+                            data:{
+                                'action':'decline',
+                                '_token':'{{csrf_token()}}',
+                                'comment':comment,
+                                'msg':'Your request for leave has been declined.'
+                            },
+                            success:function(data){
+                                if(data.status){
+                                    var txt='Leave request successfully rejected.';
+                                    var typ='success';
+                                }else{
+                                    var txt='Request failed.';
+                                    var typ='error';
+                                }
+                                Swal({
+                                    title:'Reject Leave Request',
+                                    text:txt,
+                                    type:typ
+                                });
+                            }
+                        });
+                    },
+                    allowOutsideClick: () => !Swal.isLoading()
+                });
+            }
+        }
+
+        $.fn.dataTable.ext.search.push(
+            function (settings, data, dataIndex) {
+                if (settings.nTable.id != "leaveTable") return true;
+                if ($('#idnumber').val() == "") {
+                    return true;
+                }
+                farmerid = $('#idnumber').val();
+                d = data[3];
+                if (farmerid == null) {
+                    return true;
+                }
+                if (farmerid===d) {
+                    return true;
+                }
+                return false;
+            }
+        );
     </script>
 
 @endsection

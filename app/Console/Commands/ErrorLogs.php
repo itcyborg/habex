@@ -39,7 +39,6 @@ class ErrorLogs extends Command
      */
     public function handle()
     {
-        //
         $allFiles=Storage::disk('logs')->files();
         $logs=[];
         foreach ($allFiles as $allFile) {
@@ -47,6 +46,8 @@ class ErrorLogs extends Command
                 $logs[]=Storage::disk('logs')->path($allFile);
             }
         }
-        Mail::to('isaac.itcyborg@outlook.com')->send(new \App\Mail\ErrorLogs($logs));
+        if(sizeof($logs)>=1) {
+            Mail::to('isaac.itcyborg@outlook.com')->send(new \App\Mail\ErrorLogs($logs));
+        }
     }
 }

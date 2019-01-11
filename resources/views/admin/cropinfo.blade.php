@@ -98,6 +98,7 @@
                             <th>Farm Location</th>
                             <th>Farm Size</th>
                             <th>Seedlings Planted</th>
+                            <th>Scoutings Done</th>
                             <th>Actions</th>
                             </thead>
                             <tbody>
@@ -356,7 +357,8 @@
 @endsection
 
 @section('scripts')
-    <script src="{{asset('sys/plugins/bower_components/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+    {{--<script src="{{asset('sys/plugins/bower_components/datatables/jquery.dataTables.min.js')}}"></script>--}}
     <script src="{{asset("sys/plugins/bower_components/select2/dist/js/select2.full.js")}}"></script>
     <!-- Sweet-Alert  -->
     <script src="{{asset('sys/plugins/bower_components/sweetalert2/sweetalert.js')}}"></script>
@@ -424,6 +426,7 @@
                                         '<td>'+farm.constituency+'</td>' +
                                         '<td>'+farm.farmSize+'</td>' +
                                         '<td>'+farm.seedlingsPlanted+'</td>' +
+                                        '<td>'+farm.scoutingsDone+'</td>' +
                                         '<td>' +
                                         action +
                                         '<button class="btn btn-info btn-circle m-l-10" onclick="scoutings('+farm.id+')" data-placement="top" data-toggle="tooltip" title="View Scoutings" data-original-title="View Scoutings">' +
@@ -556,11 +559,12 @@
                                 responsive: true
                             });
                         }else{
-                            stable.destroy();
                             stable=null;
-                            stable = $('#scoutingsdone').dataTable({
-                                responsive: true
-                            });
+                            if($.fn.dataTable.isDataTable('#scoutingsdone')) {
+                                stable = $('#scoutingsdone').dataTable({
+                                    responsive: true
+                                });
+                            }
                         }
                         $('#viewscoutings .modal').modal();
                     }else{

@@ -79,40 +79,44 @@ Route::get('/admin/payroll/add',function(){
     return view('admin.addPayroll');
 });
 
-Route::middleware(['auth','role:ROLE_ADMIN'])->group(function(){
-    Route::get('/admin/salaries','SalaryController@index');
-    Route::post('/admin/salaries','SalaryController@save');
+Route::middleware(['auth', 'role:ROLE_ADMIN'])->group(function(){
+    Route::get('/admin/salaries', 'SalaryController@index');
+    Route::post('/admin/salaries', 'SalaryController@save');
 });
 
-Route::get('/admin/payroll/all','PayrollController@all');
+Route::get('/admin/payroll/all', 'PayrollController@all');
 
-Route::get('/admin/leave/all','AdminController@leave');
-Route::get('/agronomist/leave/all','AgronomistController@leave');
+Route::get('/admin/leave/all', 'AdminController@leave');
+Route::get('/agronomist/leave/all', 'AgronomistController@leave');
 
-Route::post('/leave/request','LeaveController@request');
+Route::post('/leave/request', 'LeaveController@request');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/settings','SettingsController@index');
+Route::get('/settings', 'SettingsController@index');
 
 // items routes
-Route::get('/admin/order/addItem','ItemsController@addItem');
-Route::post('/admin/order/addItem','ItemsController@storeItem');
-Route::get('/admin/order/listItems','ItemsController@listItems');
+Route::get('/admin/order/addItem', 'ItemsController@addItem');
+Route::post('/admin/order/addItem', 'ItemsController@storeItem');
+Route::get('/admin/order/listItems', 'ItemsController@listItems');
 
 //Ajax Calls
 
-Route::get('/counties','HomeController@counties');
-Route::post('/counties/ward','HomeController@wards');
-Route::get('/admin/leave/{id}','AdminController@leaveSearch');
-Route::post('admin/payroll/add','PayrollController@add')->middleware('role:ROLE_ADMIN');;
-Route::get('admin/employees','AdminController@employees')->middleware('role:ROLE_ADMIN');
-Route::get('admin/employee/salary','AdminController@employeesSalaries')->middleware('role:ROLE_ADMIN');
-Route::get('items/list','ItemsController@getItems');
-Route::get('/admin/payslip/delete/{id}','PayrollController@delete')->middleware(['auth','role:ROLE_ADMIN']);
-Route::get('/admin/payslip/process/{id}','PayrollController@process')->middleware(['auth','role:ROLE_ADMIN']);
-Route::post('/cropinfo/scout','ScoutingController@add');
+Route::get('/counties', 'HomeController@counties');
+Route::post('/counties/ward', 'HomeController@wards');
+Route::get('/admin/leave/{id}', 'AdminController@leaveSearch');
+Route::post('admin/payroll/add', 'PayrollController@add')->middleware('role:ROLE_ADMIN');;
+Route::get('admin/employees', 'AdminController@employees')->middleware('role:ROLE_ADMIN');
+Route::get('admin/employee/salary', 'AdminController@employeesSalaries')->middleware('role:ROLE_ADMIN');
+Route::get('items/list', 'ItemsController@getItems');
+Route::get('/admin/payslip/delete/{id}', 'PayrollController@delete')->middleware(['auth','role:ROLE_ADMIN']);
+Route::get('/admin/payslip/process/{id}', 'PayrollController@process')->middleware(['auth','role:ROLE_ADMIN']);
+Route::post('/cropinfo/scout', 'ScoutingController@add');
+Route::get('/cropinfo/scouting/count/{id}', 'ScoutingController@count');
+Route::get('/admin/roles/check', 'AdminController@checkRole');
+Route::post('/admin/role/update', 'AdminController@updateRole');
+Route::post('/admin/leave/approve/{id}','AdminController@approveLeave');
 
 Route::post('/password/change','SettingsController@changePass');
 
@@ -123,11 +127,15 @@ Route::middleware(['auth'])->group(function(){
 //    Route::get('/scoutings/authorizers/{id}','ScoutingController@authorizers');
 });
 
-    Route::middleware(['auth', 'role:ROLE_ADMIN'])->group(function () {
-        Route::get('email/logs', function () {
-            return Artisan::call('logs:email');
-        });
+Route::middleware(['auth', 'role:ROLE_ADMIN'])->group(function () {
+    Route::get('email/logs', function () {
+        return Artisan::call('logs:email');
     });
+});
+
+Route::middleware(['auth'])->group(function(){
+    Route::get('/agronomist/nursery','NurseryController@index')->middleware('role:ROLE_NURSERY');
+});
 
 # statistics
 Route::get('/statistics/farmers','StatisticsController@farmersPerCounty');

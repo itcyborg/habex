@@ -49,4 +49,9 @@ class ScoutingController extends Controller
             ->get();
         return json_encode(['scoutings'=>$scoutings,'status'=>200]);
     }
+
+    public function count($id)
+    {
+        return Scouting::where('farmid','=',$id)->count();
+    }
 }

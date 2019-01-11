@@ -2,7 +2,6 @@
 @section('styles')
     <link href="{{asset('sys/plugins/bower_components/dropify/dist/css/dropify.min.css')}}" rel="stylesheet">
     <link href="{{asset('sys/plugins/bower_components/datatables/jquery.dataTables.min.css')}}" rel="stylesheet" type="text/css" />
-{{--    <link rel="stylesheet" href="{{asset('sys/plugins/bower_components/sweetalert2/sweetalert.css')}}">--}}
 @endsection
 @section('content')
 <div id="wrapper">
@@ -675,6 +674,26 @@
                 url     :   '{{url("/farmer/view/")}}/'+id,
                 type    :   'get',
                 dataType:   'json',
+                beforeSend:function(){
+                    $('#vfarmTable tbody').html('');
+                    $.each($('.passportpic'),function(k,v){
+                        $(v).prop('src','');
+                    });
+                    $('#email').html('');
+                    $('#idnumber').html('');
+                    $('#contact').html('');
+                    $('#farmercode').html('');
+                    $('#vidfront').prop('src','');
+                    $('#vidback').prop('src','');
+                    $('#vcontract').prop('href','');
+                    $('#bupdate').html('');
+                    $('#vaccountname').html('');
+                    $('#vaccountnumber').html('');
+                    $('#vbankname').html('');
+                    $('#vbranch').html('');
+                    $('#vpaymentmode').html('');
+                    $('#name').html('');
+                },
                 success :   function(data){
                     idno=data.farmer.idnumber;
                     var rows='';

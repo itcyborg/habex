@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Agronomists;
 
 class CheckRole
 {
@@ -18,6 +19,14 @@ class CheckRole
         if (! $request->user()->hasRole($role)) {
         abort(401, 'This action is unauthorized.');
         }
+        if (trim(parse_url(url()->previous(), PHP_URL_PATH), '/')!=='admin/updateinfo' ) {
+            if (Agronomists::where('email', '=', $request->user()->email)->count()>0 ) {
+                return $next($request);
+            } else {
+                return redirect('/admin/updateinfo');
+            }
+        } else {
             return $next($request);
+        }
     }
 }
