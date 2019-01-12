@@ -75,6 +75,13 @@ Route::get('/agronomist/order/add','AgronomistController@orderForm');
 Route::get('/agronomist/orders','AgronomistController@viewOrders');
 Route::get('/agronomist/farmer/search','AgronomistController@search');
 
+    Route::get('/finance', 'FinanceController@index');
+    Route::get('/finance/orders', 'FinanceController@orders');
+    Route::get('/finance/order/view/{ids}', 'OrderController@view');
+    Route::get('/finance/salaries', 'FinanceController@salaries');
+    Route::get('/finance/payroll/add', 'FinanceController@addPayroll');
+    Route::get('/finance/payroll/all', 'FinanceController@payrolls');
+
 Route::get('/admin/payroll/add',function(){
     return view('admin.addPayroll');
 });
@@ -110,6 +117,9 @@ Route::post('admin/payroll/add', 'PayrollController@add')->middleware('role:ROLE
 Route::get('admin/employees', 'AdminController@employees')->middleware('role:ROLE_ADMIN');
 Route::get('admin/employee/salary', 'AdminController@employeesSalaries')->middleware('role:ROLE_ADMIN');
 Route::get('items/list', 'ItemsController@getItems');
+    Route::get('/item/list/{id}', 'ItemsController@getItem');
+    Route::get('/item/delete/{id}', 'ItemsController@delete');
+    Route::post('/item/list/{id}', 'ItemsController@update');
 Route::get('/admin/payslip/delete/{id}', 'PayrollController@delete')->middleware(['auth','role:ROLE_ADMIN']);
 Route::get('/admin/payslip/process/{id}', 'PayrollController@process')->middleware(['auth','role:ROLE_ADMIN']);
 Route::post('/cropinfo/scout', 'ScoutingController@add');

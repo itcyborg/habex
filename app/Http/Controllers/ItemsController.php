@@ -51,4 +51,33 @@ class ItemsController extends Controller
         $items=items::all();
         return json_encode($items);
     }
+
+    public function getItem($id)
+    {
+        $item = items::find($id);
+        return json_encode($item);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $item = items::find($id);
+        $item->item = $request->item;
+        $item->description = $request->description;
+        $item->tax = $request->tax;
+        $item->unitcost = $request->unitcost;
+        $item->updatedBy = Auth::user()->id;
+        if ($item->save()) {
+            return json_encode(['status' => true]);
+        } else {
+            return json_encode(['status' => false, 'error' => 'An Error Occurred']);
+        }
+    }
+
+    public function delete($id)
+    {
+        $item = items::find($id);
+        if ($item->delete()) {
+            return 'Success';
+        }
+    }
 }

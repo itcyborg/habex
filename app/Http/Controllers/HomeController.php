@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use function MongoDB\BSON\toJSON;
 
 class HomeController extends Controller
 {
@@ -30,6 +29,8 @@ class HomeController extends Controller
             return redirect('admin');
         }else if(Auth::user()->roles()->first()->name==='ROLE_AGRONOMIST'){
             return redirect('agronomist');
+        } else if (Auth::user()->roles()->first()->name === 'ROLE_FINANCE') {
+            return redirect('finance');
         }else{
             abort(401,'Not Authorised');
         }

@@ -69,10 +69,12 @@
                                                     <td>{{$item->updated_at}}</td>
                                                     <td>
                                                         @if(Auth::user()->hasRole(['ROLE_ADMIN']) && !Auth::user()->hasRole(['ROLE_VIEW']))
-                                                        <button class="btn btn-info btn-circle btn-outline-inverse m-r-10">
+                                                            <button class="btn btn-info btn-circle btn-outline-inverse m-r-10"
+                                                                    onclick="Item.edit({{$item->id}})">
                                                             <i class="fa fa-edit"></i>
                                                         </button>
-                                                        <button class="btn btn-danger btn-circle btn-outline-inverse m-r-10">
+                                                            <button class="btn btn-danger btn-circle btn-outline-inverse m-r-10"
+                                                                    onclick="Item.delete({{$item->id}})">
                                                             <i class="fa fa-trash-o"></i>
                                                         </button>
                                                         @endif
@@ -138,6 +140,66 @@
     </div>
     <!-- /#page-wrapper -->
 </div>
+<div id="editItem">
+    <div class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myLargeModalLabel">Edit Item</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row" id="loadingStatus"><span></span></div>
+                    <form id="editItemForm">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Edit Item <br>
+                                <small class="text text-info">All Fields are required</small>
+                            </div>
+                            <div class="panel-wrapper collapse in">
+                                <div class="panel-body m-b-0">
+                                    <div class="row">
+                                        <div class="form-group col-md-3">
+                                            <label for="id">Item ID</label>
+                                            <input type="text" class="form-control" id="id" name="id" readonly>
+                                        </div>
+                                        <div class="form-group col-md-9">
+                                            <label for="name">Item Name</label>
+                                            <input type="text" class="form-control" id="name" name="name">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="unitCost">Unit Cost</label>
+                                            <input type="number" name="unitCost" id="unitCost" class="form-control">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="tax">Tax (%)</label>
+                                            <input type="text" name="tax" id="tax" class="form-control" value="0">
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label for="description">Description</label>
+                                            <textarea name="description" id="description"
+                                                      class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary waves-effect text-left"
+                            onclick="Item.update(currentItem)"><i class="fa" id="loadingStatus" hidden></i> Update
+                    </button>
+                    <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</div>
 @endsection
 @section('styles')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
@@ -145,5 +207,76 @@
 @section('scripts')
     <script src="{{asset('sys/plugins/bower_components/select2/dist/js/select2.full.js')}}"></script>
     <script>
+        let currentItem = null;
+        Item = {
+            edit: function (id) {
+                currentItem = id;
+                $('#id').val(currentItem);
+                $.ajax({
+                    url: '/item/list/' + currentItem,
+                    type: 'get',
+                    dataType: 'json',
+                    beforeSend: function () {
+                        $('#loadingStatus').fadeIn();
+                        $('#loadingStatus').addClass('alert alert-warning');
+                        $('#loadingStatus span').text('Loading. Please wait.');
+                    },
+                    success: function (data) {
+                        $('#loadingStatus').removeClass('alert-warning').addClass('alert alert-success');
+                        $('#loadingStatus span').text('Success');
+                        setTimeout(function () {
+                            $('#loadingStatus').fadeOut();
+                        }, 3000);
+                        $('#name').val(data.item);
+                        $('#unitCost').val(data.unitcost);
+                        $('#description').val(data.description);
+                        $('#tax').val(data.tax);
+                    }
+                });
+                $('#editItem .modal').modal();
+            },
+            update: function (id) {
+                $.ajax({
+                    url: '/item/list/' + currentItem,
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        '_token': '{{csrf_token()}}',
+                        'item': $('#name').val(),
+                        'unitcost': $('#unitCost').val(),
+                        'tax': $('#tax').val(),
+                        'description': $('#description').val()
+                    },
+                    beforeSend: function () {
+                        $('#loadingStatus').fadeIn();
+                        $('#loadingStatus').addClass('alert alert-warning');
+                        $('#loadingStatus span').text('Saving changes. Please wait.');
+                    },
+                    success: function (data) {
+                        if (data.status) {
+                            $('#loadingStatus').removeClass('alert-warning').addClass('alert alert-success');
+                            $('#loadingStatus span').text('Success. Your changes have been saved successfully.');
+                            setTimeout(function () {
+                                $('#loadingStatus').fadeOut();
+                            }, 3000);
+                        } else {
+                            $('#loadingStatus').removeClass('alert-warning').addClass('alert alert-danger');
+                            $('#loadingStatus span').text(data.error);
+                        }
+                    }
+                });
+            },
+            delete: function (id) {
+                if (confirm('You are about to delete item no: ' + id + '. Are you sure you want to continue?') === true) {
+                    $.ajax({
+                        url: '/item/delete/' + id,
+                        type: 'get',
+                        success: function (data) {
+                            alert(data);
+                        }
+                    });
+                }
+            }
+        }
     </script>
 @endsection
