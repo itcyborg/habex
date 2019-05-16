@@ -21,7 +21,7 @@ class OrderController extends Controller
         foreach ($request->items as $key=>$item) {
             $order=new Order;
             $order->orderNo=$orderno;
-            $order->farmerId=1;
+            $order->farmerId=$request->farmer;
             $order->dueDate=$request->duedate;
             $order->unitCost=$item['unitCost'];
             $order->description=$item['item'];

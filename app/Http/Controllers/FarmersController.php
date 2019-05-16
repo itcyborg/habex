@@ -95,29 +95,45 @@ class FarmersController extends Controller
 
     public function upload(Request $request)
     {
+//        return $request->all();
+//        return ($request->hasFile('passport'))?'yes':'false';
         $farmer=$request->farmerid;
         $record=Farmers::find($farmer);
-        if($request->hasFile('idfront')){
-            $idfront=$request->file('idfront')->store('public/uploads');
+//        return $request->all();
+        if($request->input('idfront')){
+            $image = $request->input('idfront');
+            $imageName = 'public/uploads/image_' . time() . '.jpg';
+            Storage::put($imageName,base64_decode($image),'public');
+            $idfront=str_replace('public/','',$imageName);
             $record->idfront=$idfront;
         }
-        if($request->hasFile('idback')){
-            $idback=$request->file('idback')->store('public/uploads');
+        if($request->input('idback')){
+            $image = $request->input('idback');
+            $imageName = 'public/uploads/image_' . time() . '.jpg';
+            Storage::put($imageName,base64_decode($image),'public');
+            $idback=str_replace('public/','',$imageName);
             $record->idback=$idback;
         }
 
-        if($request->hasFile('passport')){
-            $passport=$request->file('passport')->store('public/uploads');
+        if($request->input('passport')){
+            $image = $request->input('passport');
+            $imageName = 'public/uploads/image_' . time() . '.jpg';
+            Storage::put($imageName,base64_decode($image),'public');
+            $passport=str_replace('public/','',$imageName);
             $record->passport=$passport;
         }
-        if($request->hasFile('contractform')){
-            $contractform=$request->file('contractform')->store('public/uploads');
+        if($request->input('contractform')){
+            $image = $request->input('contractform');
+            $imageName = 'public/uploads/image_' . time() . '.jpg';
+            Storage::put($imageName,base64_decode($image),'public');
+            $contractform=str_replace('public/','',$imageName);
             $record->contractform=$contractform;
         }
         if($record->save()){
-            return back()->with('status','Updated Successfully');
+            return $record;
+            return 'success';
         }else{
-            return back()->with('status','An error occurred');
+            return 'failed';
         }
     }
 

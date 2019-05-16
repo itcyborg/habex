@@ -11,7 +11,6 @@ class FarmController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('role:ROLE_ADMIN');
     }
 
     public function add(Request $request)
@@ -28,5 +27,32 @@ class FarmController extends Controller
             'seedlingsPlanted'=>$request->numberplanted,
             'farmSize'=>$request->farmsize
         ]);
+    }
+
+    public function map()
+    {
+        return view('admin.map');
+    }
+
+    public function mapData()
+    {
+        return Farm::where('latitude','!=',null)->where('longitude','!=',null)->get(['county','constituency','farmer_id','location','latitude','longitude','farmSize','elevation'])->jsonSerialize();
+    }
+
+    public function editFarm(Request $request)
+    {
+        if($request->action==='edit') {
+            $farm = Farm::find($request->id);
+            $farm->elevation=$request->elevation;
+            $farm->longitude=$request->longitude;
+            $farm->latitude=$request->latitude;
+            $farm->farmSize=$request->farmSize;
+            $farm->seedlingsPlanted=$request->seedlings;
+            if($farm->save()){
+                return $request->all();
+            }
+        }else{
+            return response('Error',401);
+        }
     }
 }

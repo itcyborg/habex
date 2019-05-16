@@ -252,18 +252,17 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
+                                                                        <br>
                                                                         <!--/span-->
                                                                         <div class="col-md-6">
-                                                                            <div class="row">
-                                                                                <div class="white-box">
-                                                                                    <h3 class="box-title">Map of the Farm</h3>
-                                                                                    <!--<div id="markermap" class="gmaps"></div>-->
-                                                                                    <div>
-                                                                                        <hr>
-                                                                                        <div id="map" style="height: 400px;"></div>
-                                                                                        <br>
-                                                                                        <input class="btn btn-outline-primary" type="button" value="Drop Pin" onclick="dropPin()"> Drop a marker on the center of your map<br>
-                                                                                    </div>
+                                                                            <div class="white-box">
+                                                                                <h3 class="box-title">Map</h3>
+                                                                                <!--<div id="markermap" class="gmaps"></div>-->
+                                                                                <div>
+                                                                                    <hr>
+                                                                                    <div id="map" style="height: 400px;"></div>
+                                                                                    <br>
+                                                                                    <input class="btn btn-outline-primary" type="button" value="Drop Pin" onclick="dropPin()"> Drop a marker on the center of your map<br>
                                                                                 </div>
                                                                             </div>
                                                                         </div>

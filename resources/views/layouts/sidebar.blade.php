@@ -74,6 +74,12 @@
                 </ul>
             </li>
             <li>
+                <a href="{{url('farm/map')}}" class="waves-effect">
+                    <i class="mdi mdi-google-maps"></i>
+                    <span class="hide-menu"> Farm Distribution </span>
+                </a>
+            </li>
+            <li>
                 <a href="{{url('/admin/farminfo')}}" class="waves-effect">
                     <i data-icon="" class="mdi mdi-pine-tree"></i>
                     <span class="hide-menu"> Farm Info </span>
@@ -209,6 +215,12 @@
                             </a>
                         </li>
                     </ul>
+                </li>
+                <li>
+                    <a href="{{url('farm/map')}}" class="waves-effect">
+                        <i class="mdi mdi-google-maps"></i>
+                        <span class="hide-menu"> Farm Distribution </span>
+                    </a>
                 </li>
                 <li>
                     <a href="{{url('/agronomist/farminfo')}}" class="waves-effect">

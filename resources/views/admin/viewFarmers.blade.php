@@ -303,7 +303,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     <h4 class="modal-title" id="myLargeModalLabel">Uploads</h4> </div>
                 <div class="modal-body">
-                    <form action="{{url('/admin/farmer/upload')}}" method="post" enctype="multipart/form-data">
+                    <form action="{{url('/admin/farmer/upload')}}" method="post" enctype="multipart/form-data" id="frmupload">
                         {{csrf_field()}}
                         <input type="text" name="farmerid" id="farmerid1" hidden>
                         <div class="row">
@@ -318,13 +318,15 @@
                                                         <div class="white-box">
                                                             <h3 class="box-title">Passport Photo</h3>
                                                             <input type="file" id="passport" name="passport"
-                                                                   class="dropify" data-max-file-size="2M"/></div>
+                                                                   class="dropify" data-max-file-size="3M"/>
+                                                        </div>
                                                     </div>
                                                     <div class="col-sm-6 col-md-6 col-xs-12">
                                                         <div class="white-box">
                                                             <h3 class="box-title">Contract Form</h3>
                                                             <input type="file" id="contractform" name="contractform"
-                                                                   class="dropify" data-max-file-size="2M"/></div>
+                                                                   class="dropify" data-max-file-size="3M"/>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <!-- /.row -->
@@ -333,13 +335,13 @@
                                                         <div class="white-box">
                                                             <h3 class="box-title">ID Scan-Front</h3>
                                                             <input type="file" id="idfront" name="idfront"
-                                                                   class="dropify" data-max-file-size="2M"/></div>
+                                                                   class="dropify" data-max-file-size="3M"/></div>
                                                     </div>
                                                     <div class="col-sm-6 col-md-6 col-xs-12">
                                                         <div class="white-box">
                                                             <h3 class="box-title">ID Scan-Back</h3>
                                                             <input type="file" id="idback" name="idback" class="dropify"
-                                                                   data-max-file-size="2M"/></div>
+                                                                   data-max-file-size="3M"/></div>
                                                     </div>
                                                 </div>
                                                 <!-- /.row -->
@@ -435,9 +437,6 @@
                                     <table class="table table-striped table-sm table-condensed table-box" id="vfarmTable">
                                         <thead>
                                             <th>#ID</th>
-                                            <th>County</th>
-                                            <th>Constituency</th>
-                                            <th>Ward</th>
                                             <th>Location</th>
                                             <th>Latitude</th>
                                             <th>Longitude</th>
@@ -543,11 +542,13 @@
 @endsection
 @section('scripts')
 <script src="{{asset('sys/plugins/bower_components/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('jquery.tabledit.min.js')}}"></script>
 <!-- jQuery file upload -->
 <script src="{{asset('sys/plugins/bower_components/dropify/dist/js/dropify.min.js')}}"></script>
 <!-- Sweet-Alert  -->
 <script src="{{asset('sys/plugins/bower_components/sweetalert2/sweetalert.js')}}"></script>
 <script src="{{asset('sys/js/cbpFWTabs.js')}}"></script>
+<script src="{{asset('sys/js/compress.js')}}"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuogBspOfHKhSzSldN3vYhcCcsHSoShRA&libraries=places"></script>
 <script>
     let farmerTable=null;
@@ -668,6 +669,7 @@
         }
     );
 
+    var editor;
     Farmer={
         view            :   function(id){
             $.ajax({
@@ -701,10 +703,7 @@
                     $.each(data.farms,function(k,v){
                         rows+='<tr>' +
                             '<td>'+v.id+'</td>' +
-                            '<td>'+v.county+'</td>' +
-                            '<td>'+v.constituency+'</td>' +
-                            '<td>'+v.ward+'</td>' +
-                            '<td>'+v.location+'</td>' +
+                            '<td>'+v.county+'<br>'+v.location+'<br>'+v.constituency+','+v.ward+'</td>' +
                             '<td>'+v.latitude+'</td>' +
                             '<td>'+v.longitude+'</td>' +
                             '<td>'+v.elevation+'</td>' +
@@ -714,6 +713,20 @@
                             '</tr>';
                     });
                     $('#vfarmTable tbody').html(rows);
+                    $('#vfarmTable').Tabledit({
+                        deleteButton: false,
+                        url: '{{url("/farm/edit")}}',
+                        columns: {
+                            identifier: [0, 'id'],
+                            editable: [
+                                [2, 'latitude'],
+                                [3, 'longitude'],
+                                [4, 'elevation'],
+                                [5, 'seedlings'],
+                                [6, 'farmSize']
+                            ]
+                        }
+                    });
                     $.each($('.passportpic'),function(k,v){
                         $(v).prop('src',data.imgs.passport);
                     });
@@ -766,9 +779,15 @@
                     }
                 }
             });
-        }
+        },
     };
-
+    $(document).on('show.bs.modal', '.modal', function (event) {
+        var zIndex = 1040 + (10 * $('.modal:visible').length);
+        $(this).css('z-index', zIndex);
+        setTimeout(function() {
+            $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+        }, 0);
+    });
 
     var map, infoWindow,pos=null,elevator;
     function initMap() {
@@ -870,5 +889,63 @@
             }
         });
     }
+
+    // Initialization
+    var files=[];
+    $('#passport').on('change',function(e){
+        imageCompress('#passport','passport',e);
+    });
+    $('#idback').on('change',function(e){
+        imageCompress('#idback','idback',e);
+    });
+    $('#idfront').on('change',function(e){
+        imageCompress('#idfront','idfront',e);
+    });
+    $('#contractform').on('change',function(e){
+        imageCompress('#contractform','contractform',e);
+    });
+    function imageCompress(id,name,evt){
+        let compress = new Compress();
+        const filed = [...evt.target.files]
+        compress.compress(filed, {
+            size: 4,
+            quality: .75
+        }).then((results) => {
+            const img1 = results[0];
+            const base64str = img1.data;
+            const byteCharacters = atob(base64str);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+            const imgExt = img1.ext;
+            const blob = new Blob([byteArray], {type: imgExt});
+            const file = Compress.convertBase64ToFile(base64str, imgExt);
+            // console.log(base64str);
+            files.push({name:name,value:base64str});
+        },false)
+    }
+    $('#frmupload').on('submit',function(e){
+        e.preventDefault();
+        let formdata=new FormData();
+        formdata.append('farmerid',$('#farmerid1').val());
+        $.each(files,function(k,v){
+            console.log(v);
+            formdata.append(v.name,v.value);
+        });
+        $.ajax({
+            url:$('#frmupload')[0].action,
+            data:formdata,
+            type:'POST',
+            contentType: false, //this is requireded please see answers above
+            processData: false,
+            enctype: 'multipart/form-data',
+            success:function(data){
+                files=[];
+                alert(data);
+            }
+        });
+    });
 </script>
 @endsection

@@ -11,6 +11,8 @@
 |
 */
 
+    use App\Farm;
+    use App\Farmers;
     use Illuminate\Support\Facades\Artisan;
     use Illuminate\Support\Facades\Auth;
 
@@ -91,6 +93,9 @@ Route::middleware(['auth', 'role:ROLE_ADMIN'])->group(function(){
     Route::post('/admin/salaries', 'SalaryController@save');
 });
 
+Route::get('farm/map','FarmController@map');
+Route::get('farm/map/data','FarmController@mapData');
+
 Route::get('/admin/payroll/all', 'PayrollController@all');
 
 Route::get('/admin/leave/all', 'AdminController@leave');
@@ -117,9 +122,9 @@ Route::post('admin/payroll/add', 'PayrollController@add')->middleware('role:ROLE
 Route::get('admin/employees', 'AdminController@employees')->middleware('role:ROLE_ADMIN');
 Route::get('admin/employee/salary', 'AdminController@employeesSalaries')->middleware('role:ROLE_ADMIN');
 Route::get('items/list', 'ItemsController@getItems');
-    Route::get('/item/list/{id}', 'ItemsController@getItem');
-    Route::get('/item/delete/{id}', 'ItemsController@delete');
-    Route::post('/item/list/{id}', 'ItemsController@update');
+Route::get('/item/list/{id}', 'ItemsController@getItem');
+Route::get('/item/delete/{id}', 'ItemsController@delete');
+Route::post('/item/list/{id}', 'ItemsController@update');
 Route::get('/admin/payslip/delete/{id}', 'PayrollController@delete')->middleware(['auth','role:ROLE_ADMIN']);
 Route::get('/admin/payslip/process/{id}', 'PayrollController@process')->middleware(['auth','role:ROLE_ADMIN']);
 Route::post('/cropinfo/scout', 'ScoutingController@add');
@@ -127,6 +132,7 @@ Route::get('/cropinfo/scouting/count/{id}', 'ScoutingController@count');
 Route::get('/admin/roles/check', 'AdminController@checkRole');
 Route::post('/admin/role/update', 'AdminController@updateRole');
 Route::post('/admin/leave/approve/{id}','AdminController@approveLeave');
+Route::post('/farm/edit','FarmController@editFarm');
 
 Route::post('/password/change','SettingsController@changePass');
 
@@ -154,51 +160,62 @@ Route::get("/statistics/cropInfo",'StatisticsController@cropInfoChart');
 Route::get("/statistics/cropStats",'StatisticsController@cropInfoStats');
 
 
-//Route::get('/import',function(){
-//    $handle=fopen($_SERVER['DOCUMENT_ROOT'].'/new habex 26th.csv','r');
-//    ini_set('max_execution_time', 300);
-//    for($i=0;$i<706;$i++)
-//    {
-//        $line=fgetcsv($handle);
-//        if($i>0) {
-//            $farmercode = $line[1];
-//            $farmername = explode(' ', $line[2]);
-//            $id = $line[3];
-//            $contact = $line[4];
-//            $seedlings = $line[5];
-//            $acres = (isset($line[6])) ?
-//                (($line[6]) !== '')
-//                    ? $line[6] : 0 : 0;
-//            $ward = $line[7];
-//            $location = $line[8];
-//            $county=strtoupper($line[9]);
-//            $farmer = new Farmers;
-//            $farmer->firstname = $farmername[0];
-//            $farmer->lastname = $farmername[1];
-//            $farmer->sirname = (isset($farmername[2])) ? $farmername[2] : ' ';
-//            $farmer->idnumber = $id;
-//            $farmer->mobilenumber = $contact;
-//            $farmer->farmerscode = $farmercode;
-//            if ($farmer->save()) {
-//                $farm = new Farm;
-//                $farm->county = $county;
-//                $farm->farmer_id = $farmer->id;
-//                $farm->ward = $ward;
-//                $farm->location = $location;
-//                $farm->farmSize = $acres;
-//                $farm->seedlingsPlanted = $seedlings;
-//                if ($farm->save()) {
-//                    echo "Record $i saved <br>";
-//                }
-//            }
-////            echo $i.'.'.$county.'<br>';
-//        }
-//    }
-//});
+Route::get('/import',function(){
+//    dd($_SERVER['DOCUMENT_ROOT']);
+    $handle=fopen($_SERVER['DOCUMENT_ROOT'].'/../Copy of UG HBR.csv','r');
+    ini_set('max_execution_time', 300);
+    for($i=0;$i<706;$i++)
+    {
+        $line=fgetcsv($handle);
+        if($i>0) {
+            if($i==0){
+            }else {
+                $farmercode = $line[1];
+                $farmername = explode(' ', $line[2]);
+                $id = $line[3];
+                $contact = $line[4];
+                $seedlings = $line[5];
+                $acres = (isset($line[6])) ?
+                    (($line[6]) !== '')
+                        ? $line[6] : 0 : 0;
+//                $county = strtoupper($line[7]);
+                $county = 'UASIN GISHU';
+                $subcounty=$line[8];
+                $ward = $line[9];
+                $location = $line[10];
+                $farmer = new Farmers;
+                $farmer->firstname = $farmername[0];
+                $farmer->lastname = $farmername[1];
+                $farmer->sirname = (isset($farmername[2])) ? $farmername[2] : ' ';
+                $farmer->idnumber = $id;
+                $farmer->mobilenumber = $contact;
+                $farmer->farmerscode = $farmercode;
+                if ($farmer->save()) {
+                    $farm = new Farm;
+                    $farm->county = $county;
+                    $farm->constituency=$subcounty;
+                    $farm->farmer_id = $farmer->id;
+                    $farm->ward = $ward;
+                    $farm->location = $location;
+                    $farm->farmSize = $acres;
+                    $farm->seedlingsPlanted = $seedlings;
+                    if ($farm->save()) {
+                        echo "Record $i saved <br>";
+                    }
+                }
+//            echo $i.'.'.$county.'<br>';
+            }
+        }
+    }
+});
 //Route::get('/fiximport',function(){
 //    $farmers=Farm::all();
 //    foreach ($farmers as $farmer){
 //        $farmer->county=strtoupper($farmer->county);
 //        $farmer->save();
 //    }
+//});
+//
+//Route::get('artisan',function(){
+//    echo Artisan::call('view:clear');
 //});

@@ -97,8 +97,8 @@
                                     <div class="pull-left text-left">
                                         <h3>To:</h3>
                                         <h4 class="font-bold"><span id="name"></span></h4>
-                                        <h5 class="font-bold"><span id="name"></span>Chepkorio, Uasin Gishu</h5>
-                                        <h5 class="font-bold"><span id="name">0734568790</span></h5>
+                                        {{--<h5 class="font-bold"><span id="name"></span>Chepkorio, Uasin Gishu</h5>--}}
+                                        <h5 class="font-bold"><span class="farmercontact"></span></h5>
 
                                     </div>
                                 </div>
@@ -119,7 +119,7 @@
                                                     <td><span id="salesperson"></span></td>
                                                     <td><span id="salescontact"></span></td>
                                                     <td><span id="farmer"></span></td>
-                                                    <td><span id="farmercontact"></span></td>
+                                                    <td><span class="farmercontact"></span></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -298,7 +298,7 @@
                         $('#duedate').text(duedate);
                         $('#date').text(orderDate);
                         $('#name,#farmer').text(name);
-                        $('#farmercontact').text('0'+contact);
+                        $('.farmercontact').each(function(m,n){$(n).text(contact)});
                     }
                 },
                 error:function(data){
